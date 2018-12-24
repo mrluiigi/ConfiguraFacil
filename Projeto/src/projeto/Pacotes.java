@@ -5,10 +5,13 @@
  */
 package projeto;
 
+import java.util.Map;
+
 /**
  *
  * @author Utilizador
  */
 public class Pacotes {
+    private Map<Integer, Pacote> pacotes;
     
 }
