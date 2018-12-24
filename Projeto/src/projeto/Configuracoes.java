@@ -13,7 +13,9 @@ import java.util.Map;
  * @author Utilizador
  */
 public class Configuracoes {
+    /** Map de todos os clientes */
     private Map<Integer, Cliente> clientes;
+    /** Lista de todas as configurações*/ 
     private List<Configuracao> configuracoes;
 
     public Configuracoes(Map<Integer, Cliente> clientes, List<Configuracao> configuracoes) {
