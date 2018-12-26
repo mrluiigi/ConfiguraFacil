@@ -16,9 +16,14 @@ public class Opcional extends Componente{
     private List<Integer> necessarios;
     /** Lista de componentes opcionais incompativeis */
     private List<Integer> incompativeis;
-    
-    public Opcional(int id, float preco, String designacao, int stock, String categoria) {
+    // id do pacote a que pertence, 0 não pertence a nenhum
+    private int pertencePacote;
+
+    public Opcional(List<Integer> necessarios, List<Integer> incompativeis, int pertencePacote, int id, float preco, String designacao, int stock, String categoria) {
         super(id, preco, designacao, stock, categoria);
+        this.necessarios = necessarios;
+        this.incompativeis = incompativeis;
+        this.pertencePacote = pertencePacote;
     }
     
     public List<Integer> getListaNecessarios(){
@@ -27,6 +32,10 @@ public class Opcional extends Componente{
     
     public List<Integer> getListaIncompativeis(){
         return this.incompativeis;
+    }
+
+    public int getPertencePacote() {
+        return pertencePacote;
     }
     
 }

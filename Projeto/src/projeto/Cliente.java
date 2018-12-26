@@ -14,13 +14,15 @@ import java.util.List;
 public class Cliente {
     private int id;
     private String nome;
-    private List<Configuracao> configuracoes;
+    private List<Integer> configuracoes;
 
-    public Cliente(int id, String nome, List<Configuracao> configuracoes) {
+    public Cliente(int id, String nome, List<Integer> configuracoes) {
         this.id = id;
         this.nome = nome;
         this.configuracoes = configuracoes;
     }
+
+    
     
    
 }
