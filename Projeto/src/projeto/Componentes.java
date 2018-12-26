@@ -30,6 +30,13 @@ public class Componentes {
         return opcionais.get(id);
     }
     
-    
+    public boolean temStock(Componente id, boolean obrigatorio) {
+        if(obrigatorio) {
+             return (this.obrigatorios.get(id).getStock() > 0);
+        }
+        else {
+             return (this.opcionais.get(id).getStock() > 0);
+        }
+    }
     
 }

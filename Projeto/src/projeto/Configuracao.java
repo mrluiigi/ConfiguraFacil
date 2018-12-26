@@ -68,6 +68,19 @@ public class Configuracao {
     public boolean containsPacote(int id){
         return this.pacotes.contains(id);
     }
+
+    public List<Integer> getComponentesObrigatorios() {
+        return componentesObrigatorios;
+    }
+
+    public List<Integer> getComponentesOpcionais() {
+        return componentesOpcionais;
+    }
+
+    public List<Integer> getPacotes() {
+        return pacotes;
+    }
+    
     
     
 }
