@@ -14,4 +14,7 @@ import java.util.Map;
 public class Pacotes {
     private Map<Integer, Pacote> pacotes;
     
+    public Pacote getPacote(int id){
+        return this.pacotes.get(id);
+    }
 }

@@ -36,18 +36,37 @@ public class Configuracao {
     }
     
     
-    public void adicionaComponenteObrigatorio(int idComp, float preco){
+    public void adicionaComponenteObrigatorio(int id, float preco){
         this.preco += preco;
-        this.componentesObrigatorios.add(idComp);
+        this.componentesObrigatorios.add(id);
     }
     
-    public void adicionaComponenteOpcional(int idComp, float preco){
+    public void adicionaComponenteOpcional(int id, float preco){
         this.preco += preco;
-        this.componentesOpcionais.add(idComp);
+        this.componentesOpcionais.add(id);
+    }
+    
+    public void removeComponenteOpcional(int id, float preco){
+        this.preco -= preco;
+        this.componentesOpcionais.remove(id);
+    }
+    
+    public void adicionaPacote(int id, float preco){
+        this.preco += preco;
+        this.pacotes.remove(id);
+    }
+    
+    public void removePacote(int id, float preco){
+        this.preco -= preco;
+        this.pacotes.remove(id);
     }
     
     public boolean containsOpcional(int id){
         return this.componentesOpcionais.contains(id);
+    }
+    
+    public boolean containsPacote(int id){
+        return this.pacotes.contains(id);
     }
     
     
