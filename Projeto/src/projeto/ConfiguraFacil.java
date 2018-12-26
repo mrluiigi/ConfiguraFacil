@@ -14,19 +14,6 @@ import java.util.List;
  */
 public class ConfiguraFacil{
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Configuracoes configuracoes;
-        Pacotes pacotes;
-        Componentes componentes;
-        Configuracao configuracao;
-        
-        
-        
-    }
-    
     public void adicionaComponenteObrigatorio(int id, Configuracao configuracao, Componentes componentes){
         Obrigatorio obrigatorio;
         obrigatorio = componentes.getObrigatorio(id);
@@ -51,6 +38,20 @@ public class ConfiguraFacil{
                 incompativeis.add(inc);
             }
         }
+    }
+    
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Configuracoes configuracoes;
+        Pacotes pacotes;
+        Componentes componentes;
+        Configuracao configuracao;
+        
+        
+        
     }
     
 }
