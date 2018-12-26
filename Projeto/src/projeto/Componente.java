@@ -23,5 +23,11 @@ public class Componente {
         this.stock = stock;
         this.categoria = categoria;
     }
+
+    public float getPreco() {
+        return preco;
+    }
+    
+    
     
 }

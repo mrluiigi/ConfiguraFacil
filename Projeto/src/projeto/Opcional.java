@@ -13,12 +13,20 @@ import java.util.List;
  */
 public class Opcional extends Componente{
     /**Lista de componentes opcionais necessarios */
-    private List<Opcional> necessarios;
+    private List<Integer> necessarios;
     /** Lista de componentes opcionais incompativeis */
-    private List<Opcional> incompativeis;
+    private List<Integer> incompativeis;
     
     public Opcional(int id, float preco, String designacao, int stock, String categoria) {
         super(id, preco, designacao, stock, categoria);
+    }
+    
+    public List<Integer> getListaNecessarios(){
+        return this.necessarios;
+    }
+    
+    public List<Integer> getListaIncompativeis(){
+        return this.incompativeis;
     }
     
 }

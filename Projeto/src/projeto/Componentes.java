@@ -21,5 +21,15 @@ public class Componentes {
         this.obrigatorios = obrigatorios;
         this.opcionais = opcionais;
     }
+
+    public Obrigatorio getObrigatorio(int id) {
+        return obrigatorios.get(id);
+    }
+
+    public Opcional getOpcional(int id) {
+        return opcionais.get(id);
+    }
+    
+    
     
 }

@@ -16,20 +16,39 @@ public class Configuracao {
     private int id;
     private String modelo;
     private float preco;
-    //Ids dos componentes;
-    private List<Integer> componentes;
+    //Ids dos componentes obrigatórios;
+    private List<Integer> componentesObrigatorios;
+    //Ids dos componentes opcionais;
+    private List<Integer> componentesOpcionais;
     //Ids dos pacotes
     private List<Integer> pacotes;
     //Indica se a configuração está pronta para ser feita (se tem todos os componentes)
     private boolean pronta;
-    
-    
-    public Configuracao(int id, String modelo, float preco, List<Integer> componentes, List<Integer> pacotes, boolean pronta) {
+
+    public Configuracao(int id, String modelo, float preco, List<Integer> componentesObrigatorios, List<Integer> componentesOpcionais, List<Integer> pacotes, boolean pronta) {
         this.id = id;
         this.modelo = modelo;
         this.preco = preco;
-        this.componentes = componentes;
+        this.componentesObrigatorios = componentesObrigatorios;
+        this.componentesOpcionais = componentesOpcionais;
         this.pacotes = pacotes;
         this.pronta = pronta;
     }
+    
+    
+    public void adicionaComponenteObrigatorio(int idComp, float preco){
+        this.preco += preco;
+        this.componentesObrigatorios.add(idComp);
+    }
+    
+    public void adicionaComponenteOpcional(int idComp, float preco){
+        this.preco += preco;
+        this.componentesOpcionais.add(idComp);
+    }
+    
+    public boolean containsOpcional(int id){
+        return this.componentesOpcionais.contains(id);
+    }
+    
+    
 }
