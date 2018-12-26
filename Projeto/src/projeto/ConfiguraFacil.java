@@ -144,4 +144,14 @@ public class ConfiguraFacil{
         this.configuracao.adicionaPacote(id, pacote.getPreco());
     }
     
+    public void adicionarStock(boolean obrigatorio, int id, int qtd){
+        if(obrigatorio){    
+            this.componentes.getObrigatorio(id).addStock(qtd);
+        }
+        else{
+            this.componentes.getOpcional(id).addStock(qtd);
+        }
+    }
+    
+    
 }

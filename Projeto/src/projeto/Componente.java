@@ -28,6 +28,10 @@ public class Componente {
         return preco;
     }
     
+    public void addStock(int quantidade){
+        this.stock += quantidade;
+    }
+    
     
     
 }
