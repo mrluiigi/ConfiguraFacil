@@ -7,6 +7,7 @@ package projeto;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JDialog;
 
 /**
  *
@@ -15,15 +16,13 @@ import java.awt.event.ActionListener;
 public class Controller {
     
     private ConfiguraFacil model;
-    
     private View view;
-    
     private MenuFabricaView fabricaView;
-    
     private AddStockView addStockView;
-    
     private ProxConfigView proxConfigView;
     
+    private CriarConfigView criarConfigView;
+    private EscolhaView escolhaView;
     
     
     public Controller(ConfiguraFacil m){
@@ -44,17 +43,18 @@ public class Controller {
             
             fabricaView.addStockListener(new AddStockListener());
             fabricaView.proxConfigListener(new ProxConfigListener());
-            fabricaView.retrocederListener(new RetrocederListener());
+            fabricaView.retrocederListener(new RetrocederListener(fabricaView));
         }
     }
     
     private class CriarConfigListener implements ActionListener{
 
         public void actionPerformed(ActionEvent e) {
-            //Fazer view para config
+            criarConfigView = new CriarConfigView();
+            criarConfigView.setVisible(true);
             
-            //ADICIONAR LISTENERS
-
+            criarConfigView.seguinteListener(new SeguinteListener());
+            
         }
     }
     
@@ -64,7 +64,7 @@ public class Controller {
             addStockView = new AddStockView();
             addStockView.setVisible(true);
             
-            addStockView.okListener(new OkListener());
+            addStockView.okListener(new OkListener(addStockView));
             addStockView.adicionarListener(new AdicionarListener());
             //ADICIONAR LISTENERS
         }
@@ -76,23 +76,33 @@ public class Controller {
             proxConfigView = new ProxConfigView();                  //PENSO QUE É PRECISO ADICIONAR COMO PARAMETRO A PROXIMA CONFIGURAÇÃO
             proxConfigView.setVisible(true);
             
-            proxConfigView.okProxListener(new OkProxListener());
+            proxConfigView.okProxListener(new OkListener(proxConfigView));
             //ADICIONAR LISTENERS
         }
     }
     
     private class RetrocederListener implements ActionListener{
+        JDialog view;
+        
+        public RetrocederListener(JDialog view){
+            this.view = view;
+        }
         
         public void actionPerformed(ActionEvent e) {
-            fabricaView.dispose();
+            view.dispose();
         }
         
     }
     
     private class OkListener implements ActionListener{
+        JDialog view;
+        
+        public OkListener(JDialog view){
+            this.view = view;
+        }
         
         public void actionPerformed(ActionEvent e) {
-            addStockView.dispose();
+            view.dispose();
         }
     }
     
@@ -116,12 +126,16 @@ public class Controller {
         }
     }
     
-    private class OkProxListener implements ActionListener{
+    
+    private class SeguinteListener implements ActionListener{
         
         public void actionPerformed(ActionEvent e) {
-            proxConfigView.dispose();
-        }
+            escolhaView = new EscolhaView();
+            escolhaView.setVisible(true);
         
+            escolhaView.retrocederListener(new RetrocederListener(escolhaView));
+            //LISTENERS
+        }   
     }
     
 }
