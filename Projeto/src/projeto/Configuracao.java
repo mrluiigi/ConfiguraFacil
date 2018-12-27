@@ -34,6 +34,10 @@ public class Configuracao {
         this.pacotes = pacotes;
         this.pronta = pronta;
     }
+
+    public int getId() {
+        return id;
+    }
     
     
     public void adicionaComponenteObrigatorio(int id, float preco){

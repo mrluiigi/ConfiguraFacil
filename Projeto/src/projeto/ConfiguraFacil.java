@@ -153,5 +153,66 @@ public class ConfiguraFacil{
         }
     }
     
+    public boolean temStockPacote(int id){
+        Pacote p = this.pacotes.getPacote(id);
+        boolean res = false;
+        
+        for(int i : p.getListaComponentesPacote()){
+                res = this.componentes.temStock(i, false);
+                if(!res){
+                    return res;
+                }
+        }
+        
+        return res;
+    }
     
+    public Configuracao obterProximaConfiguracao(){
+        List<Configuracao> configs = this.configuracoes.getConfiguracoes();
+        boolean bool = false;
+        
+        for(Configuracao c : configs){
+            for(int i : c.getComponentesObrigatorios()){
+                bool = this.componentes.temStock(i, true);
+                if(!bool){
+                    break;
+                }
+            }
+            
+            if(bool){
+                for(int i : c.getComponentesOpcionais()){
+                    bool = this.componentes.temStock(i, false);
+                    if(!bool){
+                        break;
+                    }
+                }
+            }
+            
+            if(bool){
+                for(int p : c.getPacotes()){
+                    bool = temStockPacote(p);
+                    if(!bool){
+                        break;
+                    }
+                }
+            }
+            
+            if(bool){
+                for(int i : c.getComponentesObrigatorios()){
+                    this.componentes.reduzStockObrigatorio(i);
+                }
+                for(int i : c.getComponentesOpcionais()){
+                    this.componentes.reduzStockOpcional(i);
+                }
+                for(int i : c.getPacotes()){
+                    for(int j : this.pacotes.getPacote(i).getListaComponentesPacote()){
+                        this.componentes.reduzStockOpcional(j);
+                    }
+                }
+                return c;
+            }
+        }
+        
+        return null;        
+    }
 }

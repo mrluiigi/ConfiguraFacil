@@ -22,5 +22,8 @@ public class Configuracoes {
         this.clientes = clientes;
         this.configuracoes = configuracoes;
     }
-    
+
+    public List<Configuracao> getConfiguracoes() {
+        return configuracoes;
+    }
 }

@@ -31,7 +31,26 @@ public class Componente {
     public void addStock(int quantidade){
         this.stock += quantidade;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getDesignacao() {
+        return designacao;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
     
+    public void decrementaStock(){
+        this.stock--;
+    }
     
     
 }

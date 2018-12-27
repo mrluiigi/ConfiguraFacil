@@ -30,13 +30,21 @@ public class Componentes {
         return opcionais.get(id);
     }
     
-    public boolean temStock(Componente id, boolean obrigatorio) {
+    public boolean temStock(int id, boolean obrigatorio) {
         if(obrigatorio) {
              return (this.obrigatorios.get(id).getStock() > 0);
         }
         else {
              return (this.opcionais.get(id).getStock() > 0);
         }
+    }
+    
+    public void reduzStockObrigatorio(int id){
+        this.obrigatorios.get(id).decrementaStock();
+    }
+    
+    public void reduzStockOpcional(int id){
+        this.opcionais.get(id).decrementaStock();
     }
     
 }
