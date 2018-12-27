@@ -6,6 +6,7 @@
 package projeto;
 
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -120,6 +121,11 @@ public class MenuFabricaView extends javax.swing.JDialog {
     public void retrocederListener(ActionListener al) {
         retroceder.addActionListener(al);    
     }
+    
+    public void showError(String errMessage) {
+        JOptionPane.showMessageDialog(this, errMessage);
+    }
+    
     /**
      * @param args the command line arguments
      */

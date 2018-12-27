@@ -65,19 +65,24 @@ public class Controller {
             
             addStockView.okListener(new OkListener(addStockView));
             addStockView.adicionarListener(new AdicionarListener());
-            //ADICIONAR LISTENERS
         }
     }
     
     private class ProxConfigListener implements ActionListener{
         
-        public void actionPerformed(ActionEvent e) {                //-------------------------------------------------------------------
-            proxConfigView = new ProxConfigView();                  //PENSO QUE É PRECISO ADICIONAR COMO PARAMETRO A PROXIMA CONFIGURAÇÃO
-            proxConfigView.setVisible(true);
-            proxConfigView.setLocation(45, 45);
-            
-            proxConfigView.okProxListener(new OkListener(proxConfigView));
-            //ADICIONAR LISTENERS
+        public void actionPerformed(ActionEvent e) {  
+            Configuracao c = model.obterProximaConfiguracao();
+            if(c != null){
+                proxConfigView = new ProxConfigView(c); 
+                //proxConfigView = new ProxConfigView();
+                proxConfigView.setVisible(true);
+                proxConfigView.setLocation(45, 45);
+
+                proxConfigView.okProxListener(new OkListener(proxConfigView));
+            }
+            else{
+                fabricaView.showError("Não existem configurações para serem feitas");
+            }
         }
     }
     

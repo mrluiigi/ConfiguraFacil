@@ -12,7 +12,8 @@ import java.awt.event.ActionListener;
  * @author Utilizador
  */
 public class ProxConfigView extends javax.swing.JDialog {
-
+    private Configuracao c;
+        
     /**
      * Creates new form ProxConfigView
      */
@@ -22,8 +23,14 @@ public class ProxConfigView extends javax.swing.JDialog {
     }
     
     public ProxConfigView(){
+        initComponents();
+    }
+    
+    public ProxConfigView(Configuracao c){
         setTitle("Próxima Configuração");
         initComponents();
+        this.c = c;
+        modelo.setText(c.getModelo());
     }
 
     /**
@@ -40,7 +47,7 @@ public class ProxConfigView extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         okProx = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        modelo = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
@@ -68,7 +75,7 @@ public class ProxConfigView extends javax.swing.JDialog {
 
         okProx.setText("Ok");
 
-        jLabel3.setText("jLabel3");
+        modelo.setText("jLabel3");
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("Categoria 1");
@@ -114,7 +121,7 @@ public class ProxConfigView extends javax.swing.JDialog {
                         .addGap(65, 65, 65))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
+                            .addComponent(modelo)
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
@@ -144,7 +151,7 @@ public class ProxConfigView extends javax.swing.JDialog {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1)
                 .addGap(14, 14, 14)
-                .addComponent(jLabel3)
+                .addComponent(modelo)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -173,8 +180,6 @@ public class ProxConfigView extends javax.swing.JDialog {
     public void okProxListener (ActionListener al) {
         okProx.addActionListener(al);
     }
-    
-    
     
     
     /**
@@ -222,7 +227,6 @@ public class ProxConfigView extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -234,6 +238,7 @@ public class ProxConfigView extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel modelo;
     private javax.swing.JButton okProx;
     // End of variables declaration//GEN-END:variables
 }
