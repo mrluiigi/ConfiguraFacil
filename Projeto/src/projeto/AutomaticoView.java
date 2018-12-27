@@ -6,6 +6,7 @@
 package projeto;
 
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,6 +19,10 @@ public class AutomaticoView extends javax.swing.JDialog {
      */
     public AutomaticoView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        initComponents();
+    }
+    
+    public AutomaticoView(){
         initComponents();
     }
 
@@ -122,16 +127,20 @@ public class AutomaticoView extends javax.swing.JDialog {
         });
     }
     
-    public void getOrcamento(){
-        orcamento.getText();
+    public String getOrcamento(){
+        return orcamento.getText();
     }
     
-    public void ConfirmarListener (ActionListener al) {
+    public void confirmarListener (ActionListener al) {
         confirmar.addActionListener(al);
     }
     
-    public void RetrocederListener (ActionListener al) {
+    public void retrocederListener (ActionListener al) {
         retroceder.addActionListener(al);
+    }
+    
+    public void showError(String errMessage) {
+        JOptionPane.showMessageDialog(this, errMessage);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

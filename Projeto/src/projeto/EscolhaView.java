@@ -30,6 +30,14 @@ public class EscolhaView extends javax.swing.JDialog {
         retroceder.addActionListener(al);
     }
     
+    public void manualListener (ActionListener al) {
+        manual.addActionListener(al);
+    }
+    
+    public void automaticoListener (ActionListener al) {
+        automatico.addActionListener(al);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,15 +47,15 @@ public class EscolhaView extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        manual = new javax.swing.JButton();
+        automatico = new javax.swing.JButton();
         retroceder = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton1.setText("Manual");
+        manual.setText("Manual");
 
-        jButton2.setText("Automático");
+        automatico.setText("Automático");
 
         retroceder.setText("Retroceder");
 
@@ -57,9 +65,9 @@ public class EscolhaView extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(71, 71, 71)
-                .addComponent(jButton1)
+                .addComponent(manual)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(automatico)
                 .addGap(84, 84, 84))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -71,8 +79,8 @@ public class EscolhaView extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(manual)
+                    .addComponent(automatico))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(retroceder)
                 .addContainerGap())
@@ -124,8 +132,8 @@ public class EscolhaView extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton automatico;
+    private javax.swing.JButton manual;
     private javax.swing.JButton retroceder;
     // End of variables declaration//GEN-END:variables
 }

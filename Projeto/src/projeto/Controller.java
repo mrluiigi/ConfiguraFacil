@@ -23,6 +23,8 @@ public class Controller {
     
     private CriarConfigView criarConfigView;
     private EscolhaView escolhaView;
+    private AutomaticoView automaticoView;
+    private CategoriaView categoriaView;
     
     
     public Controller(ConfiguraFacil m){
@@ -44,17 +46,6 @@ public class Controller {
             fabricaView.addStockListener(new AddStockListener());
             fabricaView.proxConfigListener(new ProxConfigListener());
             fabricaView.retrocederListener(new RetrocederListener(fabricaView));
-        }
-    }
-    
-    private class CriarConfigListener implements ActionListener{
-
-        public void actionPerformed(ActionEvent e) {
-            criarConfigView = new CriarConfigView();
-            criarConfigView.setVisible(true);
-            
-            criarConfigView.seguinteListener(new SeguinteListener());
-            
         }
     }
     
@@ -126,6 +117,18 @@ public class Controller {
         }
     }
     
+    private class CriarConfigListener implements ActionListener{
+
+        public void actionPerformed(ActionEvent e) {
+            criarConfigView = new CriarConfigView();
+            criarConfigView.setVisible(true);
+            
+            criarConfigView.seguinteListener(new SeguinteListener());
+            
+            //ACABAR OS LISTENERS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        }
+    }
+    
     
     private class SeguinteListener implements ActionListener{
         
@@ -134,12 +137,52 @@ public class Controller {
             escolhaView.setVisible(true);
         
             escolhaView.retrocederListener(new RetrocederListener(escolhaView));
+            escolhaView.automaticoListener(new AutomaticoListener());
+            escolhaView.manualListener(new ManualListener());
             //LISTENERS
         }   
     }
     
+    
+    private class AutomaticoListener implements ActionListener{
+        
+        public void actionPerformed(ActionEvent e) {
+            automaticoView = new AutomaticoView();
+            automaticoView.setVisible(true);
+            
+            automaticoView.confirmarListener(new ConfirmarListener());
+            automaticoView.retrocederListener(new RetrocederListener(automaticoView));
+        }
+    }
+    
+    private class ConfirmarListener implements ActionListener{
+        
+        public void actionPerformed(ActionEvent e) {
+            String orcamento = "";
+            
+            try{
+                orcamento = automaticoView.getOrcamento();
+                //FAZ METODO CONFIGURAÇAO OTIMA
+                //aBRE ULTIMA JANELA A MOSTRAR A CONFIGURAÇÃO OTIMA
+            }catch(Exception exc){
+                automaticoView.showError("Bad Input");
+            }
+            
+        }
+    }
+    
+    private class ManualListener implements ActionListener{
+        
+        public void actionPerformed(ActionEvent e) {
+            categoriaView = new CategoriaView();
+            categoriaView.setVisible(true);
+            
+            //CONTINUAR COM LISTENERS
+        }
+    }
+    
+    
+    
+    
 }
-
-
-
 
