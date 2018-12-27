@@ -57,5 +57,9 @@ public class Pacote {
     
     public List<Integer> getListaPacotesIncompativeis(){
         return this.pacotesIncompativeis;
-    }    
+    }
+
+    public boolean componenteIncompativel(int id){
+        return this.componentesIncompativeis.contains(id);
+    }
 }

@@ -60,6 +60,18 @@ public class ConfiguraFacil{
         return incompativeis;
     }
     
+    public List<Pacote> alteracoesComponenteOpcionalPacotesIncompativeis(int id){
+        Opcional comp = this.componentes.getOpcional(id);
+        List<Pacote> pacotesIncompativeis = new ArrayList<>();
+        
+        for(int i : this.configuracao.getPacotes()){
+            for(int j : )
+        }
+
+    }
+    
+    // percorrer lista dos pacotes da configuracao, para cada pacote tenho que verificar se o
+    // componente que eu quero adicionar esta la (na lista dos incompativeis)
     public void adicionaComponenteOpcional(int id){
         Opcional comp = this.componentes.getOpcional(id);
         float preco;
@@ -240,5 +252,55 @@ public class ConfiguraFacil{
         }
         
         return res;
+    }
+    
+    public List<Pacote> escolhePacotesOtimos(float orcamento){
+        List<Pacote> res = new ArrayList<>();
+        List<Pacote> ordenadoPreco = new ArrayList<>();
+        float precoMaisBarato = this.pacotes.getPrecoPacoteMaisBarato();
+        
+        for(Pacote p : this.pacotes.getPacotes().values()){
+            ordenadoPreco.add(p);
+        }
+        ordenadoPreco.sort(new PacotePrecoComparator());
+        
+        for(Pacote p : ordenadoPreco){
+            if(orcamento < precoMaisBarato){
+                break;
+            }
+            
+            List<Integer> alteracoesNecessarias = alteracoesPacoteCompNecessarios(p.getId());
+            if(!(alteracoesNecessarias.isEmpty())){
+                
+            }
+        }
+    }
+    
+    public boolean ocorremIncompatibilidadesPacote(Pacote p){
+        for(int i : p.getListaComponentesIncompativeis()){
+            if(this.configuracao.getComponentesOpcionais().contains(i)){
+                return true;
+            }
+        }
+        for(int i : p.getListaPacotesIncompativeis()){
+            if(this.configuracao.getPacotes().contains(i)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean ocorremIncompatibilidadesComponentes(Opcional o){
+        for(int i : o.getListaIncompativeis()){
+            if(this.configuracao.getComponentesOpcionais().contains(i)){
+                return true;
+            }
+        }
+        for(int i : o.getListaIncompativeis()){
+            if(this.configuracao.getPacotes().contains(i)){
+                return true;
+            }
+        }
+        return false;
     }
 }

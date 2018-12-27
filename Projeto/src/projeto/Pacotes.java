@@ -22,6 +22,12 @@ public class Pacotes {
     public float getPrecoPacoteMaisBarato() {
         return precoPacoteMaisBarato;
     }
+
+    public Map<Integer, Pacote> getPacotes() {
+        return pacotes;
+    }
+    
+    
     
     
 }
