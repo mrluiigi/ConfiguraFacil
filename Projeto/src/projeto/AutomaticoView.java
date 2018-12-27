@@ -122,8 +122,16 @@ public class AutomaticoView extends javax.swing.JDialog {
         });
     }
     
+    public void getOrcamento(){
+        orcamento.getText();
+    }
+    
     public void ConfirmarListener (ActionListener al) {
         confirmar.addActionListener(al);
+    }
+    
+    public void RetrocederListener (ActionListener al) {
+        retroceder.addActionListener(al);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
