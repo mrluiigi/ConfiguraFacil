@@ -33,4 +33,12 @@ public class Configuracoes {
     public List<Configuracao> getConfiguracoes() {
         return configuracoes;
     }
+    
+    public void addConfiguracao(Configuracao c){
+        this.configuracoes.add(c);
+    }
+    
+    public Configuracao getConfiguracao(int id){
+        return this.configuracoes.get(id);
+    }
 }

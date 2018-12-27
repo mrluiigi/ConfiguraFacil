@@ -222,4 +222,23 @@ public class ConfiguraFacil{
         
         return null;        
     }
+    
+    public List<Componente> getListaComponentes(int id){
+        List<Componente> res = new ArrayList<>();
+        Configuracao c = this.configuracoes.getConfiguracao(id);
+        
+        for(int i : c.getComponentesObrigatorios()){
+            res.add(this.componentes.getObrigatorio(i));
+        }
+        for(int i : c.getComponentesOpcionais()){
+            res.add(this.componentes.getOpcional(i));
+        }
+        for(int i : c.getPacotes()){
+            for(int j : this.pacotes.getPacote(i).getListaComponentesPacote()){
+                res.add(this.componentes.getOpcional(j));
+            }
+        }
+        
+        return res;
+    }
 }

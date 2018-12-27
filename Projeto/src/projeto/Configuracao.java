@@ -97,6 +97,17 @@ public class Configuracao {
         return pacotes;
     }
     
+   /* public List<Integer> getTodosComponentes(){
+        List<Integer> res = new ArrayList<>();
+        for(int i : this.componentesObrigatorios){
+            res.add(i);
+        }
+        for(int i : this.componentesOpcionais){
+            res.add(i);
+        }
+        
+        return res;
+    }*/
     
     
 }

@@ -13,8 +13,15 @@ import java.util.Map;
  */
 public class Pacotes {
     private Map<Integer, Pacote> pacotes;
+    private float precoPacoteMaisBarato;
     
     public Pacote getPacote(int id){
         return this.pacotes.get(id);
     }
+
+    public float getPrecoPacoteMaisBarato() {
+        return precoPacoteMaisBarato;
+    }
+    
+    
 }
