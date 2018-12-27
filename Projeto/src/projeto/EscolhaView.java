@@ -22,6 +22,7 @@ public class EscolhaView extends javax.swing.JDialog {
     }
     
     public EscolhaView(){
+        setTitle("Menu de Escolha");
         initComponents();
     }
 
@@ -50,14 +51,18 @@ public class EscolhaView extends javax.swing.JDialog {
         manual = new javax.swing.JButton();
         automatico = new javax.swing.JButton();
         retroceder = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         manual.setText("Manual");
 
-        automatico.setText("Automático");
+        automatico.setText("Automática");
 
         retroceder.setText("Retroceder");
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setText("Configuração");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,18 +75,25 @@ public class EscolhaView extends javax.swing.JDialog {
                 .addComponent(automatico)
                 .addGap(84, 84, 84))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(retroceder)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(retroceder))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(138, 138, 138)
+                        .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(manual)
                     .addComponent(automatico))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(retroceder)
                 .addContainerGap())
         );
@@ -133,6 +145,7 @@ public class EscolhaView extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton automatico;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton manual;
     private javax.swing.JButton retroceder;
     // End of variables declaration//GEN-END:variables

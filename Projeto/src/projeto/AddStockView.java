@@ -23,6 +23,7 @@ public class AddStockView extends javax.swing.JDialog {
     }
     
     public AddStockView(){
+        setTitle("Adiciona Stock");
         initComponents();
     }
 

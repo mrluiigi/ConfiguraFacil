@@ -13,8 +13,9 @@ import java.util.List;
  * @author Utilizador
  */
 public class Configuracao {
-    //Id da configuração
+    /**Id da configuração*/
     private int id;
+    /**Modelo da configuração */
     private String modelo;
     private float preco;
     //Ids dos componentes obrigatórios;
@@ -49,6 +50,10 @@ public class Configuracao {
 
     public int getId() {
         return id;
+    }
+    
+    public String getModelo(){
+        return this.modelo;
     }
     
     

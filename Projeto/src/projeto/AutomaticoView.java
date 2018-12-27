@@ -23,6 +23,7 @@ public class AutomaticoView extends javax.swing.JDialog {
     }
     
     public AutomaticoView(){
+        setTitle("Orçamento");
         initComponents();
     }
 
