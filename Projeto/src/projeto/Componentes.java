@@ -17,6 +17,7 @@ public class Componentes {
     private Map<Integer, Obrigatorio> obrigatorios;
     /** Todos os componentes opcionais */
     private Map<Integer, Opcional> opcionais;
+    private float precoMaisBarato;
 
 
     public Componentes(){
@@ -55,4 +56,11 @@ public class Componentes {
         this.opcionais.get(id).decrementaStock();
     }
     
+    public float getPrecoComponenteOpcionalMaisBarato(){
+        return this.precoMaisBarato;
+    }
+    
+    public Map<Integer, Opcional> getComponentesOpcionais(){
+        return this.opcionais;
+    }
 }

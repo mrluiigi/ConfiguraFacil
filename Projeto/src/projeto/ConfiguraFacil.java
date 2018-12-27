@@ -262,8 +262,7 @@ public class ConfiguraFacil{
         return res;
     }
 
-    /*public List<Pacote> escolhePacotesOtimos(float orcamento){
-        List<Pacote> res = new ArrayList<>();
+    public float escolhePacotesOtimos(float orcamento){
         List<Pacote> ordenadoPreco = new ArrayList<>();
         float precoMaisBarato = this.pacotes.getPrecoPacoteMaisBarato();
         
@@ -272,18 +271,71 @@ public class ConfiguraFacil{
         }
         ordenadoPreco.sort(new PacotePrecoComparator());
         
+        List<Integer> listaComponentesNecessariosParaPacote;
         for(Pacote p : ordenadoPreco){
             if(orcamento < precoMaisBarato){
                 break;
             }
             
-            //verifica se ao adicionar um novo pacote os seus componentes necessários não causam incompatibilidade
-            List<Integer> alteracoesNecessarias = alteracoesPacoteCompNecessarios(p.getId());
-            if(!(alteracoesNecessarias.isEmpty())){
-                
+            if((p.getPreco() <= orcamento) && (!(ocorremIncompatibilidadesPacote(p)))){
+                listaComponentesNecessariosParaPacote = alteracoesPacoteCompNecessarios(p.getId());
+                float valor = p.getPreco();
+                for(int i : listaComponentesNecessariosParaPacote){
+                    valor += this.componentes.getOpcional(i).getPreco();
+                }
+                if((valor <= orcamento)){
+                    this.configuracao.adicionaPacote(p.getId(), p.getPreco());
+                    for(int i : listaComponentesNecessariosParaPacote){
+                        this.configuracao.adicionaComponenteOpcional(this.componentes.getOpcional(i).getId(), this.componentes.getOpcional(i).getPreco());
+                    }
+                    orcamento -= valor;
+                }
             }
         }
-    }*/
+        
+        return orcamento;
+    }
+    
+    public float escolheComponentesOtimos(float orcamento){
+        List<Opcional> ordenadoPreco = new ArrayList<>();
+        float precoMaisBarato = this.componentes.getPrecoComponenteOpcionalMaisBarato();
+        
+        for(Opcional o : this.componentes.getComponentesOpcionais().values()){
+            ordenadoPreco.add(o);
+        }
+        ordenadoPreco.sort(new ComponentePrecoComparator());
+        
+        List<Opcional> listaComponentesNecessarios;
+        for(Opcional o : ordenadoPreco){
+            if(orcamento < precoMaisBarato){
+                break;
+            }
+            
+            if((o.getPreco() <= orcamento) && (!(ocorremIncompatibilidadesComponentes(o)))){
+                listaComponentesNecessarios = alteracoesComponenteOpcionalNecessarios(o.getId());
+                float valor = o.getPreco();
+                for(Opcional n : listaComponentesNecessarios){
+                    valor += n.getPreco();
+                }
+                if((valor <= orcamento)){
+                    this.configuracao.adicionaComponenteOpcional(o.getId(), o.getPreco());
+                    for(Opcional n : listaComponentesNecessarios){
+                        this.configuracao.adicionaComponenteOpcional(n.getId(), n.getPreco());
+                    }
+                    orcamento -= valor;
+                }
+            }
+        }
+        
+        return orcamento;
+    }
+    
+    public Configuracao configuracaoOptima(float orcamento){
+        escolhePacotesOtimos(orcamento);
+        escolheComponentesOtimos(orcamento);
+        
+        return this.configuracao;
+    }
     
     public boolean ocorremIncompatibilidadesPacote(Pacote p){
         for(int i : p.getListaComponentesIncompativeis()){
