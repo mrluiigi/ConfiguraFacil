@@ -7,6 +7,7 @@ package projeto;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JDialog;
 
 /**
@@ -73,8 +74,8 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {  
             Configuracao c = model.obterProximaConfiguracao();
             if(c != null){
-                proxConfigView = new ProxConfigView(c); 
-                //proxConfigView = new ProxConfigView();
+                List<Componente> comp = model.getListaComponentes(c.getId());
+                proxConfigView = new ProxConfigView(c.getModelo(), comp); 
                 proxConfigView.setVisible(true);
                 proxConfigView.setLocation(45, 45);
 
