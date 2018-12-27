@@ -12,7 +12,9 @@ import javax.swing.JDialog;
 
 /**
  *
- * @author Utilizador
+ * @author José Pinto A81317
+ * @author Luís Correia A81141
+ * @author Pedro Barbosa A82068
  */
 public class Controller {
     
@@ -201,13 +203,48 @@ public class Controller {
     private class ManualListener implements ActionListener{
         
         public void actionPerformed(ActionEvent e) {
+            autom = false;
             categoriaView = new CategoriaView();
             categoriaView.setVisible(true);
             categoriaView.setLocation(45, 45);
             
             categoriaView.retrocederListener(new RetrocederListener(categoriaView));
             categoriaView.confirmarListener(new IncompListener());
+            categoriaView.interiorListener(new InteriorListener());
+            categoriaView.exteriorListener(new ExteriorListener());
+            categoriaView.segurancaListener(new SegurancaListener());
+            categoriaView.telematicaListener(new TelematicaListener());
+
+
             //CONTINUAR COM LISTENERS
+        }
+    }
+    
+    private class InteriorListener implements ActionListener{
+        
+        public void actionPerformed(ActionEvent e){
+            //APRESENTA JDIALOG COM COMPONENTES DE INTERIOR
+        }
+    }
+
+    private class ExteriorListener implements ActionListener{
+        
+        public void actionPerformed(ActionEvent e){
+            //APRESENTA JDIALOG COM COMPONENTES DE EXTERIOR
+        }
+    }
+    
+    private class SegurancaListener implements ActionListener{
+        
+        public void actionPerformed(ActionEvent e){
+            //APRESENTA JDIALOG COM COMPONENTES DE SEGURANÇA
+        }
+    }
+    
+    private class TelematicaListener implements ActionListener{
+        
+        public void actionPerformed(ActionEvent e){
+            //APRESENTA JDIALOG COM COMPONENTES DE TELEMÁTICA
         }
     }
     
@@ -237,26 +274,25 @@ public class Controller {
         }
     }
     
-    private class VoltaInicioListener implements ActionListener{
-        public void actionPerformed(ActionEvent e){
+    private class VoltaInicioListener implements ActionListener {
+       
+        public void actionPerformed(ActionEvent e)throws NullPointerException{
             
             //MÉTODO PARA ADICIONAR A CONFIGURAÇÃO À LISTA
 
-            //Caso vá pela configuração automática
-            automaticoView.dispose();
-            
             resumoView.dispose();
-            escolhaView.dispose();
             criarConfigView.dispose();
-
+            escolhaView.dispose();
+            
+            //Caso vá pela configuração automática
+            if(autom){
+                automaticoView.dispose();
+            }
             //Caso vá pela configuração manual
-            categoriaView.dispose();
-            incompView.dispose();
-            
-            
-            
-
-            
+            else{
+                categoriaView.dispose();
+                incompView.dispose();
+            }
         }
     }
 }

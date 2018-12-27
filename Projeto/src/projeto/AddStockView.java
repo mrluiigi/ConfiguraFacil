@@ -10,7 +10,9 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Utilizador
+ * @author José Pinto A81317
+ * @author Luís Correia A81141
+ * @author Pedro Barbosa A82068
  */
 public class AddStockView extends javax.swing.JDialog {
 
