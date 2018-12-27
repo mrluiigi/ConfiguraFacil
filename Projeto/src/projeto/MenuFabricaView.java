@@ -22,6 +22,7 @@ public class MenuFabricaView extends javax.swing.JDialog {
     }
     
     public MenuFabricaView(){
+        setTitle("Menu Fábrica");
         initComponents();
     }
 

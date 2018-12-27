@@ -5,6 +5,8 @@
  */
 package projeto;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author Utilizador
@@ -20,6 +22,7 @@ public class IncompView extends javax.swing.JDialog {
     }
 
     public IncompView(){
+        setTitle("Incompatibilidades e Necessidades");
         initComponents();
     }
     
@@ -40,8 +43,8 @@ public class IncompView extends javax.swing.JDialog {
         jList2 = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        confirmar = new javax.swing.JButton();
+        retroceder = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -70,9 +73,9 @@ public class IncompView extends javax.swing.JDialog {
 
         jLabel4.setText("preco");
 
-        jButton1.setText("Confirmar");
+        confirmar.setText("Confirmar");
 
-        jButton2.setText("Retroceder");
+        retroceder.setText("Retroceder");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,9 +96,9 @@ public class IncompView extends javax.swing.JDialog {
                 .addContainerGap(67, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(retroceder)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(confirmar)
                 .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
@@ -115,8 +118,8 @@ public class IncompView extends javax.swing.JDialog {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(confirmar)
+                    .addComponent(retroceder))
                 .addGap(17, 17, 17))
         );
 
@@ -165,9 +168,16 @@ public class IncompView extends javax.swing.JDialog {
         });
     }
 
+    public void retrocederListener (ActionListener al) {
+        retroceder.addActionListener(al);
+    }
+    
+    public void confirmarListener (ActionListener al) {
+        confirmar.addActionListener(al);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton confirmar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -176,5 +186,6 @@ public class IncompView extends javax.swing.JDialog {
     private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton retroceder;
     // End of variables declaration//GEN-END:variables
 }

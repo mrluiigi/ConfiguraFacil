@@ -22,6 +22,7 @@ public class View extends javax.swing.JDialog {
     }
     
     public View(){
+        setTitle("ConfiguraFacil");
         initComponents();
     }
 
@@ -52,21 +53,21 @@ public class View extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(52, 52, 52)
                 .addComponent(fabrica)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                 .addComponent(criarConf)
-                .addGap(55, 55, 55))
+                .addGap(53, 53, 53))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(139, 139, 139)
+                .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fabrica)
-                    .addComponent(criarConf))
-                .addContainerGap(129, Short.MAX_VALUE))
+                    .addComponent(criarConf)
+                    .addComponent(fabrica))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         pack();

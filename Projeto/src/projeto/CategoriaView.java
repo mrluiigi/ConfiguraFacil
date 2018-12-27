@@ -22,6 +22,7 @@ public class CategoriaView extends javax.swing.JDialog {
     }
 
     public CategoriaView(){
+        setTitle("Categoria");
         initComponents();
     }
     
@@ -137,10 +138,6 @@ public class CategoriaView extends javax.swing.JDialog {
                             .addGap(35, 35, 35)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jCheckBox1)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(categoria2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(categoria1))
                                 .addComponent(jCheckBox2)
                                 .addComponent(jCheckBox3)
                                 .addGroup(layout.createSequentialGroup()
@@ -148,7 +145,12 @@ public class CategoriaView extends javax.swing.JDialog {
                                         .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jCheckBox4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGap(50, 50, 50)
-                                    .addComponent(jLabel10))))))
+                                    .addComponent(jLabel10))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(41, 41, 41)
+                            .addComponent(categoria2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(categoria1))))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
