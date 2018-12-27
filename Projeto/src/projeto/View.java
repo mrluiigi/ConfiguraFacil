@@ -5,6 +5,8 @@
  */
 package projeto;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author Utilizador
@@ -18,6 +20,10 @@ public class View extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
+    
+    public View(){
+        initComponents();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,22 +34,56 @@ public class View extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        fabrica = new javax.swing.JButton();
+        criarConf = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        fabrica.setText("Fábrica");
+        fabrica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fabricaActionPerformed(evt);
+            }
+        });
+
+        criarConf.setText("Criar Configuração");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(fabrica)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addComponent(criarConf)
+                .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(139, 139, 139)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fabrica)
+                    .addComponent(criarConf))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void fabricaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fabricaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fabricaActionPerformed
+
+    public void fabricaListener (ActionListener al) {
+        fabrica.addActionListener(al);    
+    }
+    
+    public void criarConfigListener(ActionListener al) {
+        criarConf.addActionListener(al);    
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -87,5 +127,7 @@ public class View extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton criarConf;
+    private javax.swing.JButton fabrica;
     // End of variables declaration//GEN-END:variables
 }

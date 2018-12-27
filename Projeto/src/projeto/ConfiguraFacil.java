@@ -19,6 +19,13 @@ public class ConfiguraFacil{
     private Componentes componentes;
     private Configuracao configuracao;
     
+    public ConfiguraFacil() {
+        this.configuracoes = new Configuracoes();
+        this.pacotes = new Pacotes();
+        this.componentes = new Componentes();
+        this.configuracao = new Configuracao();
+    }
+    
     public void adicionaComponenteObrigatorio(int id){
         Obrigatorio obrigatorio;
         obrigatorio = this.componentes.getObrigatorio(id);

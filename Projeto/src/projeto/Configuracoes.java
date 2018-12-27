@@ -5,6 +5,8 @@
  */
 package projeto;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +20,11 @@ public class Configuracoes {
     /** Lista de todas as configurações*/ 
     private List<Configuracao> configuracoes;
 
+    public Configuracoes(){
+        this.clientes = new HashMap<>();
+        this.configuracoes = new ArrayList<>();
+    }
+    
     public Configuracoes(Map<Integer, Cliente> clientes, List<Configuracao> configuracoes) {
         this.clientes = clientes;
         this.configuracoes = configuracoes;

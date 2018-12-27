@@ -5,6 +5,7 @@
  */
 package projeto;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,6 +18,13 @@ public class Componentes {
     /** Todos os componentes opcionais */
     private Map<Integer, Opcional> opcionais;
 
+
+    public Componentes(){
+        this.obrigatorios = new HashMap<>();
+        this.opcionais = new HashMap<>();
+    }
+
+    
     public Componentes(Map<Integer, Obrigatorio> obrigatorios, Map<Integer, Opcional> opcionais) {
         this.obrigatorios = obrigatorios;
         this.opcionais = opcionais;

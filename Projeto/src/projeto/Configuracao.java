@@ -5,6 +5,7 @@
  */
 package projeto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +26,17 @@ public class Configuracao {
     //Indica se a configuração está pronta para ser feita (se tem todos os componentes)
     private boolean pronta;
 
+    public Configuracao(){
+        this.id = 0;
+        this.modelo = "";
+        this.preco = 0;
+        this.componentesObrigatorios = new ArrayList<>();
+        this.componentesOpcionais = new ArrayList<>();
+        this.pacotes = new ArrayList<>();
+        this.pronta = false;
+    }
+
+    
     public Configuracao(int id, String modelo, float preco, List<Integer> componentesObrigatorios, List<Integer> componentesOpcionais, List<Integer> pacotes, boolean pronta) {
         this.id = id;
         this.modelo = modelo;
