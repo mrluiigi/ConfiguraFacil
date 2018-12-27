@@ -25,6 +25,7 @@ public class Controller {
     private EscolhaView escolhaView;
     private AutomaticoView automaticoView;
     private CategoriaView categoriaView;
+    private IncompView incompView;
     
     
     public Controller(ConfiguraFacil m){
@@ -177,7 +178,19 @@ public class Controller {
             categoriaView = new CategoriaView();
             categoriaView.setVisible(true);
             
+            categoriaView.retrocederListener(new RetrocederListener(categoriaView));
+            categoriaView.confirmarListener(new IncompListener());
             //CONTINUAR COM LISTENERS
+        }
+    }
+    
+    private class IncompListener implements ActionListener{
+        
+        public void actionPerformed(ActionEvent e){
+            incompView = new IncompView();
+            incompView.setVisible(true);
+            
+            //LISTENERS
         }
     }
     

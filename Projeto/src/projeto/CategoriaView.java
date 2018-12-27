@@ -5,6 +5,8 @@
  */
 package projeto;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author Utilizador
@@ -49,7 +51,7 @@ public class CategoriaView extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         retroceder = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        confirmar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -98,7 +100,7 @@ public class CategoriaView extends javax.swing.JDialog {
 
         retroceder.setText("Retroceder");
 
-        jButton1.setText("Confirmar");
+        confirmar.setText("Confirmar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,7 +132,7 @@ public class CategoriaView extends javax.swing.JDialog {
                             .addGap(19, 19, 19)
                             .addComponent(retroceder)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1))
+                            .addComponent(confirmar))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(35, 35, 35)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +189,7 @@ public class CategoriaView extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(retroceder)
-                    .addComponent(jButton1))
+                    .addComponent(confirmar))
                 .addContainerGap())
         );
 
@@ -202,6 +204,8 @@ public class CategoriaView extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -244,10 +248,18 @@ public class CategoriaView extends javax.swing.JDialog {
         });
     }
 
+    public void retrocederListener (ActionListener al) {
+        retroceder.addActionListener(al);
+    }
+    
+    public void confirmarListener (ActionListener al) {
+        confirmar.addActionListener(al);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton categoria1;
     private javax.swing.JButton categoria2;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton confirmar;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
