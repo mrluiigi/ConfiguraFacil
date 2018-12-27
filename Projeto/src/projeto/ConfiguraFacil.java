@@ -61,13 +61,16 @@ public class ConfiguraFacil{
     }
     
     public List<Pacote> alteracoesComponenteOpcionalPacotesIncompativeis(int id){
-        Opcional comp = this.componentes.getOpcional(id);
         List<Pacote> pacotesIncompativeis = new ArrayList<>();
         
         for(int i : this.configuracao.getPacotes()){
-            for(int j : )
+            Pacote p = this.pacotes.getPacote(i);
+            if(p.componenteIncompativel(id)){
+                pacotesIncompativeis.add(p);
+            }
         }
-
+        
+        return pacotesIncompativeis;
     }
     
     // percorrer lista dos pacotes da configuracao, para cada pacote tenho que verificar se o
@@ -88,6 +91,11 @@ public class ConfiguraFacil{
                 preco = this.componentes.getOpcional(i).getPreco();
                 this.configuracao.removeComponenteOpcional(i, preco);
             }
+        }
+        
+        List<Pacote> pacotesIncompativeis = alteracoesComponenteOpcionalPacotesIncompativeis(id);
+        for(Pacote p : pacotesIncompativeis){
+            this.configuracao.removePacote(p.getId(), p.getPreco());
         }
         
         this.configuracao.adicionaComponenteOpcional(id, comp.getPreco());
@@ -253,8 +261,8 @@ public class ConfiguraFacil{
         
         return res;
     }
-    
-    public List<Pacote> escolhePacotesOtimos(float orcamento){
+
+    /*public List<Pacote> escolhePacotesOtimos(float orcamento){
         List<Pacote> res = new ArrayList<>();
         List<Pacote> ordenadoPreco = new ArrayList<>();
         float precoMaisBarato = this.pacotes.getPrecoPacoteMaisBarato();
@@ -269,12 +277,13 @@ public class ConfiguraFacil{
                 break;
             }
             
+            //verifica se ao adicionar um novo pacote os seus componentes necessários não causam incompatibilidade
             List<Integer> alteracoesNecessarias = alteracoesPacoteCompNecessarios(p.getId());
             if(!(alteracoesNecessarias.isEmpty())){
                 
             }
         }
-    }
+    }*/
     
     public boolean ocorremIncompatibilidadesPacote(Pacote p){
         for(int i : p.getListaComponentesIncompativeis()){
@@ -302,5 +311,9 @@ public class ConfiguraFacil{
             }
         }
         return false;
+    }
+    
+    public void escolheModelo(String modelo){
+        this.configuracao.alteraModelo(modelo);
     }
 }

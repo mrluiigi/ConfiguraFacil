@@ -102,6 +102,15 @@ public class Configuracao {
         return pacotes;
     }
     
+    public void alteraModelo(String modelo){
+        this.modelo = modelo;
+        this.preco = 0;
+        this.componentesObrigatorios = new ArrayList<>();
+        this.componentesOpcionais = new ArrayList<>();
+        this.pacotes = new ArrayList<>();
+        this.pronta = false;
+    }
+    
    /* public List<Integer> getTodosComponentes(){
         List<Integer> res = new ArrayList<>();
         for(int i : this.componentesObrigatorios){
