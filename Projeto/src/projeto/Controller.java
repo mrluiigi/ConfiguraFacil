@@ -68,8 +68,20 @@ public class Controller {
             
             addStockView.okListener(new OkListener(addStockView));
             addStockView.adicionarListener(new AdicionarListener());
+            addStockView.comboBoxListener(new ComboBoxListener());
         }
     }
+    
+    private class ComboBoxListener implements ActionListener{
+        
+         public void actionPerformed(ActionEvent e) {
+            int comp = addStockView.getComponente().getId();
+            addStockView.setStock(model.getStockComponente(comp));
+         }
+    }
+    
+    
+    
     
     private class ProxConfigListener implements ActionListener{
         
@@ -124,7 +136,7 @@ public class Controller {
             int quantidade = 0;
             
             try{
-                componente = addStockView.getProduto();                
+                componente = addStockView.getComponente();                
                 quantidade = addStockView.getQuantidade();
                 
                 model.adicionarStock(true, componente.getId(), quantidade);

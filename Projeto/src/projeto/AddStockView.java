@@ -161,8 +161,12 @@ public class AddStockView extends javax.swing.JDialog implements Observer{
     }//GEN-LAST:event_okActionPerformed
 
     
-    public ComboItem getProduto(){
+    public ComboItem getComponente(){
         return (ComboItem) lista.getSelectedItem();        //PRECISA CAST POIS RETORNA OBJECT
+    }
+    
+    public void setStock(int stock){
+        this.stock.setText(Integer.toString(stock));
     }
     
     public int getQuantidade(){
@@ -175,6 +179,10 @@ public class AddStockView extends javax.swing.JDialog implements Observer{
     
     public void adicionarListener(ActionListener al){
         adicionar.addActionListener(al);  
+    }
+    
+    public void comboBoxListener(ActionListener al){
+        lista.addActionListener(al);
     }
      
      
@@ -270,5 +278,6 @@ class ComboItem{
     public boolean isObrigatorio(){
         return this.obrigatorio;
     }
+    
     
 }
