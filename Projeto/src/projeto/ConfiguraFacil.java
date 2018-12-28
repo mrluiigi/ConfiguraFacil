@@ -5,6 +5,7 @@
  */
 package projeto;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -14,13 +15,13 @@ import java.util.Observable;
  * @author Utilizador
  */
 public class ConfiguraFacil extends Observable{
-    
+    private Connection con;
     private Configuracoes configuracoes;
     private Pacotes pacotes;
     private Componentes componentes;
     private Configuracao configuracao;
     
-    public ConfiguraFacil() {
+    public ConfiguraFacil(Connection con) {
         this.configuracoes = new Configuracoes();
         this.pacotes = new Pacotes();
         this.componentes = new Componentes();

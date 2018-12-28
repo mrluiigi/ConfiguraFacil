@@ -5,6 +5,12 @@
  */
 package projeto;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+
 /**
  *
  * @author José Pinto A81317
@@ -13,12 +19,112 @@ package projeto;
  */
 public class Main {
     
-    public static void main(String[] args) {
-        ConfiguraFacil model = new ConfiguraFacil();
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        //Establish the connection 
+        String connection = "jdbc:mysql://localhost:3306/dss?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        String user = "root";
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    String password = "";
+        Connection con = DriverManager.getConnection(connection, user, password);
+        ConfiguraFacil model = new ConfiguraFacil(con);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    Statement st;
+        try { 
+            st = con.createStatement(); 
+           st.executeUpdate("INSERT INTO Configuração (NIF_Cliente, Pronta, Feita, Data) VALUES ('123456789', '0', " + LocalDate.now().toString() + ")"); 
+        } catch (SQLException e) { 
+                e.printStackTrace(System.out);
+        } finally { 
+            //close the connection 
+            con.close(); 
+        }    
+        
+        
+        
+        
+        
+        
+        
+        
+        
       
         View view = new View();
         
         Controller controller = new Controller(model);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

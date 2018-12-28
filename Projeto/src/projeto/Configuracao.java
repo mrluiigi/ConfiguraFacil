@@ -15,6 +15,7 @@ import java.util.List;
 public class Configuracao {
     /**Id da configuração*/
     private int id;
+    private String nif;
     /**Modelo da configuração */
     private String modelo;
     private float preco;
@@ -51,6 +52,11 @@ public class Configuracao {
     public int getId() {
         return id;
     }
+
+    public String getNif() {
+        return nif;
+    }
+    
     
     public String getModelo(){
         return this.modelo;
