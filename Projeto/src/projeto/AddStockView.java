@@ -233,9 +233,8 @@ public class AddStockView extends javax.swing.JDialog implements Observer{
     @Override
     public void update(Observable o, Object arg) {
         int id = ((ComboItem) lista.getSelectedItem()).getId();
-        
-        //ACABAR ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //stock.setText();
+        int st = configuraFacil.getStockComponente(id);
+        stock.setText(Integer.toString(st));
     }
 }
 

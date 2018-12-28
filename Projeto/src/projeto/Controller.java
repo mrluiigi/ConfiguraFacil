@@ -122,8 +122,9 @@ public class Controller {
             String quantidade = "";
             
             try{
-                produto = addStockView.getProduto();                //---------------------------------
-                quantidade = addStockView.getQuantidade();                
+                produto = addStockView.getProduto();                //----------------------CORRIGIR-----------
+                quantidade = addStockView.getQuantidade();
+                
                 
                 // CHAMAR FUNÇÃO PARA ADICIONAR STOCK!
 

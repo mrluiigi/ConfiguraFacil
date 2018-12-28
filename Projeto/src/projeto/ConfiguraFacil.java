@@ -34,6 +34,14 @@ public class ConfiguraFacil extends Observable{
         return componentes.getComponentes();
     }
     
+    public int getStockComponente(int id){
+        List<Componente> comp = getComponentes();
+        for(Componente c : comp){
+            if(c.getId() == id) return c.getStock();
+        }
+        return -1;
+    }
+    
     
     public void adicionaComponenteObrigatorio(int id){
         Obrigatorio obrigatorio;
