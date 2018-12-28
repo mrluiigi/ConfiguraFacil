@@ -9,20 +9,13 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author José Pinto A81317
- * @author Luís Correia A81141
- * @author Pedro Barbosa A82068
+ * @author Utilizador
  */
-public class View extends javax.swing.JDialog {
+public class View extends javax.swing.JFrame {
 
     /**
      * Creates new form View
      */
-    public View(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
-    
     public View(){
         setTitle("ConfiguraFacil");
         initComponents();
@@ -40,7 +33,7 @@ public class View extends javax.swing.JDialog {
         fabrica = new javax.swing.JButton();
         criarConf = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         fabrica.setText("Fábrica");
         fabrica.addActionListener(new java.awt.event.ActionListener() {
@@ -55,21 +48,21 @@ public class View extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
                 .addComponent(fabrica)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addComponent(criarConf)
-                .addGap(53, 53, 53))
+                .addGap(42, 42, 42))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addGap(63, 63, 63)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(criarConf)
-                    .addComponent(fabrica))
-                .addContainerGap(57, Short.MAX_VALUE))
+                    .addComponent(fabrica)
+                    .addComponent(criarConf))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         pack();
@@ -79,14 +72,6 @@ public class View extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_fabricaActionPerformed
 
-    public void fabricaListener (ActionListener al) {
-        fabrica.addActionListener(al);    
-    }
-    
-    public void criarConfigListener(ActionListener al) {
-        criarConf.addActionListener(al);    
-    }
-    
     /**
      * @param args the command line arguments
      */
@@ -114,17 +99,10 @@ public class View extends javax.swing.JDialog {
         }
         //</editor-fold>
 
-        /* Create and display the dialog */
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                View dialog = new View(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                new View().setVisible(true);
             }
         });
     }
@@ -133,4 +111,12 @@ public class View extends javax.swing.JDialog {
     private javax.swing.JButton criarConf;
     private javax.swing.JButton fabrica;
     // End of variables declaration//GEN-END:variables
+
+    public void fabricaListener (ActionListener al) {
+        fabrica.addActionListener(al);    
+    }
+    
+    public void criarConfigListener(ActionListener al) {
+        criarConf.addActionListener(al);    
+    }
 }
