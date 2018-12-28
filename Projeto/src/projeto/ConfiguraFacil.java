@@ -368,4 +368,44 @@ public class ConfiguraFacil{
     public void escolheModelo(String modelo){
         this.configuracao.alteraModelo(modelo);
     }
+    
+    public List<Integer> alteracoesRemoverComponenteOpcionalComponentes(int id){
+        List<Integer> componentesOpcionais = this.configuracao.getComponentesOpcionais();
+        List<Integer> aRemoverComponentes = new ArrayList<>();
+        
+        for(int i : componentesOpcionais){
+            boolean bool = this.componentes.getOpcional(i).getListaNecessarios().contains(id);
+            if(bool){
+                aRemoverComponentes.add(i);
+            }
+        }
+        
+        return aRemoverComponentes;
+    }    
+    
+    public List<Integer> alteracoesRemoverComponenteOpcionalPacotes(int id){    
+        List<Integer> pacotes = this.configuracao.getPacotes();
+        List<Integer> aRemoverPacotes = new ArrayList<>();
+        
+        for(int i : pacotes){
+            boolean bool = this.pacotes.getPacote(i).getListaComponentesNecessarios().contains(id);
+            if(bool){
+                aRemoverPacotes.add(i);
+            }
+        }
+        
+        return aRemoverPacotes;
+    }
+    
+    public void removerComponenteOpcional(int id){
+        for(int i : alteracoesRemoverComponenteOpcionalComponentes(id)){
+            float preco = this.componentes.getOpcional(i).getPreco();
+            this.configuracao.removeComponenteOpcional(i, preco);
+        }
+        
+        for(int i : alteracoesRemoverComponenteOpcionalPacotes(id)){
+            float preco = this.pacotes.getPacote(i).getPreco();
+            this.configuracao.removePacote(i, preco);
+        }
+    }
 }
