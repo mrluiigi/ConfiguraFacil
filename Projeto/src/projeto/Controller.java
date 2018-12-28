@@ -89,6 +89,7 @@ public class Controller {
         }
     }
     
+    /** Listener genérico */
     private class RetrocederListener implements ActionListener{
         JDialog view;
         
@@ -101,7 +102,8 @@ public class Controller {
         }
         
     }
-    
+
+    /** Listener genérico */
     private class OkListener implements ActionListener{
         JDialog view;
         
@@ -122,7 +124,7 @@ public class Controller {
             int quantidade = 0;
             
             try{
-                componente = addStockView.getProduto();                //----------------------CORRIGIR-----------
+                componente = addStockView.getProduto();                
                 quantidade = addStockView.getQuantidade();
                 
                 model.adicionarStock(true, componente.getId(), quantidade);
