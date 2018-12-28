@@ -35,7 +35,7 @@ public class Main {
         
         
         
-    String password = "monteiro9884";
+    String password = "";
         Connection con = DriverManager.getConnection(connection, user, password);
         ConfiguraFacil model = new ConfiguraFacil(con);
         

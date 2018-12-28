@@ -9,7 +9,9 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author Utilizador
+ * @author José Pinto A81317
+ * @author Luís Correia A81141
+ * @author Pedro Barbosa A82068
  */
 public class View extends javax.swing.JFrame {
 
