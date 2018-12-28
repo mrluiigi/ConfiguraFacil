@@ -7,6 +7,7 @@ package projeto;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -49,7 +50,12 @@ public class Main {
     Statement st;
         try { 
             st = con.createStatement(); 
-           st.executeUpdate("INSERT INTO Configuração (NIF_Cliente, Pronta, Feita, Data) VALUES ('123456789', '0', " + LocalDate.now().toString() + ")"); 
+            st.executeUpdate("INSERT INTO Configuração (NIF_Cliente, Pronta, Feita) VALUES ('111111111', 0, 0)"); 
+            ResultSet rs = st.executeQuery("SELECT MAX(ID) AS LastID FROM Configuração;"); 
+            while (rs.next()) { 
+                System.out.println(rs.getString("LastID"));    
+            } 
+           
         } catch (SQLException e) { 
                 e.printStackTrace(System.out);
         } finally { 

@@ -6,6 +6,7 @@
 package projeto;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -25,13 +26,19 @@ public class ConfiguraçõesDAO {
         Statement st;
         try { 
             st = con.createStatement(); 
-           st.executeUpdate("INSERT INTO Configuração (NIF_Cliente, Pronta, Feita, Data) VALUES ('123456789', '0', " + LocalDate.now().toString() + ")"); 
+            st.executeUpdate("INSERT INTO Configuração (NIF_Cliente, Pronta, Feita) VALUES ("+ c.getNif() + ", 0, 0)"); 
+            ResultSet rs = st.executeQuery("SELECT MAX(ID) AS LastID FROM Configuração;"); 
+            int idConfig = Integer.parseInt(rs.getString("LastID"));
+            for(int i : c.getComponentesObrigatorios()) {
+                st.executeUpdate("INSERT INTO ConfiguraçãoObrigatórios (Configuração_ID, Obrigatório_ID) VALUES ("+ idConfig + "," + i + ")"); 
+            }
+
         } catch (SQLException e) { 
-            // handle exceptions 
+                e.printStackTrace(System.out);
         } finally { 
             //close the connection 
             con.close(); 
-        }
+        } 
     }
     
     
