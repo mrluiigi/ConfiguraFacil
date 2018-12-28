@@ -23,6 +23,9 @@ public class Configuracoes {
     public Configuracoes(){
         this.clientes = new HashMap<>();
         this.configuracoes = new ArrayList<>();
+        List<Integer> aux = new ArrayList<>();
+        aux.add(1);
+        this.configuracoes.add(new Configuracao(1, "camaro", 50, aux, new ArrayList<>(), new ArrayList<>(), true));
     }
     
     public Configuracoes(Map<Integer, Cliente> clientes, List<Configuracao> configuracoes) {
@@ -39,6 +42,9 @@ public class Configuracoes {
     }
     
     public Configuracao getConfiguracao(int id){
-        return this.configuracoes.get(id);
+        for(Configuracao c : configuracoes){
+            if(c.getId() == id) return c;
+        }
+        return null;
     }
 }

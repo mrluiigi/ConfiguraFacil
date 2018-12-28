@@ -77,10 +77,10 @@ public class Controller {
             Configuracao c = model.obterProximaConfiguracao();
             if(c != null){
                 List<Componente> comp = model.getListaComponentes(c.getId());
-                proxConfigView = new ProxConfigView(c.getModelo(), comp); 
+                proxConfigView = new ProxConfigView(c.getModelo(), comp);
                 proxConfigView.setVisible(true);
                 proxConfigView.setLocation(45, 45);
-
+                
                 proxConfigView.okProxListener(new OkListener(proxConfigView));
             }
             else{
@@ -124,11 +124,8 @@ public class Controller {
             try{
                 componente = addStockView.getProduto();                //----------------------CORRIGIR-----------
                 quantidade = addStockView.getQuantidade();
-
                 
                 model.adicionarStock(true, componente.getId(), quantidade);
-                System.out.println("4");
-
 
             }catch (Exception ex){
                 addStockView.showError("Bad Input");
