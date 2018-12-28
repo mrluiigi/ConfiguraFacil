@@ -9,7 +9,9 @@ import java.util.Comparator;
 
 /**
  *
- * @author Barbosa
+ * @author José Pinto A81317
+ * @author Luís Correia A81141
+ * @author Pedro Barbosa A82068
  */
 public class PacotePrecoComparator implements Comparator<Pacote>{
     

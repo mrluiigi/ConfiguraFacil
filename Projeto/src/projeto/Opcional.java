@@ -9,7 +9,9 @@ import java.util.List;
 
 /**
  *
- * @author Utilizador
+ * @author José Pinto A81317
+ * @author Luís Correia A81141
+ * @author Pedro Barbosa A82068
  */
 public class Opcional extends Componente{
     /**Lista de componentes opcionais necessarios */

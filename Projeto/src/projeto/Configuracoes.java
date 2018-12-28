@@ -12,7 +12,9 @@ import java.util.Map;
 
 /**
  *
- * @author Utilizador
+ * @author José Pinto A81317
+ * @author Luís Correia A81141
+ * @author Pedro Barbosa A82068
  */
 public class Configuracoes {
     /** Map de todos os clientes */
