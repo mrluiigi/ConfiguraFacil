@@ -118,15 +118,17 @@ public class Controller {
         
         public void actionPerformed(ActionEvent e) {
             
-            String produto = "";
-            String quantidade = "";
+            ComboItem componente;
+            int quantidade = 0;
             
             try{
-                produto = addStockView.getProduto();                //----------------------CORRIGIR-----------
+                componente = addStockView.getProduto();                //----------------------CORRIGIR-----------
                 quantidade = addStockView.getQuantidade();
+
                 
-                
-                // CHAMAR FUNÇÃO PARA ADICIONAR STOCK!
+                model.adicionarStock(true, componente.getId(), quantidade);
+                System.out.println("4");
+
 
             }catch (Exception ex){
                 addStockView.showError("Bad Input");

@@ -39,7 +39,13 @@ public class AddStockView extends javax.swing.JDialog implements Observer{
         List<Componente> comp = this.configuraFacil.getComponentes();
         DefaultComboBoxModel<ComboItem> d = new DefaultComboBoxModel<ComboItem>();
         for(Componente c : comp){
-            d.addElement(new ComboItem(c.getId(), c.getDesignacao()));
+            if(c.getClass().getName().equals("Obrigatorio")){
+                d.addElement(new ComboItem(c.getId(), c.getDesignacao(), true));
+            }
+            else{
+                d.addElement(new ComboItem(c.getId(), c.getDesignacao(), false));
+
+            }
         }
         lista.setModel(d);
         stock.setText(Integer.toString(comp.get(0).getStock()));
@@ -155,12 +161,12 @@ public class AddStockView extends javax.swing.JDialog implements Observer{
     }//GEN-LAST:event_okActionPerformed
 
     
-    public String getProduto(){
-        return (String) lista.getSelectedItem();        //VERIFICAR SE É PRECISO CAST
+    public ComboItem getProduto(){
+        return (ComboItem) lista.getSelectedItem();        //PRECISA CAST POIS RETORNA OBJECT
     }
     
-    public String getQuantidade(){
-        return quantidade.getText();
+    public int getQuantidade(){
+        return Integer.parseInt(this.quantidade.getText());
     }
     
     public void okListener(ActionListener al) {
@@ -241,10 +247,12 @@ public class AddStockView extends javax.swing.JDialog implements Observer{
 class ComboItem{
     private int id;
     private String designacao;
+    private boolean obrigatorio;
 
-    public ComboItem(int id, String designacao){
+    public ComboItem(int id, String designacao, boolean ob){
         this.id = id;
         this.designacao = designacao;
+        this.obrigatorio = ob;
     }
     
     public String toString(){
@@ -252,11 +260,15 @@ class ComboItem{
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public String getDesignacao() {
-        return designacao;
+        return this.designacao;
+    }
+    
+    public boolean isObrigatorio(){
+        return this.obrigatorio;
     }
     
 }

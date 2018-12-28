@@ -203,6 +203,8 @@ public class ConfiguraFacil extends Observable{
         else{
             this.componentes.getOpcional(id).addStock(qtd);
         }
+        this.setChanged();
+        this.notifyObservers();
     }
     
     public boolean temStockPacote(int id){
