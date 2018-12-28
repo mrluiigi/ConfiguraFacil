@@ -7,12 +7,13 @@ package projeto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  *
  * @author Utilizador
  */
-public class ConfiguraFacil{
+public class ConfiguraFacil extends Observable{
     
     private Configuracoes configuracoes;
     private Pacotes pacotes;
@@ -24,12 +25,23 @@ public class ConfiguraFacil{
         this.pacotes = new Pacotes();
         this.componentes = new Componentes();
         this.configuracao = new Configuracao();
+        
+        this.setChanged();
+        this.notifyObservers();
     }
+
+    public List<Componente> getComponentes() {
+        return componentes.getComponentes();
+    }
+    
     
     public void adicionaComponenteObrigatorio(int id){
         Obrigatorio obrigatorio;
         obrigatorio = this.componentes.getObrigatorio(id);
         this.configuracao.adicionaComponenteObrigatorio(id, obrigatorio.getPreco());
+        
+        this.setChanged();
+        this.notifyObservers();
     }
     
     public List<Opcional> alteracoesComponenteOpcionalNecessarios(int id){
@@ -99,6 +111,9 @@ public class ConfiguraFacil{
         }
         
         this.configuracao.adicionaComponenteOpcional(id, comp.getPreco());
+        
+        this.setChanged();
+        this.notifyObservers();
     }
     
     public List<Integer> alteracoesPacoteCompNecessarios(int id){
@@ -169,6 +184,8 @@ public class ConfiguraFacil{
         }
         
         this.configuracao.adicionaPacote(id, pacote.getPreco());
+        this.setChanged();
+        this.notifyObservers();
     }
     
     public void adicionarStock(boolean obrigatorio, int id, int qtd){
@@ -367,6 +384,9 @@ public class ConfiguraFacil{
     
     public void escolheModelo(String modelo){
         this.configuracao.alteraModelo(modelo);
+        
+        this.setChanged();
+        this.notifyObservers();
     }
     
     public List<Integer> alteracoesRemoverComponenteOpcionalComponentes(int id){
@@ -407,5 +427,12 @@ public class ConfiguraFacil{
             float preco = this.pacotes.getPacote(i).getPreco();
             this.configuracao.removePacote(i, preco);
         }
+        
+        this.setChanged();
+        this.notifyObservers();
+    }
+    
+    public float getPreco(){
+        return this.configuracao.getPreco();
     }
 }

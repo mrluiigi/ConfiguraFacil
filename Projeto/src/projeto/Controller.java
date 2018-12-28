@@ -61,7 +61,7 @@ public class Controller {
     private class AddStockListener implements ActionListener{
         
         public void actionPerformed(ActionEvent e) {
-            addStockView = new AddStockView();
+            addStockView = new AddStockView(model);
             addStockView.setVisible(true);
             addStockView.setLocation(45, 45);
 
@@ -204,7 +204,7 @@ public class Controller {
         
         public void actionPerformed(ActionEvent e) {
             autom = false;
-            categoriaView = new CategoriaView();
+            categoriaView = new CategoriaView(model);
             categoriaView.setVisible(true);
             categoriaView.setLocation(45, 45);
             

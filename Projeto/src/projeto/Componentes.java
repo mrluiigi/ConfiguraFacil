@@ -5,7 +5,9 @@
  */
 package projeto;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,6 +25,7 @@ public class Componentes {
     public Componentes(){
         this.obrigatorios = new HashMap<>();
         this.opcionais = new HashMap<>();
+        this.obrigatorios.put(1, new Obrigatorio(1, 2, "Ola", 20, "Pneus"));
     }
 
     
@@ -62,5 +65,16 @@ public class Componentes {
     
     public Map<Integer, Opcional> getComponentesOpcionais(){
         return this.opcionais;
+    }
+    
+    public List<Componente> getComponentes(){
+        List<Componente> res = new ArrayList<>();
+        for(Obrigatorio ob : this.obrigatorios.values()){
+            res.add(ob);
+        }
+        for(Opcional op : this.opcionais.values()){
+            res.add(op);
+        }
+        return res;
     }
 }

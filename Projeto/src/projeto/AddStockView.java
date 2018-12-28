@@ -6,6 +6,10 @@
 package projeto;
 
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,8 +18,9 @@ import javax.swing.JOptionPane;
  * @author Luís Correia A81141
  * @author Pedro Barbosa A82068
  */
-public class AddStockView extends javax.swing.JDialog {
+public class AddStockView extends javax.swing.JDialog implements Observer{
 
+    private ConfiguraFacil configuraFacil;
     /**
      * Creates new form AddStockView
      */
@@ -24,9 +29,20 @@ public class AddStockView extends javax.swing.JDialog {
         initComponents();
     }
     
-    public AddStockView(){
+    public AddStockView(ConfiguraFacil config){
         setTitle("Adiciona Stock");
         initComponents();
+        this.configuraFacil = config;
+        
+        this.configuraFacil.addObserver(this);
+        
+        List<Componente> comp = this.configuraFacil.getComponentes();
+        DefaultComboBoxModel<ComboItem> d = new DefaultComboBoxModel<ComboItem>();
+        for(Componente c : comp){
+            d.addElement(new ComboItem(c.getId(), c.getDesignacao()));
+        }
+        lista.setModel(d);
+        stock.setText(Integer.toString(comp.get(0).getStock()));
     }
 
     /**
@@ -38,19 +54,21 @@ public class AddStockView extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        listaComp = new javax.swing.JComboBox<>();
+        lista = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         quantidade = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         adicionar = new javax.swing.JButton();
         ok = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        stock = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        listaComp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        listaComp.addActionListener(new java.awt.event.ActionListener() {
+        lista.setModel(new javax.swing.DefaultComboBoxModel<>());
+        lista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaCompActionPerformed(evt);
+                listaActionPerformed(evt);
             }
         });
 
@@ -72,6 +90,10 @@ public class AddStockView extends javax.swing.JDialog {
             }
         });
 
+        jLabel3.setText("Stock");
+
+        stock.setText("jLabel4");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,23 +101,24 @@ public class AddStockView extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(listaComp, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(stock)
+                    .addComponent(jLabel3))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addComponent(adicionar)
-                        .addGap(16, 16, 16))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(ok)
-                        .addGap(31, 31, 31))))
+                        .addGap(31, 31, 31))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(adicionar)
+                        .addGap(16, 16, 16))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,13 +126,15 @@ public class AddStockView extends javax.swing.JDialog {
                 .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(listaComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(adicionar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                    .addComponent(adicionar)
+                    .addComponent(stock))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(ok)
                 .addGap(26, 26, 26))
         );
@@ -117,9 +142,9 @@ public class AddStockView extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listaCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaCompActionPerformed
+    private void listaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_listaCompActionPerformed
+    }//GEN-LAST:event_listaActionPerformed
 
     private void adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarActionPerformed
         //TODO add your handling code here:
@@ -131,7 +156,7 @@ public class AddStockView extends javax.swing.JDialog {
 
     
     public String getProduto(){
-        return (String) listaComp.getSelectedItem();        //VERIFICAR SE É PRECISO CAST
+        return (String) lista.getSelectedItem();        //VERIFICAR SE É PRECISO CAST
     }
     
     public String getQuantidade(){
@@ -198,8 +223,41 @@ public class AddStockView extends javax.swing.JDialog {
     private javax.swing.JButton adicionar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JComboBox<String> listaComp;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JComboBox<ComboItem> lista;
     private javax.swing.JButton ok;
     private javax.swing.JTextField quantidade;
+    private javax.swing.JLabel stock;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+        int id = ((ComboItem) lista.getSelectedItem()).getId();
+        
+        //ACABAR ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //stock.setText();
+    }
+}
+
+class ComboItem{
+    private int id;
+    private String designacao;
+
+    public ComboItem(int id, String designacao){
+        this.id = id;
+        this.designacao = designacao;
+    }
+    
+    public String toString(){
+        return this.designacao;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getDesignacao() {
+        return designacao;
+    }
+    
 }

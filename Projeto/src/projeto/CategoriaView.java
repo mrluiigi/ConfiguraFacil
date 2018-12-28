@@ -6,13 +6,16 @@
 package projeto;
 
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
  * @author Utilizador
  */
-public class CategoriaView extends javax.swing.JDialog {
+public class CategoriaView extends javax.swing.JDialog implements Observer{
 
+    private ConfiguraFacil configuraFacil;
     /**
      * Creates new form CategoriaView
      */
@@ -21,9 +24,11 @@ public class CategoriaView extends javax.swing.JDialog {
         initComponents();
     }
 
-    public CategoriaView(){
+    public CategoriaView(ConfiguraFacil config){
         setTitle("Categoria");
         initComponents();
+        this.configuraFacil = config;
+        this.configuraFacil.addObserver(this);
     }
     
     /**
@@ -50,7 +55,7 @@ public class CategoriaView extends javax.swing.JDialog {
         jCheckBox4 = new javax.swing.JCheckBox();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        preco = new javax.swing.JLabel();
         retroceder = new javax.swing.JButton();
         confirmar = new javax.swing.JButton();
         interior = new javax.swing.JButton();
@@ -108,7 +113,7 @@ public class CategoriaView extends javax.swing.JDialog {
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel9.setText("Preço Total:");
 
-        jLabel10.setText("precoTotal");
+        preco.setText("precoTotal");
 
         retroceder.setText("Retroceder");
 
@@ -141,7 +146,7 @@ public class CategoriaView extends javax.swing.JDialog {
                                 .addGap(48, 48, 48)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel10))
+                                .addComponent(preco))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(interior)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -211,7 +216,7 @@ public class CategoriaView extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                    .addComponent(preco))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(retroceder)
@@ -315,7 +320,6 @@ public class CategoriaView extends javax.swing.JDialog {
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -324,8 +328,14 @@ public class CategoriaView extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel preco;
     private javax.swing.JButton retroceder;
     private javax.swing.JButton segur;
     private javax.swing.JButton telem;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+        preco.setText(Float.toString(configuraFacil.getPreco()));
+    }
 }

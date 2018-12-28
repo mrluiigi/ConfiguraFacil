@@ -55,6 +55,10 @@ public class Configuracao {
     public String getModelo(){
         return this.modelo;
     }
+
+    public float getPreco() {
+        return preco;
+    }
     
     
     public void adicionaComponenteObrigatorio(int id, float preco){
