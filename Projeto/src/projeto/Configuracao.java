@@ -115,6 +115,10 @@ public class Configuracao {
         this.pronta = false;
     }
     
+    public void removeComponentesObrigatorios(){
+        this.componentesObrigatorios = new ArrayList<>();
+    }
+    
    /* public List<Integer> getTodosComponentes(){
         List<Integer> res = new ArrayList<>();
         for(int i : this.componentesObrigatorios){

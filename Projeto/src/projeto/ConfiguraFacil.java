@@ -30,6 +30,10 @@ public class ConfiguraFacil extends Observable{
         this.notifyObservers();
     }
 
+    public List<Obrigatorio> getObrigatorios(){
+        return this.componentes.getObrigatorios();
+    }
+    
     public List<Componente> getComponentes() {
         return componentes.getComponentes();
     }
@@ -47,6 +51,13 @@ public class ConfiguraFacil extends Observable{
         Obrigatorio obrigatorio;
         obrigatorio = this.componentes.getObrigatorio(id);
         this.configuracao.adicionaComponenteObrigatorio(id, obrigatorio.getPreco());
+        
+        this.setChanged();
+        this.notifyObservers();
+    }
+    
+    public void removeComponenteObrigatorio(){
+        this.configuracao.removeComponentesObrigatorios();
         
         this.setChanged();
         this.notifyObservers();

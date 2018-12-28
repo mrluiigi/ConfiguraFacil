@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -21,6 +22,10 @@ public class Componentes {
     private Map<Integer, Opcional> opcionais;
     private float precoMaisBarato;
 
+    
+    public List<Obrigatorio> getObrigatorios(){
+        return this.obrigatorios.values().stream().collect(Collectors.toList());
+    }
 
     public Componentes(){
         this.obrigatorios = new HashMap<>();
@@ -53,6 +58,14 @@ public class Componentes {
         this.obrigatorios.put(21, new Obrigatorio(21, 550, "AMG multiraios de 21\"", 73, "Jantes"));
         this.obrigatorios.put(22, new Obrigatorio(22, 750, "Liga leve de 5 raios duplos de 20\"", 38, "Jantes"));
         this.obrigatorios.put(23, new Obrigatorio(23, 1250, "Forjadas de raios cruzados de 21\"", 20, "Jantes"));
+        this.obrigatorios.put(24, new Obrigatorio(24, 25000, "CLS", 5, "Modelo"));
+        this.obrigatorios.put(25, new Obrigatorio(25, 27000, "GLE", 10, "Modelo"));
+        this.obrigatorios.put(26, new Obrigatorio(26, 30000, "GLC", 7, "Modelo"));
+        this.obrigatorios.put(27, new Obrigatorio(27, 31000, "Classe G SUV", 9, "Modelo"));
+
+
+
+
         
         // necessarios, incompativeis, int pertencePacote, int id, float preco, String designacao, int stock, String categoria
         this.opcionais.put(1, new Opcional(new ArrayList<>(), new ArrayList<Integer>() {{add(2); add(3); add(4); add(5);}}, 0, 1, 750, "Piano preto lacado", 50, "Acabamentos interiores"));

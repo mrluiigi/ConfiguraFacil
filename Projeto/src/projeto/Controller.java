@@ -139,13 +139,11 @@ public class Controller {
     private class CriarConfigListener implements ActionListener{
 
         public void actionPerformed(ActionEvent e) {
-            criarConfigView = new CriarConfigView();
+            criarConfigView = new CriarConfigView(model);
             criarConfigView.setVisible(true);
             criarConfigView.setLocation(45, 45);
             
             criarConfigView.seguinteListener(new EscolhaListener());
-            
-            //ACABAR OS LISTENERS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
     }
     
@@ -153,16 +151,38 @@ public class Controller {
     private class EscolhaListener implements ActionListener{
         
         public void actionPerformed(ActionEvent e) {
-            escolhaView = new EscolhaView();
-            escolhaView.setVisible(true);
-            escolhaView.setLocation(45, 45);
+            if(criarConfigView.areAllSelected()){
+                model.adicionaComponenteObrigatorio(criarConfigView.getModelo());
+                model.adicionaComponenteObrigatorio(criarConfigView.getMotor());
+                model.adicionaComponenteObrigatorio(criarConfigView.getPintura());
+                model.adicionaComponenteObrigatorio(criarConfigView.getEstofos());
+                model.adicionaComponenteObrigatorio(criarConfigView.getJantes());
 
-        
-            escolhaView.retrocederListener(new RetrocederListener(escolhaView));
-            escolhaView.automaticoListener(new AutomaticoListener());
-            escolhaView.manualListener(new ManualListener());
-            //LISTENERS
+
+                escolhaView = new EscolhaView();
+                escolhaView.setVisible(true);
+                escolhaView.setLocation(45, 45);
+
+
+                escolhaView.retrocederListener(new RetrocederEscolhaListener(escolhaView));
+                escolhaView.automaticoListener(new AutomaticoListener());
+                escolhaView.manualListener(new ManualListener());
+            }
         }   
+    }
+    
+    private class RetrocederEscolhaListener implements ActionListener{
+        JDialog view;
+        
+        public RetrocederEscolhaListener(JDialog view){
+            this.view = view;
+        }
+        
+        public void actionPerformed(ActionEvent e) {
+            model.removeComponenteObrigatorio();
+            view.dispose();
+        }
+        
     }
     
     

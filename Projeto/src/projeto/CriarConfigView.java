@@ -6,6 +6,8 @@
 package projeto;
 
 import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -15,6 +17,8 @@ import java.awt.event.ActionListener;
  */
 public class CriarConfigView extends javax.swing.JDialog {
 
+    private ConfiguraFacil configuraFacil;
+    
     /**
      * Creates new form CriarConfigView
      */
@@ -23,9 +27,44 @@ public class CriarConfigView extends javax.swing.JDialog {
         initComponents();
     }
     
-    public CriarConfigView(){
+    public CriarConfigView(ConfiguraFacil config){
         setTitle("Opções Obrigatórias");
         initComponents();
+        this.configuraFacil = config;
+        
+        DefaultListModel<ListOb> mod = new DefaultListModel<ListOb>();
+        DefaultListModel<ListOb> mot = new DefaultListModel<ListOb>();
+        DefaultListModel<ListOb> pin = new DefaultListModel<ListOb>();
+        DefaultListModel<ListOb> est = new DefaultListModel<ListOb>();
+        DefaultListModel<ListOb> jan = new DefaultListModel<ListOb>();
+
+
+
+        List<Obrigatorio> obrigatorios = this.configuraFacil.getObrigatorios();
+        
+        for(Obrigatorio o : obrigatorios){
+            if(o.getCategoria().equals("Modelo")){
+                mod.addElement(new ListOb(o.getId(), o.getDesignacao()));
+            }
+            else if(o.getCategoria().equals("Motor")){
+                mot.addElement(new ListOb(o.getId(), o.getDesignacao()));
+            }
+            else if(o.getCategoria().equals("Pintura")){
+                pin.addElement(new ListOb(o.getId(), o.getDesignacao()));
+            }
+            else if(o.getCategoria().equals("Estofos")){
+                est.addElement(new ListOb(o.getId(), o.getDesignacao()));
+            }
+            else if(o.getCategoria().equals("Jantes")){
+                jan.addElement(new ListOb(o.getId(), o.getDesignacao()));
+            }
+        }
+        
+        modelo.setModel(mod);      
+        motor.setModel(mot);
+        pintura.setModel(pin);
+        estofos.setModel(est);
+        jantes.setModel(jan);
     }
 
     /**
@@ -44,15 +83,15 @@ public class CriarConfigView extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        modelo = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        motor = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
+        pintura = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList<>();
+        estofos = new javax.swing.JList<>();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jList5 = new javax.swing.JList<>();
+        jantes = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -78,40 +117,15 @@ public class CriarConfigView extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("Jantes");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(modelo);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(motor);
 
-        jList3.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList3);
+        jScrollPane3.setViewportView(pintura);
 
-        jList4.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane4.setViewportView(jList4);
+        jScrollPane4.setViewportView(estofos);
 
-        jList5.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane5.setViewportView(jList5);
+        jScrollPane5.setViewportView(jantes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -175,12 +189,10 @@ public class CriarConfigView extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(jScrollPane3)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(0, 0, Short.MAX_VALUE))))))
@@ -246,21 +258,67 @@ public class CriarConfigView extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<ListOb> estofos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JList<String> jList3;
-    private javax.swing.JList<String> jList4;
-    private javax.swing.JList<String> jList5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JList<ListOb> jantes;
+    private javax.swing.JList<ListOb> modelo;
+    private javax.swing.JList<ListOb> motor;
+    private javax.swing.JList<ListOb> pintura;
     private javax.swing.JButton seguinte;
     // End of variables declaration//GEN-END:variables
+
+    public int getModelo(){
+        return modelo.getSelectedValue().getId();
+    }
+    
+    public int getMotor(){
+        return motor.getSelectedValue().getId();
+    }
+    
+    public int getPintura(){
+        return pintura.getSelectedValue().getId();
+    }
+    
+    public int getEstofos(){
+        return estofos.getSelectedValue().getId();
+    }
+    
+    public int getJantes(){
+        return jantes.getSelectedValue().getId();
+    }
+    
+    public boolean areAllSelected(){
+        return !modelo.isSelectionEmpty() && 
+               !motor.isSelectionEmpty() &&
+               !pintura.isSelectionEmpty() &&
+               !estofos.isSelectionEmpty() &&
+               !jantes.isSelectionEmpty();
+    }
+}
+
+class ListOb{
+    private int id;
+    private String designacao;
+    
+    public ListOb(int id, String d){
+        this.id = id;
+        this.designacao = d;
+    }
+    
+    public String toString(){
+        return this.designacao;
+    }
+    
+    public int getId(){
+        return this.id;
+    }
 }
