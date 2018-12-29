@@ -6,9 +6,12 @@
 package projeto;
 
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JCheckBox;
+
+
 
 /**
  *
@@ -27,13 +30,9 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
 
     public CategoriaView(ConfiguraFacil config){
         initComponents();
-        JCheckBox cb = new javax.swing.JCheckBox("ola");
-        CheckBoxList cl = new CheckBoxList();
-        cl.addCheckbox(cb);
-        cb.setVisible(true);
-        cl.setVisible(true);
-        cl.setOpaque(true);
-        cb.setOpaque(true);
+        CheckboxList cbl = new CheckboxList();
+        teste = cbl.showCheckBoxList(config.getComponentes());
+        jScrollPane1.setViewportView(teste);
 
         setTitle("Categoria");
         this.configuraFacil = config;
@@ -69,6 +68,8 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
         confirmar = new javax.swing.JButton();
         interior = new javax.swing.JButton();
         telem = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        teste = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -137,60 +138,70 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
 
         telem.setText("Telemática");
 
+        jScrollPane1.setViewportView(teste);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(interior)
-                .addGap(6, 6, 6)
-                .addComponent(exterior))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(interior)
+                        .addGap(6, 6, 6)
+                        .addComponent(exterior))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel5)
+                        .addGap(129, 129, 129)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jCheckBox3)
+                        .addGap(107, 107, 107)
+                        .addComponent(jLabel7))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jCheckBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(102, 102, 102)
+                        .addComponent(jLabel8))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel9)
+                        .addGap(12, 12, 12)
+                        .addComponent(preco))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(retroceder)
+                        .addGap(107, 107, 107)
+                        .addComponent(confirmar)))
+                .addContainerGap(396, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(segur)
-                .addGap(44, 44, 44)
-                .addComponent(telem))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jLabel1)
-                .addGap(121, 121, 121)
-                .addComponent(jLabel2))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jCheckBox1)
-                .addGap(102, 102, 102)
-                .addComponent(jLabel3))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jCheckBox2)
-                .addGap(102, 102, 102)
-                .addComponent(jLabel4))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jLabel5)
-                .addGap(129, 129, 129)
-                .addComponent(jLabel6))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jCheckBox3)
-                .addGap(107, 107, 107)
-                .addComponent(jLabel7))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jCheckBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(102, 102, 102)
-                .addComponent(jLabel8))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jLabel9)
-                .addGap(12, 12, 12)
-                .addComponent(preco))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(retroceder)
-                .addGap(107, 107, 107)
-                .addComponent(confirmar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(segur)
+                        .addGap(44, 44, 44)
+                        .addComponent(telem))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel1)
+                        .addGap(121, 121, 121)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jCheckBox1)
+                        .addGap(102, 102, 102)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jCheckBox2)
+                        .addGap(102, 102, 102)
+                        .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(186, 186, 186))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,29 +210,34 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(interior)
                     .addComponent(exterior))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(segur)
-                    .addComponent(telem))
-                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(jLabel1))
-                    .addComponent(jLabel2))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(segur)
+                            .addComponent(telem))
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel1))
+                            .addComponent(jLabel2))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBox1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel3)))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBox2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(jLabel4))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel3)))
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jLabel4)))
-                .addGap(43, 43, 43)
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(5, 5, 5)
@@ -353,10 +369,12 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel preco;
     private javax.swing.JButton retroceder;
     private javax.swing.JButton segur;
     private javax.swing.JButton telem;
+    private javax.swing.JList<CheckboxListItem> teste;
     // End of variables declaration//GEN-END:variables
 
     @Override
