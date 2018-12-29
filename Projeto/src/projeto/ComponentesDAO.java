@@ -42,7 +42,7 @@ public class ComponentesDAO {
             e.printStackTrace(System.out);
         } finally { 
             //close the connection 
-            con.close(); 
+             
         }
         
         return o;
@@ -82,7 +82,7 @@ public class ComponentesDAO {
             e.printStackTrace(System.out);
         } finally { 
             //close the connection 
-            con.close(); 
+             
         }
         
         return o;
@@ -108,7 +108,7 @@ public class ComponentesDAO {
             e.printStackTrace(System.out);
         } finally { 
             //close the connection 
-            con.close(); 
+             
         }
         
         return false;
@@ -129,7 +129,7 @@ public class ComponentesDAO {
             e.printStackTrace(System.out);
         } finally { 
             //close the connection 
-            con.close(); 
+             
         }
     }
     
@@ -148,7 +148,7 @@ public class ComponentesDAO {
             e.printStackTrace(System.out);
         } finally { 
             //close the connection 
-            con.close(); 
+             
         }
     }
     
@@ -165,14 +165,14 @@ public class ComponentesDAO {
             e.printStackTrace(System.out);
         } finally { 
             //close the connection 
-            con.close(); 
+             
         }
         
         return preco;
     }
     
     
-    public List<Obrigatorio> getObrigatorios() throws SQLException {
+    public List<Obrigatorio> getComponentesObrigatorios() throws SQLException {
         Statement st;
         st = con.createStatement();
         List<Obrigatorio> res = new ArrayList<>();
@@ -193,7 +193,7 @@ public class ComponentesDAO {
             e.printStackTrace(System.out);
         } finally { 
             //close the connection 
-            con.close(); 
+             
         }
         
         return res;
@@ -209,25 +209,32 @@ public class ComponentesDAO {
             ResultSet rs = st.executeQuery("Select * FROM opcional;");
             
             while(rs.next()) {
-                int id = Integer.parseInt(rs.getString("ID"));
+                int id = Integer.parseInt(rs.getString("ID"));              
                 float preco = Float.parseFloat(rs.getString("preco"));
                 String designacao = rs.getString("Designacao");
                 int stock = Integer.parseInt(rs.getString("Stock"));
                 String categoria = rs.getString("Categoria");
-                
+                System.out.println(categoria);
+                String pertence = rs.getString("Pacote_ID");
+                int pertencePacote;
+                if (pertence != null) {
+                    pertencePacote = Integer.parseInt(rs.getString("Pacote_ID"));
+                }
+                else pertencePacote = 0;
+
+                Statement stn = con.createStatement();
                 List<Integer> necessarios = new ArrayList();
-                ResultSet rsNec = st.executeQuery("SELECT Necessitado FROM ComponenteNecessitaComponente WHERE Necessita = " + id +";");
+                ResultSet rsNec = stn.executeQuery("SELECT Necessitado FROM ComponenteNecessitaComponente WHERE Necessita = " + id +";");
                 while(rsNec.next()) {
                     necessarios.add(Integer.parseInt(rsNec.getString("Necessitado")));
                 }
-                
+                Statement sti = con.createStatement();
                 List<Integer> incompativeis = new ArrayList();
-                ResultSet rsInc = st.executeQuery("SELECT Opcional_ID1 FROM ComponenteIncompatívelComponente WHERE Opcional_ID = " + id +";");
+                ResultSet rsInc = sti.executeQuery("SELECT Opcional_ID1 FROM ComponenteIncompatívelComponente WHERE Opcional_ID = " + id +";");
                     while(rsInc.next()) {
                         incompativeis.add(Integer.parseInt(rsInc.getString("Opcional_ID1")));
                     }
 
-                int pertencePacote = Integer.parseInt(rs.getString("Pacote_ID"));
                 
                 res.add(new Opcional(necessarios, incompativeis, pertencePacote, id, preco, designacao, stock, categoria));
             }
@@ -235,9 +242,8 @@ public class ComponentesDAO {
             e.printStackTrace(System.out);
         } finally { 
             //close the connection 
-            con.close(); 
+             
         }
-        
         return res;
     }
     
@@ -245,11 +251,64 @@ public class ComponentesDAO {
     public List<Componente> getComponentes() throws SQLException {
         List<Componente> res = new ArrayList<>();
         
-        for(Obrigatorio ob : getObrigatorios()){
+        for(Obrigatorio ob : getComponentesObrigatorios()){
             res.add(ob);
         }
         for(Opcional op : getComponentesOpcionais()){
             res.add(op);
+        }
+        
+        return res;
+    }
+    
+    public List<Pacote> getPacotes() throws SQLException {
+        Statement st;
+        st = con.createStatement();
+        List<Pacote> res = new ArrayList<>();
+        
+        try {
+            ResultSet rs = st.executeQuery("Select * FROM Pacote;");
+            
+            while(rs.next()) {
+                int id = Integer.parseInt(rs.getString("ID"));
+                float preco = Float.parseFloat(rs.getString("preco"));
+                String categoria = rs.getString("Categoria");
+                
+                Statement stp = con.createStatement();
+                List<Integer> componentesPacote = new ArrayList();
+                ResultSet rsPac = stp.executeQuery("SELECT ID FROM Opcional WHERE Pacote_ID = " + id +";");
+                while(rsPac.next()) {
+                    componentesPacote.add(Integer.parseInt(rsPac.getString("ID")));
+                }
+                
+                Statement stn = con.createStatement();
+                List<Integer> componentesNecessarios = new ArrayList();
+                ResultSet rsNec = stn.executeQuery("SELECT Opcional_ID FROM PacoteNecessitaComponente WHERE Pacote_ID = " + id +";");
+                while(rsNec.next()) {
+                    componentesNecessarios.add(Integer.parseInt(rsNec.getString("Opcional_ID")));
+                }
+                
+                Statement sti = con.createStatement();
+                List<Integer> componentesIncompativeis = new ArrayList();
+                ResultSet rsInc = sti.executeQuery("SELECT Opcional_ID FROM PacoteIncompatívelComponente WHERE Pacote_ID = " + id +";");
+                while(rsInc.next()) {
+                    componentesIncompativeis.add(Integer.parseInt(rsInc.getString("Opcional_ID")));
+                }
+                Statement stpi = con.createStatement();
+                List<Integer> pacotesIncompativeis = new ArrayList();
+                ResultSet rsPctsInc = stpi.executeQuery("SELECT Pacote_ID FROM PacoteIncompatívelPacote WHERE Pacote_ID1 = " + id +";");
+                while(rsPctsInc.next()) {
+                    componentesIncompativeis.add(Integer.parseInt(rsPctsInc.getString("Pacote_ID")));
+                }
+
+                
+                res.add(new Pacote(id,categoria,  componentesPacote,  pacotesIncompativeis, componentesIncompativeis, componentesNecessarios));
+            }
+        } catch (SQLException e) { 
+            e.printStackTrace(System.out);
+        } finally { 
+            //close the connection 
+             
         }
         
         return res;

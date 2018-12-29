@@ -5,7 +5,9 @@
  */
 package projeto;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -25,8 +27,8 @@ public class Pacotes {
         return precoPacoteMaisBarato;
     }
 
-    public Map<Integer, Pacote> getPacotes() {
-        return pacotes;
+    public List<Pacote> getPacotes() {
+        return pacotes.values().stream().collect(Collectors.toList());
     }
     
     

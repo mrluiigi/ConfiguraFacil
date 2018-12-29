@@ -6,9 +6,12 @@
 package projeto;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,6 +19,7 @@ import java.util.Observable;
  */
 public class ConfiguraFacil extends Observable{
     private Connection con;
+    private ComponentesDAO componentesDAO;
     private Configuracoes configuracoes;
     private Pacotes pacotes;
     private Componentes componentes;
@@ -23,6 +27,7 @@ public class ConfiguraFacil extends Observable{
     
     public ConfiguraFacil(Connection con) {
         this.configuracoes = new Configuracoes();
+        this.componentesDAO = new ComponentesDAO(con);
         this.pacotes = new Pacotes();
         this.componentes = new Componentes();
         this.configuracao = new Configuracao();
@@ -31,12 +36,34 @@ public class ConfiguraFacil extends Observable{
         this.notifyObservers();
     }
 
-    public List<Obrigatorio> getObrigatorios(){
-        return this.componentes.getObrigatorios();
+    public List<Obrigatorio> getObrigatorios() {
+        try {
+            return this.componentesDAO.getComponentesObrigatorios();
+            // return this.componentes.getObrigatorios();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConfiguraFacil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
-    
+    public List<Opcional> getOpcionais() {
+        try {
+            return this.componentesDAO.getComponentesOpcionais();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConfiguraFacil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     public List<Componente> getComponentes() {
         return componentes.getComponentes();
+    }
+    
+    public List<Pacote> getPacotes() {
+        try {
+            return componentesDAO.getPacotes();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConfiguraFacil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     public int getStockComponente(int id){
@@ -305,7 +332,7 @@ public class ConfiguraFacil extends Observable{
         List<Pacote> ordenadoPreco = new ArrayList<>();
         float precoMaisBarato = this.pacotes.getPrecoPacoteMaisBarato();
         
-        for(Pacote p : this.pacotes.getPacotes().values()){
+        for(Pacote p : this.pacotes.getPacotes()){
             ordenadoPreco.add(p);
         }
         ordenadoPreco.sort(new PacotePrecoComparator());

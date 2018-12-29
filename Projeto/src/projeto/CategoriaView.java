@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.stream.Collectors;
 import javax.swing.JCheckBox;
 
 
@@ -31,7 +32,18 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
     public CategoriaView(ConfiguraFacil config){
         initComponents();
         CheckboxList cbl = new CheckboxList();
-        teste = cbl.showCheckBoxList(config.getComponentes());
+        teste = cbl.showCheckBoxList(config.getOpcionais().stream().filter(c -> c.getCategoria().equals("Segurança")).collect(Collectors.toList()));
+        List<Pacote> pacotes = config.getPacotes().stream().filter(c -> c.getCategoria().equals("segurança")).collect(Collectors.toList());
+        int size = pacotes.size();
+        if(size < 2) {
+            listaPacote2.setVisible(false);
+            checkBoxPacote2.setVisible(false);
+            if (size < 1) {
+                listaPacote1.setVisible(false);
+                checkBoxPacote1.setVisible(false);
+            }
+        }
+        
         jScrollPane1.setViewportView(teste);
 
         setTitle("Categoria");
@@ -50,18 +62,8 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
 
         exterior = new javax.swing.JButton();
         segur = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jLabel2 = new javax.swing.JLabel();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jLabel7 = new javax.swing.JLabel();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jLabel8 = new javax.swing.JLabel();
+        checkBoxPacote1 = new javax.swing.JCheckBox();
+        checkBoxPacote2 = new javax.swing.JCheckBox();
         jLabel9 = new javax.swing.JLabel();
         preco = new javax.swing.JLabel();
         retroceder = new javax.swing.JButton();
@@ -70,6 +72,10 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
         telem = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         teste = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listaPacote1 = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        listaPacote2 = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -87,38 +93,9 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel1.setText("Produtos");
+        checkBoxPacote1.setText("Pacote 1");
 
-        jCheckBox1.setText("Produto 1");
-
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel2.setText("Preço");
-
-        jCheckBox2.setText("Produto 2");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Preço 1");
-
-        jLabel4.setText("Preço 2");
-
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel5.setText("Pacotes");
-
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel6.setText("Preço");
-
-        jCheckBox3.setText("Pacote 1");
-
-        jLabel7.setText("Preço 1");
-
-        jCheckBox4.setText("Pacote 2");
-
-        jLabel8.setText("Preço 2");
+        checkBoxPacote2.setText("Pacote 2");
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel9.setText("Preço Total:");
@@ -140,6 +117,20 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
 
         jScrollPane1.setViewportView(teste);
 
+        listaPacote1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(listaPacote1);
+
+        listaPacote2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(listaPacote2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,21 +143,6 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
                         .addGap(6, 6, 6)
                         .addComponent(exterior))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jLabel5)
-                        .addGap(129, 129, 129)
-                        .addComponent(jLabel6))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jCheckBox3)
-                        .addGap(107, 107, 107)
-                        .addComponent(jLabel7))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jCheckBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(102, 102, 102)
-                        .addComponent(jLabel8))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addComponent(jLabel9)
                         .addGap(12, 12, 12)
@@ -176,84 +152,56 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
                         .addComponent(retroceder)
                         .addGap(107, 107, 107)
                         .addComponent(confirmar)))
-                .addContainerGap(396, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
                         .addComponent(segur)
                         .addGap(44, 44, 44)
-                        .addComponent(telem))
+                        .addComponent(telem)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jLabel1)
-                        .addGap(121, 121, 121)
-                        .addComponent(jLabel2))
+                        .addGap(41, 41, 41)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jCheckBox1)
-                        .addGap(102, 102, 102)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jCheckBox2)
-                        .addGap(102, 102, 102)
-                        .addComponent(jLabel4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(186, 186, 186))
+                        .addGap(26, 26, 26)
+                        .addComponent(checkBoxPacote1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(122, 122, 122))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(checkBoxPacote2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(97, 97, 97))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(interior)
-                    .addComponent(exterior))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(interior)
+                            .addComponent(exterior))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(segur)
                             .addComponent(telem))
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel1))
-                            .addComponent(jLabel2))
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLabel3)))
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(jLabel4))))
+                        .addGap(9, 9, 9)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel5))
-                    .addComponent(jLabel6))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox3)
-                    .addComponent(jLabel7))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jCheckBox4))
-                    .addComponent(jLabel8))
-                .addGap(29, 29, 29)
+                        .addGap(65, 65, 65)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(checkBoxPacote2)
+                            .addComponent(checkBoxPacote1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -271,10 +219,6 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
     private void exteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exteriorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_exteriorActionPerformed
-
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void interiorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_interiorActionPerformed
         // TODO add your handling code here:
@@ -353,23 +297,17 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkBoxPacote1;
+    private javax.swing.JCheckBox checkBoxPacote2;
     private javax.swing.JButton confirmar;
     private javax.swing.JButton exterior;
     private javax.swing.JButton interior;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JList<String> listaPacote1;
+    private javax.swing.JList<String> listaPacote2;
     private javax.swing.JLabel preco;
     private javax.swing.JButton retroceder;
     private javax.swing.JButton segur;

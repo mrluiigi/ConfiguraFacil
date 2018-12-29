@@ -45,7 +45,7 @@ public class ConfiguraçõesDAO {
                 e.printStackTrace(System.out);
         } finally { 
             //close the connection 
-            con.close(); 
+      
         } 
     }
     
@@ -84,7 +84,7 @@ public class ConfiguraçõesDAO {
                 e.printStackTrace(System.out);
         } finally { 
             //close the connection 
-            con.close();
+            
             return res;
         } 
     }

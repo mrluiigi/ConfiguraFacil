@@ -14,7 +14,7 @@ import javax.swing.ListSelectionModel;
  
 public class CheckboxList {
  
-   public JList<CheckboxListItem> showCheckBoxList (List<Componente> componentes) {
+   public JList<CheckboxListItem> showCheckBoxList (List<Opcional> componentes) {
      // JFrame frame = new JFrame();
      // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  
