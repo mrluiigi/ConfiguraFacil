@@ -55,7 +55,7 @@ public class ComponentesDAO {
         
         try { 
             st = con.createStatement(); 
-            ResultSet rs = st.executeQuery("SELECT * FROM obrigatório WHERE ID = " + id + ";");
+            ResultSet rs = st.executeQuery("SELECT * FROM opcional WHERE ID = " + id + ";");
             
             float preco = Float.parseFloat(rs.getString("Preco"));
             String designacao = rs.getString("Designacao");
@@ -236,6 +236,20 @@ public class ComponentesDAO {
         } finally { 
             //close the connection 
             con.close(); 
+        }
+        
+        return res;
+    }
+    
+    
+    public List<Componente> getComponentes() throws SQLException {
+        List<Componente> res = new ArrayList<>();
+        
+        for(Obrigatorio ob : getObrigatorios()){
+            res.add(ob);
+        }
+        for(Opcional op : getComponentesOpcionais()){
+            res.add(op);
         }
         
         return res;
