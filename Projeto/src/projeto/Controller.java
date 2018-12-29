@@ -219,11 +219,10 @@ public class Controller {
             
             if( !(orcamento = automaticoView.getOrcamento()).equals("") ){
                 try{
-                    //FAZ METODO CONFIGURAÇAO OTIMA
-                    resumoView = new ResumoView();  //PROVAVELMENTE RECEBE PARAMETROS
+                    Configuracao c = model.configuracaoOptima(Float.parseFloat(orcamento));
+                    resumoView = new ResumoView(model, c);  //PROVAVELMENTE RECEBE PARAMETROS
                     resumoView.setVisible(true);
                     resumoView.setLocation(45, 45);
-
 
                     resumoView.retrocederListener(new RetrocederListener(resumoView));
                     resumoView.confirmarListener(new VoltaInicioListener());
@@ -298,7 +297,7 @@ public class Controller {
     private class ResumoListener implements ActionListener{
         
         public void actionPerformed(ActionEvent e){
-            resumoView = new ResumoView();  //PROVAVELMENTE RECEBE PARAMETROS
+            resumoView = new ResumoView(model, new Configuracao());  //PROVAVELMENTE RECEBE PARAMETROS----------ALTERAR PARAMETROS
             resumoView.setVisible(true);
             resumoView.setLocation(45, 45);
 
