@@ -339,7 +339,7 @@ public class ConfiguraFacil extends Observable{
         List<Opcional> ordenadoPreco = new ArrayList<>();
         float precoMaisBarato = this.componentes.getPrecoComponenteOpcionalMaisBarato();
         
-        for(Opcional o : this.componentes.getComponentesOpcionais().values()){
+        for(Opcional o : this.componentes.getComponentesOpcionais()){
             ordenadoPreco.add(o);
         }
         ordenadoPreco.sort(new ComponentePrecoComparator());

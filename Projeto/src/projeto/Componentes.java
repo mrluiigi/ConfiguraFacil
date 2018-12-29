@@ -24,11 +24,6 @@ public class Componentes {
     private Map<Integer, Opcional> opcionais;
     private float precoMaisBarato;
 
-    
-    public List<Obrigatorio> getObrigatorios(){
-        return this.obrigatorios.values().stream().collect(Collectors.toList());
-    }
-
     public Componentes(){
         this.obrigatorios = new HashMap<>();
         this.opcionais = new HashMap<>();
@@ -139,8 +134,12 @@ public class Componentes {
         return this.precoMaisBarato;
     }
     
-    public Map<Integer, Opcional> getComponentesOpcionais(){
-        return this.opcionais;
+    public List<Obrigatorio> getObrigatorios(){
+        return this.obrigatorios.values().stream().collect(Collectors.toList());
+    }
+    
+    public List <Opcional> getComponentesOpcionais(){
+        return this.opcionais.values().stream().collect(Collectors.toList());
     }
     
     public List<Componente> getComponentes(){

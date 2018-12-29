@@ -20,7 +20,7 @@ INSERT INTO opcional
         (2, 3650, "AMG carbono mate", 13, "Acabamentos interiores", NULL),
         (3, 3650, "AMG fibra de carbono", 17, "Acabamentos interiores", NULL),
         (4, 500, "Madeira de freixo", 25, "Acabamentos interiores", NULL),
-        (5, 10, "Madeira de freixo cinzento", 20, "Acabamentos interiores", NULL),
+        (5, 500, "Madeira de freixo cinzento", 20, "Acabamentos interiores", NULL),
         
         (6, 500, "Vidros laterais escurecidos", 48, "Acabamentos exteriores", 1),
         (7, 450, "Teto escurecido", 30, "Acabamentos exteriores", 1),
