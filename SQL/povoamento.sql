@@ -11,7 +11,7 @@ INSERT INTO opcional
         
         (6, 500, "Vidros laterais escurecidos", 48, "Acabamentos exteriores", NULL),
         (7, 450, "Teto escurecido", 30, "Acabamentos exteriores", NULL),
-        (8, 1200, "Cobertura do motor em carbono", 20, "Acabamentos exteriores", NULL),
+        (8, 1200, "Cobertura do motor e teto em carbono", 20, "Acabamentos exteriores", NULL),
         (9, 750, "Teto panorâmico", 13, "Acabamentos exteriores", NULL),
         (10, 500, "Pinça de travões colorida", 89, "Acabamentos exteriores", NULL),
         (11, 3000, "Spoiler traseiro", 7, "Acabamentos exteriores", NULL),
@@ -69,10 +69,96 @@ INSERT INTO obrigatório
 
 SELECT * FROM obrigatório;
 
+INSERT INTO pacote
+		(ID, Categorai, preco)
+        VALUES
+        (1, "exteriores", 10), 
+        (2, "exteriores", 11),
+        (3, "segurança", 12),
+        (4, "segurança", 13),
+        (5, "telemática", 14);
+
+SELECT * FROM pacote;
 
 
+INSERT INTO componentenecessitacomponente
+		(Necessita, Necessitado)
+        VALUES
+        (7, 9),
+        (14, 19),
+        (15, 19),
+        (16, 19),
+        (20, 19),
+        (23, 24);
+
+SELECT * FROM componentenecessitacomponente;
 
 
+INSERT INTO componenteincompatívelcomponente
+		(Opcional_ID, OPCIONAL_ID1)
+        VALUES
+        (1, 2),
+        (1, 3),
+        (1, 4),
+        (1, 5),
+        (2, 1),
+        (2, 3),
+        (2, 4),
+        (2, 5),
+        (3, 1),
+        (3, 2),
+        (3, 4),
+        (3, 5),
+        (4, 1),
+        (4, 2),
+        (4, 3),
+        (4, 5),
+        (5, 1),
+        (5, 2),
+        (5, 3),
+        (5, 4),
+        (7, 8),
+        (8, 7),
+        (8, 9),
+        (9, 8),
+        (13, 19),
+        (19, 13),
+        (14, 13),
+        (13, 14),
+        (15, 13),
+        (13, 15),
+        (16, 13),
+        (13, 16),
+        (20, 13),
+        (13, 20),
+        (22, 26),
+        (26, 22),
+        (27, 28),
+        (28, 27);
+        
+SELECT * FROM componenteincompatívelcomponente;
+
+
+INSERT INTO pacoteincompatívecomponente
+		(Pacote_ID, Opcional_ID)
+        VALUES
+        (1, 8),
+        (2, 9),
+        (2, 7),
+        (3, 13),
+        (5, 26),
+        (5, 27);
+
+SELECT * FROM pacoteincompatívecomponente;
+
+
+INSERT INTO pacotenecessitacomponente
+		(Pacote_ID, Opcional_ID)
+        VALUES
+        (1, 9),
+        (3, 19);
+
+SELECT * FROM pacotenecessitacomponente;
 
 SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE opcional;
