@@ -28,7 +28,7 @@ public class ConfiguraçõesDAO {
         Statement st;
         try { 
             st = con.createStatement(); 
-            st.executeUpdate("INSERT INTO Configuração (NIF_Cliente, Pronta) VALUES (" + c.getNif() + ", 0)"); 
+            st.executeUpdate("INSERT INTO Configuração (NIF_Cliente, Pronta, Preco, Modelo) VALUES (" + c.getNif() + ",0," + c.getPreco() + "," + c.getModelo() + ")"); 
             ResultSet rs = st.executeQuery("SELECT MAX(ID) AS LastID FROM Configuração;"); 
             int idConfig = Integer.parseInt(rs.getString("LastID"));
             for(int i : c.getComponentesObrigatorios()) {
@@ -55,10 +55,12 @@ public class ConfiguraçõesDAO {
         List<Configuracao> res = new ArrayList<>();
         try { 
             st = con.createStatement(); 
-            ResultSet rs = st.executeQuery("Select ID, NIF_Cliente, Pronta FROM Configuração WHERE PRONTA = 0;"); 
+            ResultSet rs = st.executeQuery("Select ID, NIF_Cliente, Pronta, Modelo, Preco FROM Configuração WHERE PRONTA = 0;"); 
             while(rs.next()) {
                 int id = Integer.parseInt(rs.getString("ID"));
                 String nif = rs.getString("NIF_Cliente");
+                String modelo = rs.getString("Modelo");
+                float preco = Float.parseFloat(rs.getString("Preco"));
                 
                 List <Integer> obgs =  new ArrayList<>();
                 ResultSet rsObgs = st.executeQuery("SELECT Obrigatório_ID FROM ConfiguraçãoObrigatórios WHERE Configuração_ID =" + id +";");
@@ -68,9 +70,15 @@ public class ConfiguraçõesDAO {
                 
                 List <Integer> opts =  new ArrayList<>();
                 ResultSet rsOpts = st.executeQuery("SELECT Opcional_ID FROM ConfiguraçãoOpcionais WHERE Configuração_ID =" + id +";");
-                while(rsObgs.next()) {
-                    opts.add(Integer.parseInt(rsObgs.getString("Opcional_ID")));
+                while(rsOpts.next()) {
+                    opts.add(Integer.parseInt(rsOpts.getString("Opcional_ID")));
                 }
+                List <Integer> pcts =  new ArrayList<>();
+                ResultSet rsPcts = st.executeQuery("SELECT Pacote_ID FROM ConfiguraçãoPacotes WHERE Configuração_ID =" + id +";");
+                while(rsPcts.next()) {
+                    pcts.add(Integer.parseInt(rsOpts.getString("Opcional_ID")));
+                }
+                res.add(new Configuracao(id, nif, modelo, preco, obgs, opts, pcts, false));
             }
         } catch (SQLException e) { 
                 e.printStackTrace(System.out);

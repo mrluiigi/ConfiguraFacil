@@ -27,7 +27,7 @@ public class Configuracoes {
         this.configuracoes = new ArrayList<>();
         List<Integer> aux = new ArrayList<>();
         aux.add(1);
-        this.configuracoes.add(new Configuracao(1, "camaro", 50, aux, new ArrayList<>(), new ArrayList<>(), true));
+        this.configuracoes.add(new Configuracao(1, "123456789" ,"camaro", 50, aux, new ArrayList<>(), new ArrayList<>(), true));
     }
     
     public Configuracoes(Map<Integer, Cliente> clientes, List<Configuracao> configuracoes) {

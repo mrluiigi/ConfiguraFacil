@@ -32,6 +32,7 @@ public class Configuracao {
 
     public Configuracao(){
         this.id = 0;
+        this.nif = "";
         this.modelo = "";
         this.preco = 0;
         this.componentesObrigatorios = new ArrayList<>();
@@ -41,8 +42,9 @@ public class Configuracao {
     }
 
     
-    public Configuracao(int id, String modelo, float preco, List<Integer> componentesObrigatorios, List<Integer> componentesOpcionais, List<Integer> pacotes, boolean pronta) {
+    public Configuracao(int id, String nif, String modelo, float preco, List<Integer> componentesObrigatorios, List<Integer> componentesOpcionais, List<Integer> pacotes, boolean pronta) {
         this.id = id;
+        this.nif = nif;
         this.modelo = modelo;
         this.preco = preco;
         this.componentesObrigatorios = componentesObrigatorios;
