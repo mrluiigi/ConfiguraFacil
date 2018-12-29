@@ -1,5 +1,18 @@
 USE dss;
 
+
+INSERT INTO pacote
+		(ID, Categoria, preco)
+        VALUES
+        (1, "exteriores", 10), 
+        (2, "exteriores", 11),
+        (3, "segurança", 12),
+        (4, "segurança", 13),
+        (5, "telemática", 14);
+
+-- SELECT * FROM pacote;
+
+
 INSERT INTO opcional
 		(ID, preco, Designacao, Stock, Categoria, Pacote_ID)
         VALUES
@@ -35,7 +48,8 @@ INSERT INTO opcional
         (27, 1500, "Sistema de Som Burmester", 30, "Telemática", NULL),
         (28, 5000, "Sistema de Som Burmester 3D High End", 10, "Telemática", 5);
 
-SELECT * FROM opcional;
+-- SELECT * FROM opcional;
+
 
 INSERT INTO obrigatório
 		(ID, preco, Designacao, Stock, Categoria)
@@ -67,18 +81,7 @@ INSERT INTO obrigatório
         (22, 750, "Liga leve de 5 raios duplos de 20\"", 38, "Jantes"),
         (23, 1250, "Forjadas de raios cruzados de 21\"", 20, "Jantes");
 
-SELECT * FROM obrigatório;
-
-INSERT INTO pacote
-		(ID, Categorai, preco)
-        VALUES
-        (1, "exteriores", 10), 
-        (2, "exteriores", 11),
-        (3, "segurança", 12),
-        (4, "segurança", 13),
-        (5, "telemática", 14);
-
-SELECT * FROM pacote;
+-- SELECT * FROM obrigatório;
 
 
 INSERT INTO componentenecessitacomponente
@@ -91,7 +94,7 @@ INSERT INTO componentenecessitacomponente
         (20, 19),
         (23, 24);
 
-SELECT * FROM componentenecessitacomponente;
+-- SELECT * FROM componentenecessitacomponente;
 
 
 INSERT INTO componenteincompatívelcomponente
@@ -136,7 +139,7 @@ INSERT INTO componenteincompatívelcomponente
         (27, 28),
         (28, 27);
         
-SELECT * FROM componenteincompatívelcomponente;
+-- SELECT * FROM componenteincompatívelcomponente;
 
 
 INSERT INTO pacoteincompatívecomponente
@@ -149,7 +152,7 @@ INSERT INTO pacoteincompatívecomponente
         (5, 26),
         (5, 27);
 
-SELECT * FROM pacoteincompatívecomponente;
+-- SELECT * FROM pacoteincompatívecomponente;
 
 
 INSERT INTO pacotenecessitacomponente
@@ -158,7 +161,7 @@ INSERT INTO pacotenecessitacomponente
         (1, 9),
         (3, 19);
 
-SELECT * FROM pacotenecessitacomponente;
+-- SELECT * FROM pacotenecessitacomponente;
 
 
 INSERT INTO pacoteincompatívelpacote
@@ -167,6 +170,6 @@ INSERT INTO pacoteincompatívelpacote
         (2, 1),
         (1, 2);
 
-SET FOREIGN_KEY_CHECKS=0;
-DROP TABLE opcional;
-SET FOREIGN_KEY_CHECKS=1;
+-- SET FOREIGN_KEY_CHECKS=0;
+-- DROP TABLE opcional;
+-- SET FOREIGN_KEY_CHECKS=1;
