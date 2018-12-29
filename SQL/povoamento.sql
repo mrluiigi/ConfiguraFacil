@@ -9,31 +9,31 @@ INSERT INTO opcional
         (4, 500, "Madeira de freixo", 25, "Acabamentos interiores", NULL),
         (5, 10, "Madeira de freixo cinzento", 20, "Acabamentos interiores", NULL),
         
-        (6, 500, "Vidros laterais escurecidos", 48, "Acabamentos exteriores", NULL),
-        (7, 450, "Teto escurecido", 30, "Acabamentos exteriores", NULL),
-        (8, 1200, "Cobertura do motor e teto em carbono", 20, "Acabamentos exteriores", NULL),
+        (6, 500, "Vidros laterais escurecidos", 48, "Acabamentos exteriores", 1),
+        (7, 450, "Teto escurecido", 30, "Acabamentos exteriores", 1),
+        (8, 1200, "Cobertura do motor e teto em carbono", 20, "Acabamentos exteriores", 2),
         (9, 750, "Teto panorâmico", 13, "Acabamentos exteriores", NULL),
-        (10, 500, "Pinça de travões colorida", 89, "Acabamentos exteriores", NULL),
-        (11, 3000, "Spoiler traseiro", 7, "Acabamentos exteriores", NULL),
+        (10, 500, "Pinça de travões colorida", 89, "Acabamentos exteriores", 2),
+        (11, 3000, "Spoiler traseiro", 7, "Acabamentos exteriores", 2),
         (12, 100, "Gancho para reboque", 50, "Acabamentos exteriores", NULL),
         
         (13, 500, "Câmara de marcha atrás", 20, "Segurança", NULL),
-        (14, 500, "Assistente de ângulo morto", 17, "Segurança", NULL),
-        (15, 750, "Prevenção de colisão", 12, "Segurança", NULL),
-        (16, 1000, "Assistente de direção", 8, "Segurança", NULL),
-        (17, 500, "Sidebags traseiros", 40, "Segurança", NULL),
-        (18, 150, "Extintor", 13, "Segurança", NULL),
+        (14, 500, "Assistente de ângulo morto", 17, "Segurança", 3),
+        (15, 750, "Prevenção de colisão", 12, "Segurança", 3),
+        (16, 1000, "Assistente de direção", 8, "Segurança", 3),
+        (17, 500, "Sidebags traseiros", 40, "Segurança", 4),
+        (18, 150, "Extintor", 13, "Segurança", 4),
         (19, 1000, "Câmara 360º", 15, "Segurança", NULL),
-        (20, 350, "Assistente de faixa de rodagem", 23, "Segurança", NULL),
-        (21, 250, "Assistente automático do controlo de velocidade", 30, "Segurança", NULL),
+        (20, 350, "Assistente de faixa de rodagem", 23, "Segurança", 3),
+        (21, 250, "Assistente automático do controlo de velocidade", 30, "Segurança", 4),
         
-        (22, 1250, "Sintonizador de TV", 3, "Telemática", NULL),
-        (23, 150, "Chave digital no smartphone", 30, "Telemática", NULL),
-        (24, 350, "Carregamento wireless para smartphone", 13, "Telemática", NULL),
-        (25, 350, "Carregamento wireless para smartphone (zona traseira)", 25, "Telemática", NULL),
+        (22, 1250, "Sintonizador de TV", 3, "Telemática", 5),
+        (23, 150, "Chave digital no smartphone", 30, "Telemática", 5),
+        (24, 350, "Carregamento wireless para smartphone", 13, "Telemática", 5),
+        (25, 350, "Carregamento wireless para smartphone (zona traseira)", 25, "Telemática", 5),
         (26, 450, "Sirius Satellite Radio", 60, "Telemática", NULL),
         (27, 1500, "Sistema de Som Burmester", 30, "Telemática", NULL),
-        (28, 5000, "Sistema de Som Burmester 3D High End", 10, "Telemática", NULL);
+        (28, 5000, "Sistema de Som Burmester 3D High End", 10, "Telemática", 5);
 
 SELECT * FROM opcional;
 
