@@ -29,8 +29,29 @@ public class Main {
         Connection con = DriverManager.getConnection(connection, user, password);
         ConfiguraFacil model = new ConfiguraFacil(con); 
         View view = new View();
-               Controller controller = new Controller(model);      
+        Controller controller = new Controller(model);   
+        
+        
+        
+        Statement st;
+        try { 
+            st = con.createStatement(); 
+            ResultSet rs = st.executeQuery("Select ID, NIF_Cliente, Pronta FROM Configuração WHERE PRONTA = 0;"); 
+            while(rs.next()) {
+                int id = Integer.parseInt(rs.getString("ID"));
+                String nif = rs.getString("NIF_Cliente");
+                System.out.println(rs.getString("Pronta"));
+            }
+        } catch (SQLException e) { 
+                e.printStackTrace(System.out);
+        } finally { 
+            //close the connection 
+            con.close(); 
+        } 
     } 
+    
+    
+    
 }
 
 
