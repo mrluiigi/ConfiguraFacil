@@ -10,3 +10,4 @@ UPDATE obrigatório SET Stock = 1 WHERE ID = 1;
 SELECT * FROM opcional;
 
 SELECT preco FROM opcional ORDER BY preco ASC;
+Select * FROM opcional;

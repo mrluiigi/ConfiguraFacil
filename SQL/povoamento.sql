@@ -147,7 +147,7 @@ INSERT INTO componenteincompatívelcomponente
 -- SELECT * FROM componenteincompatívelcomponente;
 
 
-INSERT INTO pacoteincompatívecomponente
+INSERT INTO pacoteincompatívelcomponente
 		(Pacote_ID, Opcional_ID)
         VALUES
         (1, 8),
