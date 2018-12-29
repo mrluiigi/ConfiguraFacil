@@ -40,9 +40,6 @@ public class ComponentesDAO {
             
         } catch (SQLException e) { 
             e.printStackTrace(System.out);
-        } finally { 
-            //close the connection 
-             
         }
         
         return o;
@@ -80,9 +77,6 @@ public class ComponentesDAO {
             
         } catch (SQLException e) { 
             e.printStackTrace(System.out);
-        } finally { 
-            //close the connection 
-             
         }
         
         return o;
@@ -106,9 +100,6 @@ public class ComponentesDAO {
             }
         } catch (SQLException e) { 
             e.printStackTrace(System.out);
-        } finally { 
-            //close the connection 
-             
         }
         
         return false;
@@ -127,9 +118,6 @@ public class ComponentesDAO {
             st.executeUpdate("UPDATE obrigatório SET Stock = " + stock +"WHERE ID =" + id + ";");
         } catch (SQLException e) { 
             e.printStackTrace(System.out);
-        } finally { 
-            //close the connection 
-             
         }
     }
     
@@ -146,9 +134,6 @@ public class ComponentesDAO {
             st.executeUpdate("UPDATE opcional SET Stock = " + stock +"WHERE ID =" + id + ";");
         } catch (SQLException e) { 
             e.printStackTrace(System.out);
-        } finally { 
-            //close the connection 
-             
         }
     }
     
@@ -163,9 +148,6 @@ public class ComponentesDAO {
             preco = Float.parseFloat(rs.getString("Preco"));
         } catch (SQLException e) { 
             e.printStackTrace(System.out);
-        } finally { 
-            //close the connection 
-             
         }
         
         return preco;
@@ -191,9 +173,6 @@ public class ComponentesDAO {
             }
         } catch (SQLException e) { 
             e.printStackTrace(System.out);
-        } finally { 
-            //close the connection 
-             
         }
         
         return res;
@@ -240,10 +219,8 @@ public class ComponentesDAO {
             }
         } catch (SQLException e) { 
             e.printStackTrace(System.out);
-        } finally { 
-            //close the connection 
-             
-        }
+        } 
+        
         return res;
     }
     
@@ -273,6 +250,7 @@ public class ComponentesDAO {
                 int id = Integer.parseInt(rs.getString("ID"));
                 float preco = Float.parseFloat(rs.getString("preco"));
                 String categoria = rs.getString("Categoria");
+                String designacao = rs.getString("Designação");
                 
                 Statement stp = con.createStatement();
                 List<Integer> componentesPacote = new ArrayList();
@@ -302,15 +280,28 @@ public class ComponentesDAO {
                 }
 
                 
-                res.add(new Pacote(id,categoria,  componentesPacote,  pacotesIncompativeis, componentesIncompativeis, componentesNecessarios));
+                res.add(new Pacote(id, categoria, designacao, componentesPacote, pacotesIncompativeis, componentesIncompativeis, componentesNecessarios));
             }
         } catch (SQLException e) { 
             e.printStackTrace(System.out);
-        } finally { 
-            //close the connection 
-             
         }
         
         return res;
+    }
+    
+    
+    public float getPrecoPacoteMaisBarato() throws SQLException {
+        Statement st;
+        st = con.createStatement(); 
+        float preco = 0;
+        
+        try {
+            ResultSet rs = st.executeQuery("SELECT MIN(preco) FROM Pacote;");
+            preco = Float.parseFloat(rs.getString("Preco"));
+        } catch (SQLException e) { 
+            e.printStackTrace(System.out);
+        }
+        
+        return preco;
     }
 }

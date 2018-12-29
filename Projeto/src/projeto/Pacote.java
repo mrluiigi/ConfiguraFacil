@@ -19,15 +19,17 @@ public class Pacote {
     private int id;
     private String categoria;
     private float preco;
+    private String designacao;
     private List<Integer> componentesPacote;
     private List<Integer> pacotesIncompativeis;
     private List<Integer> componentesIncompativeis;
     private List<Integer> componentesNecessarios;
 
-    public Pacote(int id, String categoria, List<Integer> componentesPacote, List<Integer> pacotesIncompativeis, List<Integer> componentesIncompativeis, List<Integer> componentesNecessarios) {
+    public Pacote(int id, String categoria, String designacao, List<Integer> componentesPacote, List<Integer> pacotesIncompativeis, List<Integer> componentesIncompativeis, List<Integer> componentesNecessarios) {
         this.id = id;
         this.categoria = categoria;
         this.componentesPacote = componentesPacote;
+        this.designacao = designacao;
         this.pacotesIncompativeis = pacotesIncompativeis;
         this.componentesIncompativeis = componentesIncompativeis;
         this.componentesNecessarios = componentesNecessarios;

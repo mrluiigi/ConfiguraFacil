@@ -85,9 +85,18 @@ public class ConfiguraçõesDAO {
         } finally { 
             //close the connection 
             
-            return res;
+        return res;
         } 
     }
     
     
+    public void marcaComoPronta(int id) throws SQLException {
+        Statement st;
+        st = con.createStatement();
+        try { 
+            st.executeUpdate("UPDATE Configuração SET Pronta = 1 WHERE ID =" + id + ";");
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
 }
