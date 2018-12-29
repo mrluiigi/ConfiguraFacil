@@ -160,6 +160,13 @@ INSERT INTO pacotenecessitacomponente
 
 SELECT * FROM pacotenecessitacomponente;
 
+
+INSERT INTO pacoteincompatívelpacote
+		(Pacote_ID, Pacote_ID1)
+        VALUES
+        (2, 1),
+        (1, 2);
+
 SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE opcional;
 SET FOREIGN_KEY_CHECKS=1;
