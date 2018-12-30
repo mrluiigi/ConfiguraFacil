@@ -237,7 +237,7 @@ public class Controller {
         
         public void actionPerformed(ActionEvent e) {
             autom = false;
-            categoriaView = new CategoriaView(model);
+            categoriaView = new CategoriaView(model, "Acabamentos interiores");
             categoriaView.setVisible(true);
             categoriaView.setLocation(45, 45);
             
@@ -255,29 +255,41 @@ public class Controller {
     
     private class InteriorListener implements ActionListener{
         
-        public void actionPerformed(ActionEvent e){
-            //APRESENTA JDIALOG COM COMPONENTES DE INTERIOR
+        public void actionPerformed(ActionEvent e) {
+            autom = false;
+            categoriaView.setComponentesPacotes(model, "Acabamentos interiores");
+            categoriaView.setVisible(true);
+            categoriaView.setLocation(45, 45);
         }
     }
 
     private class ExteriorListener implements ActionListener{
         
-        public void actionPerformed(ActionEvent e){
-            //APRESENTA JDIALOG COM COMPONENTES DE EXTERIOR
+        public void actionPerformed(ActionEvent e) {
+            autom = false;
+            categoriaView.setComponentesPacotes(model, "Acabamentos exteriores");
+            categoriaView.setVisible(true);
+            categoriaView.setLocation(45, 45);
         }
     }
-    
+ 
     private class SegurancaListener implements ActionListener{
         
-        public void actionPerformed(ActionEvent e){
-            //APRESENTA JDIALOG COM COMPONENTES DE SEGURANÇA
+        public void actionPerformed(ActionEvent e) {
+            autom = false;
+            categoriaView.setComponentesPacotes(model, "Segurança");
+            categoriaView.setVisible(true);
+            categoriaView.setLocation(45, 45);
         }
     }
     
     private class TelematicaListener implements ActionListener{
         
-        public void actionPerformed(ActionEvent e){
-            //APRESENTA JDIALOG COM COMPONENTES DE TELEMÁTICA
+        public void actionPerformed(ActionEvent e) {
+            autom = false;
+            categoriaView.setComponentesPacotes(model, "Telemática");
+            categoriaView.setVisible(true);
+            categoriaView.setLocation(45, 45);
         }
     }
     
@@ -290,7 +302,6 @@ public class Controller {
             
             incompView.retrocederListener(new RetrocederListener(categoriaView));
             incompView.confirmarListener(new ResumoListener());
-            //LISTENERS
         }
     }
     

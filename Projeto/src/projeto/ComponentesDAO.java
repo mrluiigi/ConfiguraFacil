@@ -193,7 +193,6 @@ public class ComponentesDAO {
                 String designacao = rs.getString("Designacao");
                 int stock = Integer.parseInt(rs.getString("Stock"));
                 String categoria = rs.getString("Categoria");
-                System.out.println(categoria);
                 String pertence = rs.getString("Pacote_ID");
                 int pertencePacote;
                 if (pertence != null) {

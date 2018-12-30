@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.stream.Collectors;
+import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 
 
@@ -28,23 +29,59 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
         super(parent, modal);
         initComponents();
     }
-
-    public CategoriaView(ConfiguraFacil config){
-        initComponents();
+    
+    public void setComponentesPacotes(ConfiguraFacil config, String categoria) {
         CheckboxList cbl = new CheckboxList();
-        teste = cbl.showCheckBoxList(config.getOpcionais().stream().filter(c -> c.getCategoria().equals("Segurança")).collect(Collectors.toList()));
-        List<Pacote> pacotes = config.getPacotes().stream().filter(c -> c.getCategoria().equals("segurança")).collect(Collectors.toList());
+        teste = cbl.showCheckBoxList(config.getOpcionais().stream().filter(c -> c.getCategoria().equals(categoria)).collect(Collectors.toList()));
+        List<Pacote> pacotes = config.getPacotes().stream().filter(c -> c.getCategoria().equals(categoria)).collect(Collectors.toList());
         int size = pacotes.size();
-        if(size < 2) {
+        if(size == 0) {
             listaPacote2.setVisible(false);
             checkBoxPacote2.setVisible(false);
-            if (size < 1) {
-                listaPacote1.setVisible(false);
-                checkBoxPacote1.setVisible(false);
+            listaPacote1.setVisible(false);
+            checkBoxPacote1.setVisible(false);
+        }
+        else if(size == 1) {
+            listaPacote1.setVisible(true);
+            checkBoxPacote1.setVisible(true);
+            listaPacote2.setVisible(false);
+            checkBoxPacote2.setVisible(false);
+            DefaultListModel<ListOb> mod1 = new DefaultListModel<ListOb>();
+            Pacote p1 = pacotes.get(0);
+            checkBoxPacote1.setText(p1.getCategoria());
+            for(Componente c : config.getOpcionais().stream().filter(c -> c.getPertencePacote() == p1.getId()).collect(Collectors.toList())) {
+                mod1.addElement(new ListOb(c.getId(), c.getDesignacao(), c.getPreco()));
             }
+            listaPacote1.setModel(mod1);
+        }
+        else if(size == 2) {
+            listaPacote1.setVisible(true);
+            checkBoxPacote1.setVisible(true);
+            listaPacote2.setVisible(true);
+            checkBoxPacote2.setVisible(true);
+            DefaultListModel<ListOb> mod1 = new DefaultListModel<ListOb>();
+            Pacote p1 = pacotes.get(0);
+            checkBoxPacote1.setText(p1.getCategoria());
+            for(Componente c : config.getOpcionais().stream().filter(c -> c.getPertencePacote() == p1.getId()).collect(Collectors.toList())) {
+                mod1.addElement(new ListOb(c.getId(), c.getDesignacao(), c.getPreco()));
+            }
+            listaPacote1.setModel(mod1);
+            
+            DefaultListModel<ListOb> mod2 = new DefaultListModel<ListOb>();
+            Pacote p2 = pacotes.get(1);
+            checkBoxPacote2.setText(p1.getCategoria());
+            for(Componente c : config.getOpcionais().stream().filter(c -> c.getPertencePacote() == p2.getId()).collect(Collectors.toList())) {
+                mod2.addElement(new ListOb(c.getId(), c.getDesignacao(), c.getPreco()));
+            }
+            listaPacote2.setModel(mod2);
         }
         
-        jScrollPane1.setViewportView(teste);
+       jScrollPane1.setViewportView(teste);
+    }
+    
+    public CategoriaView(ConfiguraFacil config, String categoria){
+        initComponents();
+        
 
         setTitle("Categoria");
         this.configuraFacil = config;
@@ -117,18 +154,8 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
 
         jScrollPane1.setViewportView(teste);
 
-        listaPacote1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(listaPacote1);
 
-        listaPacote2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(listaPacote2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -168,14 +195,11 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(checkBoxPacote1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(122, 122, 122))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(checkBoxPacote2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(97, 97, 97))))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkBoxPacote2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(122, 122, 122))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,8 +330,8 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JList<String> listaPacote1;
-    private javax.swing.JList<String> listaPacote2;
+    private javax.swing.JList<ListOb> listaPacote1;
+    private javax.swing.JList<ListOb> listaPacote2;
     private javax.swing.JLabel preco;
     private javax.swing.JButton retroceder;
     private javax.swing.JButton segur;

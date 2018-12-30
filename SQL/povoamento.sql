@@ -4,11 +4,11 @@ USE dss;
 INSERT INTO pacote
 		(ID, Categoria, preco, Designação)
         VALUES
-        (1, "exteriores", 10, "Pacote vidros escuros"), 
-        (2, "exteriores", 11, "Pacote desportivo"),
-        (3, "segurança", 12, "Pacote auxilio de navegação"),
-        (4, "segurança", 13, "Pacote segurança"),
-        (5, "telemática", 14, "Pacote Tecnologia");
+        (1, "Acabamentos exteriores", 10, "Pacote vidros escuros"), 
+        (2, "Acabamentos exteriores", 11, "Pacote desportivo"),
+        (3, "Segurança", 12, "Pacote auxilio de navegação"),
+        (4, "Segurança", 13, "Pacote segurança"),
+        (5, "Telemática", 14, "Pacote Tecnologia");
 
 -- SELECT * FROM pacote;
 
