@@ -311,8 +311,8 @@ public class CriarConfigView extends javax.swing.JDialog {
             return 0;
     }
     
-    public int getModelo(){
-        return modelo.getSelectedValue().getId();
+    public String getModelo(){
+        return modelo.getSelectedValue().getDesignacao();
     }
     
     public int getMotor(){
@@ -368,4 +368,9 @@ class ListOb{
     public float getPreco() {
         return preco;
     }
+
+    public String getDesignacao() {
+        return designacao;
+    }
+    
 }

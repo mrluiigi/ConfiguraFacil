@@ -250,10 +250,10 @@ public class ConfiguraFacil extends Observable{
     
     public void adicionarStock(boolean obrigatorio, int id, int qtd) throws SQLException{
         if(obrigatorio){    
-            this.componentesDAO.getObrigatorio(id).addStock(qtd);
+            this.componentesDAO.adicionaStockObrigatorio(id, qtd);                 
         }
         else{
-            this.componentesDAO.getOpcional(id).addStock(qtd);
+            this.componentesDAO.adicionaStockOpcional(id, qtd);
         }
         this.setChanged();
         this.notifyObservers();
@@ -315,6 +315,7 @@ public class ConfiguraFacil extends Observable{
                         this.componentesDAO.reduzStockOpcional(j);
                     }
                 }
+                this.configuracoesDAO.marcaComoPronta(c.getId());
                 return c;
             }
         }
@@ -518,5 +519,9 @@ public class ConfiguraFacil extends Observable{
     
     public float getPreco(){
         return this.configuracao.getPreco();
+    }
+    
+    public void guardarConfiguracao() throws SQLException{
+        this.configuracoesDAO.addConfiguracao(this.configuracao);
     }
 }

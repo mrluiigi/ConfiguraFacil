@@ -341,4 +341,12 @@ public class ResumoView extends javax.swing.JDialog {
     private javax.swing.JList<String> seguranca;
     private javax.swing.JList<String> telematica;
     // End of variables declaration//GEN-END:variables
+
+    void guardarConfiguracao() {
+        try {
+            configuraFacil.guardarConfiguracao();
+        } catch (SQLException ex) {
+            Logger.getLogger(ResumoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

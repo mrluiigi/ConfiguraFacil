@@ -97,11 +97,13 @@ public class ComponentesDAO {
         try {
             if(obrigatorio){
                 ResultSet rs = st.executeQuery("SELECT Stock FROM obrigatório WHERE ID = " + id +";");
+                rs.next();
                 int stock = Integer.parseInt((rs.getString("Stock")));
                 return (stock > 0);
             }
             else{
                 ResultSet rs = st.executeQuery("SELECT Stock FROM opcional WHERE ID = " + id +";");
+                rs.next();
                 int stock = Integer.parseInt((rs.getString("Stock")));
                 return (stock > 0);
             }
@@ -112,6 +114,38 @@ public class ComponentesDAO {
         return false;
     }
     
+    public void adicionaStockObrigatorio(int id, int quantidade) throws SQLException {
+        Statement st;
+        st = con.createStatement(); 
+
+        try {
+            ResultSet rs = st.executeQuery("SELECT Stock FROM obrigatório WHERE ID = " + id + ";");
+            rs.next();
+            int stock = Integer.parseInt(rs.getString("Stock"));
+            stock += quantidade;
+            
+            st.executeUpdate("UPDATE obrigatório SET Stock = " + stock +" WHERE ID = " + id + ";");
+        } catch (SQLException e) { 
+            e.printStackTrace(System.out);
+        }
+    }
+    
+    
+    public void adicionaStockOpcional (int id, int quantidade) throws SQLException {
+        Statement st;
+        st = con.createStatement(); 
+
+        try {
+            ResultSet rs = st.executeQuery("SELECT Stock FROM opcional WHERE ID = " + id + ";");
+            rs.next();
+            int stock = Integer.parseInt(rs.getString("Stock"));
+            stock += quantidade;
+            
+            st.executeUpdate("UPDATE opcional SET Stock = " + stock +" WHERE ID = " + id + ";");
+        } catch (SQLException e) { 
+            e.printStackTrace(System.out);
+        }
+    }
     
     public void reduzStockObrigatorio(int id) throws SQLException {
         Statement st;
@@ -119,10 +153,11 @@ public class ComponentesDAO {
 
         try {
             ResultSet rs = st.executeQuery("SELECT Stock FROM obrigatório WHERE ID = " + id + ";");
+            rs.next();
             int stock = Integer.parseInt(rs.getString("Stock"));
             stock--;
             
-            st.executeUpdate("UPDATE obrigatório SET Stock = " + stock +"WHERE ID =" + id + ";");
+            st.executeUpdate("UPDATE obrigatório SET Stock = " + stock +" WHERE ID = " + id + ";");
         } catch (SQLException e) { 
             e.printStackTrace(System.out);
         }
@@ -135,10 +170,11 @@ public class ComponentesDAO {
 
         try {
             ResultSet rs = st.executeQuery("SELECT Stock FROM opcional WHERE ID = " + id + ";");
+            rs.next();
             int stock = Integer.parseInt(rs.getString("Stock"));
             stock--;
             
-            st.executeUpdate("UPDATE opcional SET Stock = " + stock +"WHERE ID =" + id + ";");
+            st.executeUpdate("UPDATE opcional SET Stock = " + stock +" WHERE ID = " + id + ";");
         } catch (SQLException e) { 
             e.printStackTrace(System.out);
         }

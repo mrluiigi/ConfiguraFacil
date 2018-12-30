@@ -55,6 +55,7 @@ public class Controller {
     
     private class FabricaListener implements ActionListener{
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             fabricaView = new MenuFabricaView();
             fabricaView.setVisible(true);
@@ -68,6 +69,7 @@ public class Controller {
     
     private class AddStockListener implements ActionListener{
         
+        @Override
         public void actionPerformed(ActionEvent e) {
             addStockView = new AddStockView(model);
             addStockView.setVisible(true);
@@ -82,6 +84,7 @@ public class Controller {
     
     private class ComboBoxListener implements ActionListener{
         
+         @Override
          public void actionPerformed(ActionEvent e) {
             int comp = addStockView.getComponente().getId();
              try {
@@ -97,21 +100,22 @@ public class Controller {
     
     private class ProxConfigListener implements ActionListener{
         
+        @Override
         public void actionPerformed(ActionEvent e) {  
             Configuracao c;
             try {
                 c = model.obterProximaConfiguracao();
                 if(c != null){
-                List<Componente> comp = model.getListaComponentes(c.getId());
-                proxConfigView = new ProxConfigView(c.getModelo(), comp);
-                proxConfigView.setVisible(true);
-                proxConfigView.setLocation(45, 45);
-                
-                proxConfigView.okProxListener(new OkListener(proxConfigView));
-            }
-            else{
-                fabricaView.showError("Não existem configurações para serem feitas");
-            }
+                    List<Componente> comp = model.getListaComponentes(c.getId());
+                    proxConfigView = new ProxConfigView(c.getModelo(), comp);
+                    proxConfigView.setVisible(true);
+                    proxConfigView.setLocation(45, 45);
+
+                    proxConfigView.okProxListener(new OkListener(proxConfigView));
+                }
+                else{
+                    fabricaView.showError("Não existem configurações para serem feitas");
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -127,6 +131,7 @@ public class Controller {
             this.view = view;
         }
         
+        @Override
         public void actionPerformed(ActionEvent e) {
             view.dispose();
         }
@@ -141,6 +146,7 @@ public class Controller {
             this.view = view;
         }
         
+        @Override
         public void actionPerformed(ActionEvent e) {
             view.dispose();
         }
@@ -148,6 +154,7 @@ public class Controller {
     
     private class AdicionarListener implements ActionListener{
         
+        @Override
         public void actionPerformed(ActionEvent e) {
             
             ComboItem componente;
@@ -193,10 +200,11 @@ public class Controller {
     
     private class EscolhaListener implements ActionListener{
         
+        @Override
         public void actionPerformed(ActionEvent e) {
             if(criarConfigView.areAllSelected()){
                 try {
-                model.adicionaComponenteObrigatorio(criarConfigView.getModelo());
+                model.escolheModelo(criarConfigView.getModelo());
                 model.adicionaComponenteObrigatorio(criarConfigView.getMotor());
                 model.adicionaComponenteObrigatorio(criarConfigView.getPintura());
                 model.adicionaComponenteObrigatorio(criarConfigView.getEstofos());
@@ -226,6 +234,7 @@ public class Controller {
             this.view = view;
         }
         
+        @Override
         public void actionPerformed(ActionEvent e) {
             model.removeComponenteObrigatorio();
             view.dispose();
@@ -236,6 +245,7 @@ public class Controller {
     
     private class AutomaticoListener implements ActionListener{
         
+        @Override
         public void actionPerformed(ActionEvent e) {
             autom = true;
             automaticoView = new AutomaticoView();
@@ -250,6 +260,7 @@ public class Controller {
     
     private class ConfirmarListener implements ActionListener{
         
+        @Override
         public void actionPerformed(ActionEvent e) {
             String orcamento = "";
             
@@ -271,6 +282,7 @@ public class Controller {
     
     private class ManualListener implements ActionListener{
         
+        @Override
         public void actionPerformed(ActionEvent e) {
             autom = false;
             categoriaView = new CategoriaView(model, "Acabamentos interiores");
@@ -430,7 +442,7 @@ public class Controller {
         public void actionPerformed(ActionEvent e)throws NullPointerException{
             
             //MÉTODO PARA ADICIONAR A CONFIGURAÇÃO À LISTA
-
+            resumoView.guardarConfiguracao();
             resumoView.dispose();
             criarConfigView.dispose();
             escolhaView.dispose();
@@ -442,7 +454,7 @@ public class Controller {
             //Caso vá pela configuração manual
             else{
                 categoriaView.dispose();
-                incompView.dispose();
+                //incompView.dispose();
             }
         }
     }

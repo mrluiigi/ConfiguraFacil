@@ -13,4 +13,9 @@ SELECT preco FROM opcional ORDER BY preco ASC;
 Select * FROM opcional;
 
 
-SELECT * FROM opcional WHERE Pacote_ID  IS NULL;
+SELECT * FROM opcional WHERE Pacote_ID  IS NOT NULL;
+
+
+INSERT INTO Configuração (NIF_Cliente, Pronta, Preco, Modelo) VALUES ("123456789",0,3," + c.getModelo()"); 
+
+SELECT * FROM Configuração;

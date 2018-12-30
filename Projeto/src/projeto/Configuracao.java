@@ -32,7 +32,7 @@ public class Configuracao {
 
     public Configuracao(){
         this.id = 0;
-        this.nif = "";
+        this.nif = "123456789";
         this.modelo = "";
         this.preco = 0;
         this.componentesObrigatorios = new ArrayList<>();

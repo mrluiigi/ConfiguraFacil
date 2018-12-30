@@ -81,7 +81,7 @@ INSERT INTO obrigatório
         (22, 750, "Liga leve de 5 raios duplos de 20\"", 38, "Jantes"),
         (23, 1250, "Forjadas de raios cruzados de 21\"", 20, "Jantes"),
         
-		(24, 25000, "CLS", 5, "Modelo"),
+		(24, 25000, "CLS", 0, "Modelo"),
         (25, 27000, "GLE", 10, "Modelo"),
         (26, 30000, "GLC", 7, "Modelo"),
         (27, 31000, "Classe G SUV", 9, "Modelo");
