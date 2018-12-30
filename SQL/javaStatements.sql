@@ -11,3 +11,6 @@ SELECT * FROM opcional;
 
 SELECT preco FROM opcional ORDER BY preco ASC;
 Select * FROM opcional;
+
+
+SELECT * FROM opcional WHERE Pacote_ID  IS NULL;

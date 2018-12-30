@@ -7,9 +7,12 @@ package projeto;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
@@ -50,7 +53,10 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
         teste.addMouseListener(ma);
     }
     
+    
+    
     public void setComponentesPacotes(ConfiguraFacil config, String cat) {
+        try{
         if(!cat.equals("anterior")) {
             this.categoria = cat;
         }
@@ -106,6 +112,9 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
         }
         
        jScrollPane1.setViewportView(teste);
+        }  catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public CategoriaView(ConfiguraFacil config, String categoria){
@@ -266,7 +275,8 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(retroceder)
-                    .addComponent(confirmar)))
+                    .addComponent(confirmar))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         pack();

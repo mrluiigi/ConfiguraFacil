@@ -76,7 +76,7 @@ public class ConfiguraçõesDAO {
                 List <Integer> pcts =  new ArrayList<>();
                 ResultSet rsPcts = st.executeQuery("SELECT Pacote_ID FROM ConfiguraçãoPacotes WHERE Configuração_ID =" + id +";");
                 while(rsPcts.next()) {
-                    pcts.add(Integer.parseInt(rsOpts.getString("Opcional_ID")));
+                    pcts.add(Integer.parseInt(rsOpts.getString("Pacote_ID")));
                 }
                 res.add(new Configuracao(id, nif, modelo, preco, obgs, opts, pcts, false));
             }
@@ -107,7 +107,7 @@ public class ConfiguraçõesDAO {
         Configuracao res = null;
         
         try {
-            ResultSet rs = st.executeQuery("SELECT * FROM configuracao WHERE ID = " + id + ";");
+            ResultSet rs = st.executeQuery("SELECT NIF_Cliente,Modelo,Preco FROM Configuração WHERE ID = " + id + ";");
             
             String nif = rs.getString("NIF_Cliente");
             String modelo = rs.getString("Modelo");
@@ -128,10 +128,10 @@ public class ConfiguraçõesDAO {
             List <Integer> pcts =  new ArrayList<>();
             ResultSet rsPcts = st.executeQuery("SELECT Pacote_ID FROM ConfiguraçãoPacotes WHERE Configuração_ID =" + id +";");
             while(rsPcts.next()) {
-                pcts.add(Integer.parseInt(rsOpts.getString("Opcional_ID")));
+                pcts.add(Integer.parseInt(rsOpts.getString("Pacote_ID")));
             }
             
-            res = (new Configuracao(id, nif, modelo, preco, obgs, opts, pcts, false));
+            res = (new Configuracao(id, nif, modelo, preco, obgs, opts, pcts, false)); //???
         } catch (SQLException e) { 
             e.printStackTrace(System.out);
         }

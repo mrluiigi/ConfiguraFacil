@@ -6,9 +6,12 @@
 package projeto;
 
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -30,6 +33,7 @@ public class AddStockView extends javax.swing.JDialog implements Observer{
     }
     
     public AddStockView(ConfiguraFacil config){
+        try {
         setTitle("Adiciona Stock");
         initComponents();
         this.configuraFacil = config;
@@ -49,6 +53,9 @@ public class AddStockView extends javax.swing.JDialog implements Observer{
         }
         lista.setModel(d);
         stock.setText(Integer.toString(comp.get(0).getStock()));
+        }  catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -246,9 +253,13 @@ public class AddStockView extends javax.swing.JDialog implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        int id = ((ComboItem) lista.getSelectedItem()).getId();
-        int st = configuraFacil.getStockComponente(id);
-        stock.setText(Integer.toString(st));
+        try {
+            int id = ((ComboItem) lista.getSelectedItem()).getId();
+            int st = configuraFacil.getStockComponente(id);
+            stock.setText(Integer.toString(st));
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
 

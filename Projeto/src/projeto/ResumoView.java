@@ -6,7 +6,10 @@
 package projeto;
 
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 
 /**
@@ -26,27 +29,30 @@ public class ResumoView extends javax.swing.JDialog {
         initComponents();
     }
     
-    public ResumoView(ConfiguraFacil con, Configuracao co){
-        setTitle("Resumo");
-        initComponents();
-        this.configuraFacil = con;
-        this.configuracao = co;
-        modelo.setText(co.getModelo());
-        
-        DefaultListModel<String> ob = new DefaultListModel<String>();
-        DefaultListModel<String> in = new DefaultListModel<String>();
-        DefaultListModel<String> ex = new DefaultListModel<String>();
-        DefaultListModel<String> sg = new DefaultListModel<String>();
-        DefaultListModel<String> tl = new DefaultListModel<String>();
-        DefaultListModel<String> p = new DefaultListModel<String>();
+    public ResumoView(ConfiguraFacil con){
+        try {
+            setTitle("Resumo");
+            initComponents();
+            this.configuraFacil = con;
+            this.configuracao = configuraFacil.getConfiguracao();
+            modelo.setText(this.configuracao.getModelo());
 
-        List<Componente> l = this.configuraFacil.getListaComponentes(co.getId());
-        
-        for(Componente c : l){
-            if(c.getClass().getName().equals("Obrigatorio")){
+            DefaultListModel<String> ob = new DefaultListModel<>();
+            DefaultListModel<String> in = new DefaultListModel<>();
+            DefaultListModel<String> ex = new DefaultListModel<>();
+            DefaultListModel<String> sg = new DefaultListModel<>();
+            DefaultListModel<String> tl = new DefaultListModel<>();
+            DefaultListModel<String> p = new DefaultListModel<>();
+
+            List<Componente> obgs = this.configuraFacil.getListaComponentesObrigatórios();
+            
+            for(Componente c : obgs) {
                 ob.addElement(c.getDesignacao());
             }
-            else if(c.getClass().getName().equals("Opcional")){
+            
+            List<Componente> opcs = this.configuraFacil.getListaComponentesOpcionais();
+            
+            for(Componente c : opcs){
                 if(((Opcional) c).getPertencePacote() != 0){
                     p.addElement(c.getDesignacao());
                 }
@@ -62,15 +68,16 @@ public class ResumoView extends javax.swing.JDialog {
                 else if(c.getCategoria().equals("Telemática")){
                         tl.addElement(c.getDesignacao());
                 }
-                
             }
-        }
-        obrigatorios.setModel(ob);
-        interiores.setModel(in);
-        exteriores.setModel(ex);
-        seguranca.setModel(sg);
-        telematica.setModel(tl);
-        pacotes.setModel(p);
+            obrigatorios.setModel(ob);
+            interiores.setModel(in);
+            exteriores.setModel(ex);
+            seguranca.setModel(sg);
+            telematica.setModel(tl);
+            pacotes.setModel(p);
+        }  catch (SQLException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 
     /**

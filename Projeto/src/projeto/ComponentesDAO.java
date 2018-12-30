@@ -30,7 +30,7 @@ public class ComponentesDAO {
         try { 
             st = con.createStatement(); 
             ResultSet rs = st.executeQuery("SELECT * FROM obrigatório WHERE ID = " + id + ";");
-            
+            rs.next();
             float preco = Float.parseFloat(rs.getString("Preco"));
             String designacao = rs.getString("Designacao");
             int stock = Integer.parseInt(rs.getString("Stock"));
@@ -192,7 +192,7 @@ public class ComponentesDAO {
         List<Opcional> res = new ArrayList<>();
         
         try {
-            ResultSet rs = st.executeQuery("Select * FROM opcional;");
+            ResultSet rs = st.executeQuery("SELECT * FROM opcional WHERE Pacote_ID  IS NULL;");
             
             while(rs.next()) {
                 int id = Integer.parseInt(rs.getString("ID"));              
@@ -230,7 +230,49 @@ public class ComponentesDAO {
         return res;
     }
     
-    
+    public List<Opcional> getComponentesPacote() throws SQLException {
+        Statement st;
+        st = con.createStatement();
+        List<Opcional> res = new ArrayList<>();
+        
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM opcional WHERE Pacote_ID IS NOT NULL;");
+            
+            while(rs.next()) {
+                int id = Integer.parseInt(rs.getString("ID"));              
+                float preco = Float.parseFloat(rs.getString("preco"));
+                String designacao = rs.getString("Designacao");
+                int stock = Integer.parseInt(rs.getString("Stock"));
+                String categoria = rs.getString("Categoria");
+                String pertence = rs.getString("Pacote_ID");
+                int pertencePacote;
+                if (pertence != null) {
+                    pertencePacote = Integer.parseInt(rs.getString("Pacote_ID"));
+                }
+                else pertencePacote = 0;
+
+                Statement stn = con.createStatement();
+                List<Integer> necessarios = new ArrayList();
+                ResultSet rsNec = stn.executeQuery("SELECT Necessitado FROM ComponenteNecessitaComponente WHERE Necessita = " + id +";");
+                while(rsNec.next()) {
+                    necessarios.add(Integer.parseInt(rsNec.getString("Necessitado")));
+                }
+                Statement sti = con.createStatement();
+                List<Integer> incompativeis = new ArrayList();
+                ResultSet rsInc = sti.executeQuery("SELECT Opcional_ID1 FROM ComponenteIncompatívelComponente WHERE Opcional_ID = " + id +";");
+                    while(rsInc.next()) {
+                        incompativeis.add(Integer.parseInt(rsInc.getString("Opcional_ID1")));
+                    }
+
+                
+                res.add(new Opcional(necessarios, incompativeis, pertencePacote, id, preco, designacao, stock, categoria));
+            }
+        } catch (SQLException e) { 
+            e.printStackTrace(System.out);
+        } 
+        
+        return res;
+    }
     public List<Componente> getComponentes() throws SQLException {
         List<Componente> res = new ArrayList<>();
         
@@ -240,6 +282,10 @@ public class ComponentesDAO {
         for(Opcional op : getComponentesOpcionais()){
             res.add(op);
         }
+        for(Opcional op : getComponentesPacote()){
+            res.add(op);
+        }
+        
         
         return res;
     }

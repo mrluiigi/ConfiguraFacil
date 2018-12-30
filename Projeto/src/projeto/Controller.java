@@ -84,7 +84,11 @@ public class Controller {
         
          public void actionPerformed(ActionEvent e) {
             int comp = addStockView.getComponente().getId();
-            addStockView.setStock(model.getStockComponente(comp));
+             try {
+                 addStockView.setStock(model.getStockComponente(comp));
+             } catch (SQLException ex) {
+                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+             }
          }
     }
     
@@ -94,8 +98,10 @@ public class Controller {
     private class ProxConfigListener implements ActionListener{
         
         public void actionPerformed(ActionEvent e) {  
-            Configuracao c = model.obterProximaConfiguracao();
-            if(c != null){
+            Configuracao c;
+            try {
+                c = model.obterProximaConfiguracao();
+                if(c != null){
                 List<Componente> comp = model.getListaComponentes(c.getId());
                 proxConfigView = new ProxConfigView(c.getModelo(), comp);
                 proxConfigView.setVisible(true);
@@ -106,6 +112,10 @@ public class Controller {
             else{
                 fabricaView.showError("Não existem configurações para serem feitas");
             }
+            } catch (SQLException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
     }
     
@@ -185,11 +195,16 @@ public class Controller {
         
         public void actionPerformed(ActionEvent e) {
             if(criarConfigView.areAllSelected()){
+                try {
                 model.adicionaComponenteObrigatorio(criarConfigView.getModelo());
                 model.adicionaComponenteObrigatorio(criarConfigView.getMotor());
                 model.adicionaComponenteObrigatorio(criarConfigView.getPintura());
                 model.adicionaComponenteObrigatorio(criarConfigView.getEstofos());
                 model.adicionaComponenteObrigatorio(criarConfigView.getJantes());
+                } catch (SQLException ex) {
+                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
 
 
                 escolhaView = new EscolhaView();
@@ -241,7 +256,7 @@ public class Controller {
             if( !(orcamento = automaticoView.getOrcamento()).equals("") ){
                 try{
                     Configuracao c = model.configuracaoOptima(Float.parseFloat(orcamento));
-                    resumoView = new ResumoView(model, c);  //PROVAVELMENTE RECEBE PARAMETROS
+                    resumoView = new ResumoView(model);  //PROVAVELMENTE RECEBE PARAMETROS
                     resumoView.setVisible(true);
                     resumoView.setLocation(45, 45);
 
@@ -268,15 +283,30 @@ public class Controller {
             categoriaView.exteriorListener(new ExteriorListener());
             categoriaView.segurancaListener(new SegurancaListener());
             categoriaView.telematicaListener(new TelematicaListener());
+            categoriaView.confirmarListener(new ConfirmarEscolhaManualListener());
 
 
             //CONTINUAR COM LISTENERS
         }
     }
     
+    private class ConfirmarEscolhaManualListener implements ActionListener{
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {          
+                resumoView = new ResumoView(model); 
+                resumoView.setVisible(true);
+                resumoView.setLocation(45, 45);
+
+                resumoView.retrocederListener(new RetrocederListener(resumoView));
+                resumoView.confirmarListener(new VoltaInicioListener());
+        }
+    }
+    
     private class opcionaisListener extends MouseAdapter{
         @Override
         public void mouseClicked(MouseEvent event) {
+            try {
             JList<CheckboxListItem> list =
                (JList<CheckboxListItem>) event.getSource();
  
@@ -295,15 +325,12 @@ public class Controller {
                 incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
             }
             else {
-                try {
-                    model.adicionaComponenteOpcional(id);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                model.adicionaComponenteOpcional(id);     
             }
-
-
-         }
+            } catch (SQLException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
     
     }
@@ -387,7 +414,7 @@ public class Controller {
         
         @Override
         public void actionPerformed(ActionEvent e){
-            resumoView = new ResumoView(model, new Configuracao());  //PROVAVELMENTE RECEBE PARAMETROS----------ALTERAR PARAMETROS
+            resumoView = new ResumoView(model);  //PROVAVELMENTE RECEBE PARAMETROS----------ALTERAR PARAMETROS
             resumoView.setVisible(true);
             resumoView.setLocation(45, 45);
 
