@@ -20,13 +20,13 @@ import java.util.logging.Logger;
 public class ConfiguraFacil extends Observable{
     private Connection con;
     private ComponentesDAO componentesDAO;
-    private Configuracoes configuracoes;
+    private ConfiguraçõesDAO configuracoesDAO;
     private Pacotes pacotes;
     private Componentes componentes;
     private Configuracao configuracao;
     
     public ConfiguraFacil(Connection con) {
-        this.configuracoes = new Configuracoes();
+        this.configuracoesDAO = new ConfiguraçõesDAO(con);
         this.componentesDAO = new ComponentesDAO(con);
         this.pacotes = new Pacotes();
         this.componentes = new Componentes();
@@ -271,8 +271,8 @@ public class ConfiguraFacil extends Observable{
         return res;
     }
     
-    public Configuracao obterProximaConfiguracao(){
-        List<Configuracao> configs = this.configuracoes.getConfiguracoes();
+    public Configuracao obterProximaConfiguracao() throws SQLException{
+        List<Configuracao> configs = this.configuracoesDAO.getConfiguracoesPorFabricar();
         boolean bool = false;
         
         for(Configuracao c : configs){
@@ -320,9 +320,9 @@ public class ConfiguraFacil extends Observable{
         return null;        
     }
     
-    public List<Componente> getListaComponentes(int id){
+    public List<Componente> getListaComponentes(int id) throws SQLException{
         List<Componente> res = new ArrayList<>();
-        Configuracao c = this.configuracoes.getConfiguracao(id);
+        Configuracao c = this.configuracoesDAO.getConfiguracaoPorID(id);
         
         for(int i : c.getComponentesObrigatorios()){
             res.add(this.componentes.getObrigatorio(i));

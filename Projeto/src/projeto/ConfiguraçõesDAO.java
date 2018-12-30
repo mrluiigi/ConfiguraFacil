@@ -99,4 +99,43 @@ public class ConfiguraçõesDAO {
             e.printStackTrace(System.out);
         }
     }
+    
+    
+    public Configuracao getConfiguracaoPorID(int id) throws SQLException {
+        Statement st;
+        st = con.createStatement(); 
+        Configuracao res = null;
+        
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM configuracao WHERE ID = " + id + ";");
+            
+            String nif = rs.getString("NIF_Cliente");
+            String modelo = rs.getString("Modelo");
+            float preco = Float.parseFloat(rs.getString("Preco"));
+                
+            List <Integer> obgs =  new ArrayList<>();
+            ResultSet rsObgs = st.executeQuery("SELECT Obrigatório_ID FROM ConfiguraçãoObrigatórios WHERE Configuração_ID =" + id +";");
+            while(rsObgs.next()) {
+                obgs.add(Integer.parseInt(rsObgs.getString("Obrigatório_ID")));
+            }
+                
+            List <Integer> opts =  new ArrayList<>();
+            ResultSet rsOpts = st.executeQuery("SELECT Opcional_ID FROM ConfiguraçãoOpcionais WHERE Configuração_ID =" + id +";");
+            while(rsOpts.next()) {
+                opts.add(Integer.parseInt(rsOpts.getString("Opcional_ID")));
+            }
+            
+            List <Integer> pcts =  new ArrayList<>();
+            ResultSet rsPcts = st.executeQuery("SELECT Pacote_ID FROM ConfiguraçãoPacotes WHERE Configuração_ID =" + id +";");
+            while(rsPcts.next()) {
+                pcts.add(Integer.parseInt(rsOpts.getString("Opcional_ID")));
+            }
+            
+            res = (new Configuracao(id, nif, modelo, preco, obgs, opts, pcts, false));
+        } catch (SQLException e) { 
+            e.printStackTrace(System.out);
+        }
+        
+        return res;
+    }
 }
