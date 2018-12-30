@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JDialog;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -156,9 +158,22 @@ public class Controller {
             criarConfigView.setLocation(45, 45);
             
             criarConfigView.seguinteListener(new EscolhaListener());
+            criarConfigView.modeloListener(new listaListener());
+            criarConfigView.motorListener(new listaListener());
+            criarConfigView.pinturaListener(new listaListener());
+            criarConfigView.estofosListener(new listaListener());
+            criarConfigView.jantesListener(new listaListener());
         }
     }
     
+    private class listaListener implements ListSelectionListener{
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            criarConfigView.atualizaPreco();
+        }
+    
+    }
     
     private class EscolhaListener implements ActionListener{
         
