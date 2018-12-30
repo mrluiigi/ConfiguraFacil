@@ -176,7 +176,7 @@ public class IncompView extends javax.swing.JDialog {
         retroceder.addActionListener(al);
     }
     
-    public void confirmarListener (ActionListener al) {
+    public void addConfirmarAlteracoesListener (ActionListener al) {
         confirmar.addActionListener(al);
     }
     

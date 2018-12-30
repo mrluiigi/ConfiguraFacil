@@ -35,7 +35,18 @@ public class ConfiguraFacil extends Observable{
         this.setChanged();
         this.notifyObservers();
     }
-
+    
+    public List<Opcional> getComponentesCategoria(String categoria){
+        List<Opcional> res = new ArrayList<>();
+        for(Integer i : this.configuracao.getComponentesOpcionais()){
+            Opcional o = this.componentes.getOpcional(i);
+            if(o.getCategoria().equals(categoria)){
+                res.add(o);
+            }
+        }
+        return res;
+    }
+    
     public List<Obrigatorio> getObrigatorios() {
         try {
             return this.componentesDAO.getComponentesObrigatorios();

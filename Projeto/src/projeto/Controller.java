@@ -292,6 +292,7 @@ public class Controller {
                 incompView = new IncompView(id, inc);
                 incompView.setVisible(true);
                 incompView.setLocation(45, 45);
+                incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
             }
             else {
                 try {
@@ -313,6 +314,8 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             try {
                 model.adicionaComponenteOpcional(incompView.getId());
+                categoriaView.setComponentesPacotes(model, "anterior");
+
             } catch (SQLException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -24,6 +24,7 @@ import javax.swing.event.ListSelectionListener;
 public class CategoriaView extends javax.swing.JDialog implements Observer{
 
     private ConfiguraFacil configuraFacil;
+    private String categoria;
     /**
      * Creates new form CategoriaView
      */
@@ -49,9 +50,18 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
         teste.addMouseListener(ma);
     }
     
-    public void setComponentesPacotes(ConfiguraFacil config, String categoria) {
+    public void setComponentesPacotes(ConfiguraFacil config, String cat) {
+        if(!cat.equals("anterior")) {
+            this.categoria = cat;
+        }
+        
         CheckboxList cbl = new CheckboxList();
-        teste = cbl.showCheckBoxList(config.getOpcionais().stream().filter(c -> c.getCategoria().equals(categoria)).collect(Collectors.toList()));
+        List<Opcional> componentesJaPertencentes = configuraFacil.getComponentesCategoria(categoria);
+        for(Opcional c : componentesJaPertencentes) {
+            System.out.println(c.getId());
+        }
+        teste = cbl.showCheckBoxList(config.getOpcionais().stream().filter(c -> c.getCategoria().equals(categoria)).collect(Collectors.toList()),componentesJaPertencentes);
+        
         List<Pacote> pacotes = config.getPacotes().stream().filter(c -> c.getCategoria().equals(categoria)).collect(Collectors.toList());
         int size = pacotes.size();
         if(size == 0) {
@@ -105,6 +115,7 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
         setTitle("Categoria");
         this.configuraFacil = config;
         this.configuraFacil.addObserver(this);
+        this.categoria = "Acabamentos interiores";
     }
     
     

@@ -38,6 +38,5 @@ public class Opcional extends Componente{
 
     public int getPertencePacote() {
         return pertencePacote;
-    }
-    
+    }    
 }

@@ -51,6 +51,13 @@ public class Componente {
     public void decrementaStock(){
         this.stock--;
     }
-    
+    @Override
+    public boolean equals(Object o){
+        if(o==this) return true;
+        if(o==null || o.getClass() != this.getClass()) return false;
+
+        Componente l = (Componente) o;
+        return this.id == l.getId();
+    }
     
 }

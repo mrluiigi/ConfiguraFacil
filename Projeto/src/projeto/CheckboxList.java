@@ -14,15 +14,18 @@ import javax.swing.ListSelectionModel;
  
 public class CheckboxList {
  
-   public JList<CheckboxListItem> showCheckBoxList (List<Opcional> componentes) {
+   public JList<CheckboxListItem> showCheckBoxList (List<Opcional> componentes, List<Opcional> componentesJaPertencentes ) {
      // JFrame frame = new JFrame();
      // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  
       // Create a list containing CheckboxListItem's
       CheckboxListItem[] cbl = new CheckboxListItem[componentes.size()];
       int i = 0;
-      for(Componente c : componentes) {            
-             cbl[i] = new CheckboxListItem(c.getId(), c.getDesignacao()); 
+      for(Opcional c : componentes) {            
+             cbl[i] = new CheckboxListItem(c.getId(), c.getDesignacao());
+             if (componentesJaPertencentes.contains(c)) {
+                 cbl[i].setSelected(true);
+             }
              i++;
         }
       
@@ -38,6 +41,7 @@ public class CheckboxList {
       // Add a mouse listener to handle changing selection
  
       list.addMouseListener(new MouseAdapter() {
+        @Override
         public void mouseClicked(MouseEvent event) {
             JList<CheckboxListItem> list =
                (JList<CheckboxListItem>) event.getSource();
@@ -90,6 +94,7 @@ class CheckboxListItem {
       this.isSelected = isSelected;
    }
  
+   @Override
    public String toString() {
       return label;
    }
