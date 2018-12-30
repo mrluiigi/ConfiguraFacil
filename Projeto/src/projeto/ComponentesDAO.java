@@ -52,12 +52,19 @@ public class ComponentesDAO {
         
         try { 
             st = con.createStatement(); 
-            ResultSet rs = st.executeQuery("SELECT * FROM opcional WHERE ID = " + id + ";");
+            ResultSet rs = st.executeQuery("SELECT Preco,Designacao,Stock,Categoria,Pacote_ID FROM opcional WHERE ID = " + id + ";");
+            rs.next();
             
             float preco = Float.parseFloat(rs.getString("Preco"));
             String designacao = rs.getString("Designacao");
             int stock = Integer.parseInt(rs.getString("Stock"));
             String categoria = rs.getString("Categoria");
+            String pp = rs.getString("Pacote_ID");
+            int pertencePacote = 0;
+            if (pp != null) {
+                pertencePacote = Integer.parseInt(pp);
+            }
+             
             
             List<Integer> necessarios = new ArrayList();
             ResultSet rsNec = st.executeQuery("SELECT Necessitado FROM ComponenteNecessitaComponente WHERE Necessita = " + id +";");
@@ -71,7 +78,7 @@ public class ComponentesDAO {
                     incompativeis.add(Integer.parseInt(rsInc.getString("Opcional_ID1")));
                 }
                 
-            int pertencePacote = Integer.parseInt(rs.getString("Pacote_ID"));
+            
             
             o = new Opcional(necessarios, incompativeis, pertencePacote, id, preco, designacao, stock, categoria);
             

@@ -6,6 +6,8 @@
 package projeto;
 
 import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -14,7 +16,7 @@ import java.awt.event.ActionListener;
  * @author Pedro Barbosa A82068
  */
 public class IncompView extends javax.swing.JDialog {
-
+    int id;
     /**
      * Creates new form IncompView
      */
@@ -23,9 +25,19 @@ public class IncompView extends javax.swing.JDialog {
         initComponents();
     }
 
-    public IncompView(){
+    public IncompView(int id, List<Opcional> inc){
+        this.id = id;
         setTitle("Incompatibilidades e Necessidades");
         initComponents();
+        DefaultListModel<ListOb> mod = new DefaultListModel<>();
+        for(Componente c : inc){
+            mod.addElement(new ListOb(c.getId(), c.getDesignacao(), c.getPreco()));
+        }
+        jList1.setModel(mod);
+    }
+
+    public int getId() {
+        return id;
     }
     
     /**
@@ -39,10 +51,10 @@ public class IncompView extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        incompativeis = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        necessarios = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         confirmar = new javax.swing.JButton();
@@ -56,19 +68,9 @@ public class IncompView extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("Produtos que são adicionados");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        incompativeis.setViewportView(jList1);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(necessarios);
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setText("Balanço");
@@ -93,7 +95,7 @@ public class IncompView extends javax.swing.JDialog {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(incompativeis, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1)))
                 .addContainerGap(67, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -109,7 +111,7 @@ public class IncompView extends javax.swing.JDialog {
                 .addGap(42, 42, 42)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(incompativeis, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
@@ -180,14 +182,14 @@ public class IncompView extends javax.swing.JDialog {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton confirmar;
+    private javax.swing.JScrollPane incompativeis;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<ListOb> jList1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<ListOb> necessarios;
     private javax.swing.JButton retroceder;
     // End of variables declaration//GEN-END:variables
 }

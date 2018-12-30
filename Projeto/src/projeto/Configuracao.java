@@ -83,7 +83,7 @@ public class Configuracao {
     
     public void removeComponenteOpcional(int id, float preco){
         this.preco -= preco;
-        this.componentesOpcionais.remove(id);
+        this.componentesOpcionais.remove(Integer.valueOf(id));
     }
     
     public void adicionaPacote(int id, float preco){
@@ -93,7 +93,7 @@ public class Configuracao {
     
     public void removePacote(int id, float preco){
         this.preco -= preco;
-        this.pacotes.remove(id);
+        this.pacotes.remove(Integer.valueOf(id));
     }
     
     public boolean containsOpcional(int id){

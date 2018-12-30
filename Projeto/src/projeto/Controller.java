@@ -7,8 +7,14 @@ package projeto;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
+import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -257,7 +263,7 @@ public class Controller {
             categoriaView.setLocation(45, 45);
             
             categoriaView.retrocederListener(new RetrocederListener(categoriaView));
-            categoriaView.confirmarListener(new IncompListener());
+            //categoriaView.confirmarListener(new IncompListener());
             categoriaView.interiorListener(new InteriorListener());
             categoriaView.exteriorListener(new ExteriorListener());
             categoriaView.segurancaListener(new SegurancaListener());
@@ -268,11 +274,58 @@ public class Controller {
         }
     }
     
+    private class opcionaisListener extends MouseAdapter{
+        @Override
+        public void mouseClicked(MouseEvent event) {
+            JList<CheckboxListItem> list =
+               (JList<CheckboxListItem>) event.getSource();
+ 
+            // Get index of item clicked
+ 
+            int index = list.locationToIndex(event.getPoint());
+            CheckboxListItem item = (CheckboxListItem) list.getModel().getElementAt(index);
+            int id =item.getId();
+            List<Opcional> inc = model.alteracoesComponenteOpcionalIncompativeis(item.getId());
+            System.out.println("inc: " +inc.size());
+            System.out.println("ID: "+id);
+            if(inc.size() > 0) {
+                incompView = new IncompView(id, inc);
+                incompView.setVisible(true);
+                incompView.setLocation(45, 45);
+            }
+            else {
+                try {
+                    model.adicionaComponenteOpcional(id);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+
+         }
+        
+    
+    }
+    
+    private class ConfirmarAlteracoesListener implements ActionListener{
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                model.adicionaComponenteOpcional(incompView.getId());
+            } catch (SQLException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
     private class InteriorListener implements ActionListener{
         
+        @Override
         public void actionPerformed(ActionEvent e) {
             autom = false;
             categoriaView.setComponentesPacotes(model, "Acabamentos interiores");
+            categoriaView.componentesListener(new opcionaisListener());
             categoriaView.setVisible(true);
             categoriaView.setLocation(45, 45);
         }
@@ -280,9 +333,11 @@ public class Controller {
 
     private class ExteriorListener implements ActionListener{
         
+        @Override
         public void actionPerformed(ActionEvent e) {
             autom = false;
             categoriaView.setComponentesPacotes(model, "Acabamentos exteriores");
+            categoriaView.componentesListener(new opcionaisListener());
             categoriaView.setVisible(true);
             categoriaView.setLocation(45, 45);
         }
@@ -290,9 +345,11 @@ public class Controller {
  
     private class SegurancaListener implements ActionListener{
         
+        @Override
         public void actionPerformed(ActionEvent e) {
             autom = false;
             categoriaView.setComponentesPacotes(model, "Segurança");
+            categoriaView.componentesListener(new opcionaisListener());
             categoriaView.setVisible(true);
             categoriaView.setLocation(45, 45);
         }
@@ -300,16 +357,19 @@ public class Controller {
     
     private class TelematicaListener implements ActionListener{
         
+        @Override
         public void actionPerformed(ActionEvent e) {
             autom = false;
             categoriaView.setComponentesPacotes(model, "Telemática");
+            categoriaView.componentesListener(new opcionaisListener());
             categoriaView.setVisible(true);
             categoriaView.setLocation(45, 45);
         }
     }
     
-    private class IncompListener implements ActionListener{
+   /* private class IncompListener implements ActionListener{
         
+        @Override
         public void actionPerformed(ActionEvent e){
             incompView = new IncompView();
             incompView.setVisible(true);
@@ -318,10 +378,11 @@ public class Controller {
             incompView.retrocederListener(new RetrocederListener(categoriaView));
             incompView.confirmarListener(new ResumoListener());
         }
-    }
+    }*/
     
     private class ResumoListener implements ActionListener{
         
+        @Override
         public void actionPerformed(ActionEvent e){
             resumoView = new ResumoView(model, new Configuracao());  //PROVAVELMENTE RECEBE PARAMETROS----------ALTERAR PARAMETROS
             resumoView.setVisible(true);
@@ -335,6 +396,7 @@ public class Controller {
     
     private class VoltaInicioListener implements ActionListener {
        
+        @Override
         public void actionPerformed(ActionEvent e)throws NullPointerException{
             
             //MÉTODO PARA ADICIONAR A CONFIGURAÇÃO À LISTA

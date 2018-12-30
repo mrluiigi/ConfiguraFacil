@@ -6,12 +6,14 @@
 package projeto;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
+import javax.swing.event.ListSelectionListener;
 
 
 
@@ -30,6 +32,23 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
         initComponents();
     }
     
+    public void atualizaPreco() {
+        preco.setText("" + configuraFacil.getPreco());
+    }
+    /*
+    public void addComponentesListener(MouseAdapter ma) {
+        list.addMouseListener(new ()
+    }*/
+    
+    
+    public void test() {
+        System.out.println(teste.getSelectedValuesList().size());
+    }
+    
+    public void componentesListener (MouseAdapter ma) {
+        teste.addMouseListener(ma);
+    }
+    
     public void setComponentesPacotes(ConfiguraFacil config, String categoria) {
         CheckboxList cbl = new CheckboxList();
         teste = cbl.showCheckBoxList(config.getOpcionais().stream().filter(c -> c.getCategoria().equals(categoria)).collect(Collectors.toList()));
@@ -46,7 +65,7 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
             checkBoxPacote1.setVisible(true);
             listaPacote2.setVisible(false);
             checkBoxPacote2.setVisible(false);
-            DefaultListModel<ListOb> mod1 = new DefaultListModel<ListOb>();
+            DefaultListModel<ListOb> mod1 = new DefaultListModel<>();
             Pacote p1 = pacotes.get(0);
             checkBoxPacote1.setText(p1.getCategoria());
             for(Componente c : config.getOpcionais().stream().filter(c -> c.getPertencePacote() == p1.getId()).collect(Collectors.toList())) {
@@ -87,6 +106,8 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
         this.configuraFacil = config;
         this.configuraFacil.addObserver(this);
     }
+    
+    
     
     /**
      * This method is called from within the constructor to initialize the form.

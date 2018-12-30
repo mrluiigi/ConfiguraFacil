@@ -38,7 +38,7 @@ public class CheckboxList {
       // Add a mouse listener to handle changing selection
  
       list.addMouseListener(new MouseAdapter() {
-         public void mouseClicked(MouseEvent event) {
+        public void mouseClicked(MouseEvent event) {
             JList<CheckboxListItem> list =
                (JList<CheckboxListItem>) event.getSource();
  
@@ -77,7 +77,11 @@ class CheckboxListItem {
         this.id = id;
         this.label = label;
    }
- 
+
+    public int getId() {
+        return id;
+    }
+   
    public boolean isSelected() {
       return isSelected;
    }

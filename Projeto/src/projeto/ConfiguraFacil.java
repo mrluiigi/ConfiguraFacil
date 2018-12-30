@@ -134,20 +134,20 @@ public class ConfiguraFacil extends Observable{
     
     // percorrer lista dos pacotes da configuracao, para cada pacote tenho que verificar se o
     // componente que eu quero adicionar esta la (na lista dos incompativeis)
-    public void adicionaComponenteOpcional(int id){
-        Opcional comp = this.componentes.getOpcional(id);
+    public void adicionaComponenteOpcional(int id) throws SQLException{
+        Opcional comp = this.componentesDAO.getOpcional(id);
         float preco;
         
         for(int i : comp.getListaNecessarios()){
             if(!(this.configuracao.containsOpcional(i))){
-                preco = this.componentes.getOpcional(i).getPreco();
+                preco = this.componentesDAO.getOpcional(i).getPreco();
                 this.configuracao.adicionaComponenteOpcional(i, preco);
             }
         }
         
         for(int i : comp.getListaIncompativeis()){
             if(this.configuracao.containsOpcional(i)){
-                preco = this.componentes.getOpcional(i).getPreco();
+                preco = this.componentesDAO.getOpcional(i).getPreco();
                 this.configuracao.removeComponenteOpcional(i, preco);
             }
         }
