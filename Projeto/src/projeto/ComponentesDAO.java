@@ -187,7 +187,8 @@ public class ComponentesDAO {
         float preco = 0;
         
         try {
-            ResultSet rs = st.executeQuery("SELECT MIN(preco) FROM opcional;");
+            ResultSet rs = st.executeQuery("SELECT MIN(preco) AS Preco FROM opcional;");
+            rs.next();
             preco = Float.parseFloat(rs.getString("Preco"));
         } catch (SQLException e) { 
             e.printStackTrace(System.out);
@@ -378,13 +379,64 @@ public class ComponentesDAO {
     }
     
     
+    public Pacote getPacote(int id) throws SQLException {
+        Statement st;
+        st = con.createStatement();
+        Pacote res = null;
+        
+        try {
+            ResultSet rs = st.executeQuery("Select * FROM Pacote WHERE ID = " + id + ";");
+            rs.next();
+            
+            float preco = Float.parseFloat(rs.getString("preco"));
+            String categoria = rs.getString("Categoria");
+            String designacao = rs.getString("Designação");
+                
+            Statement stp = con.createStatement();
+            List<Integer> componentesPacote = new ArrayList();
+            ResultSet rsPac = stp.executeQuery("SELECT ID FROM Opcional WHERE Pacote_ID = " + id +";");
+            while(rsPac.next()) {
+                componentesPacote.add(Integer.parseInt(rsPac.getString("ID")));
+            }
+                
+            Statement stn = con.createStatement();
+            List<Integer> componentesNecessarios = new ArrayList();
+            ResultSet rsNec = stn.executeQuery("SELECT Opcional_ID FROM PacoteNecessitaComponente WHERE Pacote_ID = " + id +";");
+            while(rsNec.next()) {
+                componentesNecessarios.add(Integer.parseInt(rsNec.getString("Opcional_ID")));
+            }
+                
+            Statement sti = con.createStatement();
+            List<Integer> componentesIncompativeis = new ArrayList();
+            ResultSet rsInc = sti.executeQuery("SELECT Opcional_ID FROM PacoteIncompatívelComponente WHERE Pacote_ID = " + id +";");
+            while(rsInc.next()) {
+                componentesIncompativeis.add(Integer.parseInt(rsInc.getString("Opcional_ID")));
+            }
+            
+            Statement stpi = con.createStatement();
+            List<Integer> pacotesIncompativeis = new ArrayList();
+            ResultSet rsPctsInc = stpi.executeQuery("SELECT Pacote_ID FROM PacoteIncompatívelPacote WHERE Pacote_ID1 = " + id +";");
+            while(rsPctsInc.next()) {
+                componentesIncompativeis.add(Integer.parseInt(rsPctsInc.getString("Pacote_ID")));
+            }
+
+                
+            res = new Pacote(id, categoria, designacao, componentesPacote, pacotesIncompativeis, componentesIncompativeis, componentesNecessarios);
+        } catch (SQLException e) { 
+            e.printStackTrace(System.out);
+        }
+        
+        return res;
+    }
+    
     public float getPrecoPacoteMaisBarato() throws SQLException {
         Statement st;
         st = con.createStatement(); 
         float preco = 0;
         
         try {
-            ResultSet rs = st.executeQuery("SELECT MIN(preco) FROM Pacote;");
+            ResultSet rs = st.executeQuery("SELECT MIN(Preco) AS Preco FROM Pacote;");
+            rs.next();
             preco = Float.parseFloat(rs.getString("Preco"));
         } catch (SQLException e) { 
             e.printStackTrace(System.out);

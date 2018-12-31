@@ -21,13 +21,11 @@ public class ConfiguraFacil extends Observable{
     private Connection con;
     private ComponentesDAO componentesDAO;
     private ConfiguraçõesDAO configuracoesDAO;
-    private Pacotes pacotes;
     private Configuracao configuracao;
     
     public ConfiguraFacil(Connection con) {
         this.configuracoesDAO = new ConfiguraçõesDAO(con);
         this.componentesDAO = new ComponentesDAO(con);
-        this.pacotes = new Pacotes();
         this.configuracao = new Configuracao();
         
         this.setChanged();
@@ -79,6 +77,7 @@ public class ConfiguraFacil extends Observable{
         return null;
     }
     
+    //----------------------------------------------------------------------------------------------O PROBLEMA É NOS GETS
     public int getStockComponente(int id) throws SQLException{
         List<Componente> comp = getComponentes();
         for(Componente c : comp){
@@ -132,11 +131,11 @@ public class ConfiguraFacil extends Observable{
         return incompativeis;
     }
     
-    public List<Pacote> alteracoesComponenteOpcionalPacotesIncompativeis(int id){
+    public List<Pacote> alteracoesComponenteOpcionalPacotesIncompativeis(int id) throws SQLException{
         List<Pacote> pacotesIncompativeis = new ArrayList<>();
         
         for(int i : this.configuracao.getPacotes()){
-            Pacote p = this.pacotes.getPacote(i);
+            Pacote p = this.componentesDAO.getPacote(i);
             if(p.componenteIncompativel(id)){
                 pacotesIncompativeis.add(p);
             }
@@ -176,8 +175,8 @@ public class ConfiguraFacil extends Observable{
         this.notifyObservers();
     }
     
-    public List<Integer> alteracoesPacoteCompNecessarios(int id){
-        Pacote p = this.pacotes.getPacote(id);
+    public List<Integer> alteracoesPacoteCompNecessarios(int id) throws SQLException{
+        Pacote p = this.componentesDAO.getPacote(id);
         List<Integer> nec = p.getListaComponentesNecessarios();
         List<Integer> res = new ArrayList<>();
         
@@ -190,8 +189,8 @@ public class ConfiguraFacil extends Observable{
         return res;
     }
         
-    public List<Integer> alteracoesPacoteCompIncompativeis(int id){
-        Pacote p = this.pacotes.getPacote(id);
+    public List<Integer> alteracoesPacoteCompIncompativeis(int id) throws SQLException{
+        Pacote p = this.componentesDAO.getPacote(id);
         List<Integer> inc = p.getListaComponentesIncompativeis();
         List<Integer> res = new ArrayList<>();
 
@@ -204,8 +203,8 @@ public class ConfiguraFacil extends Observable{
         return res;
     }
     
-    public List<Integer> alteracoesPacotePacotesIncompativeis(int id){
-        Pacote p = this.pacotes.getPacote(id);
+    public List<Integer> alteracoesPacotePacotesIncompativeis(int id) throws SQLException{
+        Pacote p = this.componentesDAO.getPacote(id);
         List<Integer> pInc = p.getListaPacotesIncompativeis();
         List<Integer> res = new ArrayList<>();
 
@@ -219,7 +218,7 @@ public class ConfiguraFacil extends Observable{
     }
     
     public void adicionaPacote(int id) throws SQLException{
-        Pacote pacote = this.pacotes.getPacote(id);
+        Pacote pacote = this.componentesDAO.getPacote(id);
         float preco;
         
         for(int i : pacote.getListaComponentesNecessarios()){
@@ -238,7 +237,7 @@ public class ConfiguraFacil extends Observable{
             
         for(int i : pacote.getListaPacotesIncompativeis()){
             if(this.configuracao.containsPacote(i)){
-                preco = this.pacotes.getPacote(i).getPreco();
+                preco = this.componentesDAO.getPacote(i).getPreco();
                 this.configuracao.removePacote(i, preco);
             }
         }
@@ -252,7 +251,7 @@ public class ConfiguraFacil extends Observable{
         if(obrigatorio){    
             this.componentesDAO.adicionaStockObrigatorio(id, qtd);                 
         }
-        else{
+        else if(!obrigatorio){
             this.componentesDAO.adicionaStockOpcional(id, qtd);
         }
         this.setChanged();
@@ -260,7 +259,7 @@ public class ConfiguraFacil extends Observable{
     }
     
     public boolean temStockPacote(int id) throws SQLException{
-        Pacote p = this.pacotes.getPacote(id);
+        Pacote p = this.componentesDAO.getPacote(id);
         boolean res = false;
         
         for(int i : p.getListaComponentesPacote()){
@@ -311,7 +310,7 @@ public class ConfiguraFacil extends Observable{
                     this.componentesDAO.reduzStockOpcional(i);
                 }
                 for(int i : c.getPacotes()){
-                    for(int j : this.pacotes.getPacote(i).getListaComponentesPacote()){
+                    for(int j : this.componentesDAO.getPacote(i).getListaComponentesPacote()){
                         this.componentesDAO.reduzStockOpcional(j);
                     }
                 }
@@ -356,7 +355,7 @@ public class ConfiguraFacil extends Observable{
             res.add(this.componentesDAO.getOpcional(i));
         }
         for(int i : c.getPacotes()){
-            for(int j : this.pacotes.getPacote(i).getListaComponentesPacote()){
+            for(int j : this.componentesDAO.getPacote(i).getListaComponentesPacote()){
                 res.add(this.componentesDAO.getOpcional(j));
             }
         }
@@ -366,9 +365,9 @@ public class ConfiguraFacil extends Observable{
 
     public float escolhePacotesOtimos(float orcamento) throws SQLException{
         List<Pacote> ordenadoPreco = new ArrayList<>();
-        float precoMaisBarato = this.pacotes.getPrecoPacoteMaisBarato();
+        float precoMaisBarato = this.componentesDAO.getPrecoPacoteMaisBarato();
         
-        for(Pacote p : this.pacotes.getPacotes()){
+        for(Pacote p : this.componentesDAO.getPacotes()){
             ordenadoPreco.add(p);
         }
         ordenadoPreco.sort(new PacotePrecoComparator());
@@ -491,12 +490,12 @@ public class ConfiguraFacil extends Observable{
         return aRemoverComponentes;
     }    
     
-    public List<Integer> alteracoesRemoverComponenteOpcionalPacotes(int id){    
+    public List<Integer> alteracoesRemoverComponenteOpcionalPacotes(int id) throws SQLException{    
         List<Integer> pacotes = this.configuracao.getPacotes();
         List<Integer> aRemoverPacotes = new ArrayList<>();
         
         for(int i : pacotes){
-            boolean bool = this.pacotes.getPacote(i).getListaComponentesNecessarios().contains(id);
+            boolean bool = this.componentesDAO.getPacote(i).getListaComponentesNecessarios().contains(id);
             if(bool){
                 aRemoverPacotes.add(i);
             }
@@ -512,7 +511,7 @@ public class ConfiguraFacil extends Observable{
         }
         
         for(int i : alteracoesRemoverComponenteOpcionalPacotes(id)){
-            float preco = this.pacotes.getPacote(i).getPreco();
+            float preco = this.componentesDAO.getPacote(i).getPreco();
             this.configuracao.removePacote(i, preco);
         }
         float preco = this.componentesDAO.getOpcional(id).getPreco();

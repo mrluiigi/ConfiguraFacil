@@ -164,7 +164,7 @@ public class Controller {
                 componente = addStockView.getComponente();                
                 quantidade = addStockView.getQuantidade();
                 
-                model.adicionarStock(true, componente.getId(), quantidade);
+                model.adicionarStock(addStockView.isObrigatorio(), componente.getId(), quantidade);
 
             }catch (Exception ex){
                 addStockView.showError("Bad Input");
@@ -263,17 +263,18 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             String orcamento = "";
-            
-            if( !(orcamento = automaticoView.getOrcamento()).equals("") ){
+            orcamento = automaticoView.getOrcamento();
+            if( !(orcamento.equals(""))){
                 try{
-                    Configuracao c = model.configuracaoOptima(Float.parseFloat(orcamento));
-                    resumoView = new ResumoView(model);  //PROVAVELMENTE RECEBE PARAMETROS
+                    model.configuracaoOptima(Float.parseFloat(orcamento));                    
+                    resumoView = new ResumoView(model);
                     resumoView.setVisible(true);
                     resumoView.setLocation(45, 45);
 
                     resumoView.retrocederListener(new RetrocederListener(resumoView));
                     resumoView.confirmarListener(new VoltaInicioListener());
                 }catch(Exception exc){
+                    exc.printStackTrace();
                     automaticoView.showError("Bad Input");
                 }
             }

@@ -32,30 +32,27 @@ public class AddStockView extends javax.swing.JDialog implements Observer{
         initComponents();
     }
     
-    public AddStockView(ConfiguraFacil config){
-        try {
+    public AddStockView(ConfiguraFacil config) {
         setTitle("Adiciona Stock");
         initComponents();
         this.configuraFacil = config;
-        
-        this.configuraFacil.addObserver(this);
-        
-        List<Componente> comp = this.configuraFacil.getComponentes();
-        DefaultComboBoxModel<ComboItem> d = new DefaultComboBoxModel<ComboItem>();
-        for(Componente c : comp){
-            if(c.getClass().getName().equals("Obrigatorio")){
-                d.addElement(new ComboItem(c.getId(), c.getDesignacao(), true));
-            }
-            else{
-                d.addElement(new ComboItem(c.getId(), c.getDesignacao(), false));
 
-            }
+        this.configuraFacil.addObserver(this);
+
+        List<Obrigatorio> obrigatorio = this.configuraFacil.getObrigatorios();
+        List<Opcional> opcionais = this.configuraFacil.getOpcionais();
+        DefaultComboBoxModel<ComboItem> d = new DefaultComboBoxModel<ComboItem>();
+
+        for(Componente c : obrigatorio){
+            d.addElement(new ComboItem(c.getId(), c.getDesignacao(), true));
         }
+
+        for(Componente c : opcionais){
+            d.addElement(new ComboItem(c.getId(), c.getDesignacao(), false));
+        }
+
         lista.setModel(d);
-        stock.setText(Integer.toString(comp.get(0).getStock()));
-        }  catch (SQLException ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        stock.setText(Integer.toString(obrigatorio.get(0).getStock()));
     }
 
     /**
@@ -178,6 +175,10 @@ public class AddStockView extends javax.swing.JDialog implements Observer{
     
     public int getQuantidade(){
         return Integer.parseInt(this.quantidade.getText());
+    }
+    
+    public boolean isObrigatorio(){
+        return ((ComboItem) lista.getSelectedItem()).isObrigatorio();
     }
     
     public void okListener(ActionListener al) {
