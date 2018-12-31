@@ -206,6 +206,7 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             if(criarConfigView.areAllSelected()){
                 try {
+                model.resetConfiguracao();
                 model.escolheModelo(criarConfigView.getModeloId(), criarConfigView.getModeloDesignacao());
                 model.adicionaComponenteObrigatorio(criarConfigView.getMotor());
                 model.adicionaComponenteObrigatorio(criarConfigView.getPintura());

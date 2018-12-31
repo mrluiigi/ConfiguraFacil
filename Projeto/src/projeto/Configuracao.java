@@ -96,6 +96,10 @@ public class Configuracao {
         this.pacotes.remove(Integer.valueOf(id));
     }
     
+    public boolean containsObrigatorio(int id){
+        return this.componentesObrigatorios.contains(id);
+    }
+    
     public boolean containsOpcional(int id){
         return this.componentesOpcionais.contains(id);
     }

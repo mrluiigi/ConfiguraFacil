@@ -37,23 +37,32 @@ public class IncompView extends javax.swing.JDialog {
         this.componente = isComponente;
         setTitle("Incompatibilidades e Necessidades");
         initComponents();
+        
+        float alteracaoValor = 0;
+        
         DefaultListModel<ListOb> mod = new DefaultListModel<>();
         for(Componente c : inc){
             mod.addElement(new ListOb(c.getId(), c.getDesignacao(), c.getPreco()));
+            alteracaoValor -= c.getPreco();
         }
         removidos.setModel(mod);
         
         DefaultListModel<ListOb> mod2 = new DefaultListModel<>();
         for(Componente c : nec){
             mod2.addElement(new ListOb(c.getId(), c.getDesignacao(), c.getPreco()));
+            alteracaoValor += c.getPreco();
         }
         necessarios.setModel(mod2);
         
         DefaultListModel<ListOb> mod3 = new DefaultListModel<>();
         for(Pacote p : pac){
             mod3.addElement(new ListOb(p.getId(), p.getDesignacao(), p.getPreco()));
+            alteracaoValor -= p.getPreco();
         }
         pacotes.setModel(mod3);
+        preco.setText(Float.toString(alteracaoValor));
+        
+        
     }
 
     public int getId() {
@@ -84,7 +93,7 @@ public class IncompView extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         necessarios = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        preco = new javax.swing.JLabel();
         confirmar = new javax.swing.JButton();
         retroceder = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -106,7 +115,7 @@ public class IncompView extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setText("Balanço");
 
-        jLabel4.setText("preco");
+        preco.setText("preco");
 
         confirmar.setText("Confirmar");
 
@@ -127,7 +136,7 @@ public class IncompView extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4))
+                        .addComponent(preco))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -167,7 +176,7 @@ public class IncompView extends javax.swing.JDialog {
                 .addGap(209, 209, 209)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(preco))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confirmar)
@@ -207,6 +216,7 @@ public class IncompView extends javax.swing.JDialog {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 IncompView dialog = new IncompView(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -234,12 +244,12 @@ public class IncompView extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<ListOb> necessarios;
     private javax.swing.JList<ListOb> pacotes;
+    private javax.swing.JLabel preco;
     private javax.swing.JList<ListOb> removidos;
     private javax.swing.JButton retroceder;
     // End of variables declaration//GEN-END:variables

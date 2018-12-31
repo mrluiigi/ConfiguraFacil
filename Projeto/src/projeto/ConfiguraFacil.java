@@ -578,4 +578,8 @@ public class ConfiguraFacil extends Observable{
 
         return res;
     }
+    
+    public void resetConfiguracao() {
+        this.configuracao = new Configuracao();
+    }
 }
