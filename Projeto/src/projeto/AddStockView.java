@@ -84,6 +84,12 @@ public class AddStockView extends javax.swing.JDialog implements Observer{
 
         jLabel1.setText("Produto");
 
+        quantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quantidadeActionPerformed(evt);
+            }
+        });
+
         jLabel2.setText("Quantidade");
 
         adicionar.setText("Adicionar");
@@ -163,6 +169,10 @@ public class AddStockView extends javax.swing.JDialog implements Observer{
     private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_okActionPerformed
+
+    private void quantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_quantidadeActionPerformed
 
     
     public ComboItem getComponente(){
@@ -255,8 +265,9 @@ public class AddStockView extends javax.swing.JDialog implements Observer{
     @Override
     public void update(Observable o, Object arg) {
         try {
+            boolean obrigatorio = ((ComboItem) lista.getSelectedItem()).isObrigatorio();
             int id = ((ComboItem) lista.getSelectedItem()).getId();
-            int st = configuraFacil.getStockComponente(id);
+            int st = configuraFacil.getStockComponente(id, obrigatorio);
             stock.setText(Integer.toString(st));
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);

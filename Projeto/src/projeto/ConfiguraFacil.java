@@ -78,10 +78,18 @@ public class ConfiguraFacil extends Observable{
     }
     
     //----------------------------------------------------------------------------------------------O PROBLEMA É NOS GETS
-    public int getStockComponente(int id) throws SQLException{
-        List<Componente> comp = getComponentes();
-        for(Componente c : comp){
-            if(c.getId() == id) return c.getStock();
+    public int getStockComponente(int id, boolean obrigatorio) throws SQLException{
+        if(obrigatorio){
+            List<Obrigatorio> comp = getObrigatorios();
+            for(Obrigatorio c : comp){
+                if(c.getId() == id) return c.getStock();
+            }
+        }
+        else{
+            List<Opcional> comp = getOpcionais();
+            for(Opcional c : comp){
+                if(c.getId() == id) return c.getStock();
+            }
         }
         return -1;
     }

@@ -87,8 +87,9 @@ public class Controller {
          @Override
          public void actionPerformed(ActionEvent e) {
             int comp = addStockView.getComponente().getId();
+            boolean obrigatorio = addStockView.getComponente().isObrigatorio();
              try {
-                 addStockView.setStock(model.getStockComponente(comp));
+                 addStockView.setStock(model.getStockComponente(comp, obrigatorio));
              } catch (SQLException ex) {
                  Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
              }
