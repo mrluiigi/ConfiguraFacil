@@ -297,9 +297,39 @@ public class Controller {
             categoriaView.segurancaListener(new SegurancaListener());
             categoriaView.telematicaListener(new TelematicaListener());
             categoriaView.confirmarListener(new ConfirmarEscolhaManualListener());
+            categoriaView.pacote1Listener(new Pacote1Listener());
+            
 
 
             //CONTINUAR COM LISTENERS
+        }
+    }
+    
+    private class Pacote1Listener implements ActionListener{
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                int id = categoriaView.getPacote1();
+                if(categoriaView.isPacote1Selected()) {
+                    List<Opcional> inc = model.alteracoesPacoteCompIncompativeis(id);
+                    if(inc.size() > 0) {
+                        incompView = new IncompView(id, true, false, inc);
+                        incompView.setVisible(true);
+                        incompView.setLocation(45, 45);
+                        incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
+                     }
+                    else {
+                        model.adicionaPacote(id);     
+                    }
+                }
+                else {
+                    System.out.println("remove" + id);
+                    model.removePacote(id);
+                }
+            } catch (SQLException ex) {
+                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
         }
     }
     
@@ -333,7 +363,7 @@ public class Controller {
                 System.out.println("inc: " + inc.size());
                 System.out.println("ID: " + id);
                 if(inc.size() > 0) {
-                    incompView = new IncompView(id, true, inc);
+                    incompView = new IncompView(id, true, true, inc);
                     incompView.setVisible(true);
                     incompView.setLocation(45, 45);
                     incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
@@ -346,7 +376,7 @@ public class Controller {
                 int id = item.getId();
                 List<Opcional> inc = model.alteracoesRemoverComponenteOpcionalComponentes(id);
                 if(inc.size() > 0) {
-                    incompView = new IncompView(id, false, inc);
+                    incompView = new IncompView(id, false, true, inc);
                     incompView.setVisible(true);
                     incompView.setLocation(45, 45);
                     incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
@@ -369,10 +399,20 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             try {
                 if(incompView.getAdiciona()){
-                    model.adicionaComponenteOpcional(incompView.getId());
+                    if(incompView.isComponente()) {
+                        model.adicionaComponenteOpcional(incompView.getId());
+                    }
+                    else {
+                        model.adicionaPacote(incompView.getId());
+                    }
                 }
                 else{
-                    model.removerComponenteOpcional(incompView.getId());
+                    if(incompView.isComponente()) {
+                        model.removerComponenteOpcional(incompView.getId());
+                    }
+                    else {
+                        model.removePacote(incompView.getId());
+                    }                   
                 }
                 categoriaView.setComponentesPacotes(model, "anterior");
                 categoriaView.componentesListener(new opcionaisListener());

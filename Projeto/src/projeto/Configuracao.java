@@ -88,7 +88,7 @@ public class Configuracao {
     
     public void adicionaPacote(int id, float preco){
         this.preco += preco;
-        this.pacotes.remove(Integer.valueOf(id));
+        this.pacotes.add(id);
     }
     
     public void removePacote(int id, float preco){

@@ -17,7 +17,12 @@ import javax.swing.DefaultListModel;
  */
 public class IncompView extends javax.swing.JDialog {
     int id;
+    //1 adicionar
+    //0 remover
     boolean adiciona;
+    //1 componente
+    //0 pacote
+    boolean componente;
     /**
      * Creates new form IncompView
      */
@@ -26,7 +31,7 @@ public class IncompView extends javax.swing.JDialog {
         initComponents();
     }
 
-    public IncompView(int id, boolean adiciona, List<Opcional> inc){
+    public IncompView(int id, boolean adiciona, boolean isCOmponente, List<Opcional> inc){
         this.id = id;
         this.adiciona = adiciona;
         setTitle("Incompatibilidades e Necessidades");
@@ -44,6 +49,10 @@ public class IncompView extends javax.swing.JDialog {
 
     public boolean getAdiciona() {
         return adiciona;
+    }
+
+    public boolean isComponente() {
+        return componente;
     }
     
     /**

@@ -46,6 +46,11 @@ public class Pacote {
     public float getPreco(){
         return this.preco;
     }
+
+    public String getDesignacao() {
+        return designacao;
+    }
+    
     
     public List<Integer> getListaComponentesPacote(){
         return this.componentesPacote;

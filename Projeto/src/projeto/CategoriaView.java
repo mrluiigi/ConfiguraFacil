@@ -28,6 +28,8 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
 
     private ConfiguraFacil configuraFacil;
     private String categoria;
+    private int pacote1;
+    private int pacote2;
     /**
      * Creates new form CategoriaView
      */
@@ -43,7 +45,22 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
     public void addComponentesListener(MouseAdapter ma) {
         list.addMouseListener(new ()
     }*/
+
+    public int getPacote1() {
+        return pacote1;
+    }
+
+    public int getPacote2() {
+        return pacote2;
+    }
     
+    public boolean isPacote1Selected() {
+        return checkBoxPacote1.isSelected();
+    }
+    
+    public boolean isPacote2Selected() {
+        return checkBoxPacote2.isSelected();
+    }
     
     public void test() {
         System.out.println(teste.getSelectedValuesList().size());
@@ -83,8 +100,10 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
             checkBoxPacote2.setVisible(false);
             DefaultListModel<ListOb> mod1 = new DefaultListModel<>();
             Pacote p1 = pacotes.get(0);
-            checkBoxPacote1.setText(p1.getCategoria());
-            for(Componente c : config.getOpcionais().stream().filter(c -> c.getPertencePacote() == p1.getId()).collect(Collectors.toList())) {
+            pacote1 = p1.getId();
+            checkBoxPacote1.setText(p1.getDesignacao());
+            for(Componente c : config.getComponentesPacote(p1.getId())) {
+                System.out.println(c.getId());
                 mod1.addElement(new ListOb(c.getId(), c.getDesignacao(), c.getPreco()));
             }
             listaPacote1.setModel(mod1);
@@ -96,16 +115,18 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
             checkBoxPacote2.setVisible(true);
             DefaultListModel<ListOb> mod1 = new DefaultListModel<ListOb>();
             Pacote p1 = pacotes.get(0);
-            checkBoxPacote1.setText(p1.getCategoria());
-            for(Componente c : config.getOpcionais().stream().filter(c -> c.getPertencePacote() == p1.getId()).collect(Collectors.toList())) {
+            pacote1 = p1.getId();
+            checkBoxPacote1.setText(p1.getDesignacao());
+            for(Componente c : config.getComponentesPacote(p1.getId())) {
                 mod1.addElement(new ListOb(c.getId(), c.getDesignacao(), c.getPreco()));
             }
             listaPacote1.setModel(mod1);
             
             DefaultListModel<ListOb> mod2 = new DefaultListModel<ListOb>();
             Pacote p2 = pacotes.get(1);
-            checkBoxPacote2.setText(p1.getCategoria());
-            for(Componente c : config.getOpcionais().stream().filter(c -> c.getPertencePacote() == p2.getId()).collect(Collectors.toList())) {
+            pacote2 = p2.getId();
+            checkBoxPacote2.setText(p1.getDesignacao());
+            for(Componente c : config.getComponentesPacote(p1.getId())) {
                 mod2.addElement(new ListOb(c.getId(), c.getDesignacao(), c.getPreco()));
             }
             listaPacote2.setModel(mod2);
@@ -210,7 +231,11 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
                         .addGap(6, 6, 6)
                         .addComponent(interior)
                         .addGap(6, 6, 6)
-                        .addComponent(exterior))
+                        .addComponent(exterior)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(segur)
+                        .addGap(18, 18, 18)
+                        .addComponent(telem))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addComponent(jLabel9)
@@ -218,45 +243,39 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
                         .addComponent(preco))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(retroceder)
-                        .addGap(107, 107, 107)
-                        .addComponent(confirmar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(retroceder)
+                                .addGap(107, 107, 107)
+                                .addComponent(confirmar)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(313, 313, 313)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(segur)
-                        .addGap(44, 44, 44)
-                        .addComponent(telem)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
+                        .addGap(15, 15, 15)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(checkBoxPacote1)))
+                    .addComponent(checkBoxPacote1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkBoxPacote2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3)
+                    .addComponent(checkBoxPacote2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(122, 122, 122))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(interior)
-                            .addComponent(exterior))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(segur)
-                            .addComponent(telem))
-                        .addGap(9, 9, 9)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(exterior)
+                                .addComponent(segur)
+                                .addComponent(telem)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(65, 65, 65)
@@ -267,7 +286,7 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(36, 36, 36)
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -363,6 +382,15 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
         telem.addActionListener(al);
     }
     
+    public void pacote1Listener (ActionListener al) {
+        checkBoxPacote1.addActionListener(al);
+    }
+    
+    public void pacote2Listener (ActionListener al) {
+        checkBoxPacote2.addActionListener(al);
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkBoxPacote1;
     private javax.swing.JCheckBox checkBoxPacote2;
@@ -384,6 +412,7 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
+        System.out.println("update");
         preco.setText(Float.toString(configuraFacil.getPreco()));
     }
 }

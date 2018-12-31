@@ -55,10 +55,7 @@ public class ResumoView extends javax.swing.JDialog {
             List<Componente> opcs = this.configuraFacil.getListaComponentesOpcionaisConfiguracao();
             
             for(Componente c : opcs){
-                if(((Opcional) c).getPertencePacote() != 0){
-                    p.addElement(c.getDesignacao());
-                }
-                else if(c.getCategoria().equals("Acabamentos interiores")){
+                if(c.getCategoria().equals("Acabamentos interiores")){
                         in.addElement(c.getDesignacao());
                 }
                 else if(c.getCategoria().equals("Acabamentos exteriores")){
@@ -72,10 +69,10 @@ public class ResumoView extends javax.swing.JDialog {
                 }
             }
             
-            List<Pacote> pac = this.configuraFacil.getPacotes();
+            List<Pacote> pac = this.configuraFacil.getPacotesConfiguracao();
             
-            for(Pacote p : pac){
-                
+            for(Pacote pa : pac){
+                p.addElement(pa.getDesignacao());
             }
             obrigatorios.setModel(ob);
             interiores.setModel(in);
