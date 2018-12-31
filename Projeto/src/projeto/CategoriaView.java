@@ -86,6 +86,7 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
         teste = cbl.showCheckBoxList(config.getOpcionais().stream().filter(c -> c.getCategoria().equals(categoria)).collect(Collectors.toList()),componentesJaPertencentes);
         
         List<Pacote> pacotes = config.getPacotes().stream().filter(c -> c.getCategoria().equals(categoria)).collect(Collectors.toList());
+        List<Pacote> pacotesConfig = configuraFacil.getListaPacotesCategoriaNaConfiguracao(categoria);
         int size = pacotes.size();
         if(size == 0) {
             listaPacote2.setVisible(false);
@@ -101,7 +102,14 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
             DefaultListModel<ListOb> mod1 = new DefaultListModel<>();
             Pacote p1 = pacotes.get(0);
             pacote1 = p1.getId();
+            if(pacotesConfig.contains(p1)) {
+                checkBoxPacote1.setSelected(true);
+            }
+            else {
+                checkBoxPacote1.setSelected(false);
+            }
             checkBoxPacote1.setText(p1.getDesignacao());
+            
             for(Componente c : config.getComponentesPacote(p1.getId())) {
                 System.out.println(c.getId());
                 mod1.addElement(new ListOb(c.getId(), c.getDesignacao(), c.getPreco()));
@@ -116,17 +124,29 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
             DefaultListModel<ListOb> mod1 = new DefaultListModel<ListOb>();
             Pacote p1 = pacotes.get(0);
             pacote1 = p1.getId();
+            if(pacotesConfig.contains(p1)) {
+                checkBoxPacote1.setSelected(true);
+            }
+            else {
+                checkBoxPacote1.setSelected(false);
+            }
             checkBoxPacote1.setText(p1.getDesignacao());
             for(Componente c : config.getComponentesPacote(p1.getId())) {
                 mod1.addElement(new ListOb(c.getId(), c.getDesignacao(), c.getPreco()));
             }
             listaPacote1.setModel(mod1);
             
-            DefaultListModel<ListOb> mod2 = new DefaultListModel<ListOb>();
+            DefaultListModel<ListOb> mod2 = new DefaultListModel<>();
             Pacote p2 = pacotes.get(1);
             pacote2 = p2.getId();
-            checkBoxPacote2.setText(p1.getDesignacao());
-            for(Componente c : config.getComponentesPacote(p1.getId())) {
+            if(pacotesConfig.contains(p2)) {
+                checkBoxPacote2.setSelected(true);
+            }
+            else {
+                checkBoxPacote2.setSelected(false);
+            }
+            checkBoxPacote2.setText(p2.getDesignacao());
+            for(Componente c : config.getComponentesPacote(p2.getId())) {
                 mod2.addElement(new ListOb(c.getId(), c.getDesignacao(), c.getPreco()));
             }
             listaPacote2.setModel(mod2);

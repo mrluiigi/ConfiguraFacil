@@ -25,9 +25,10 @@ public class Pacote {
     private List<Integer> componentesIncompativeis;
     private List<Integer> componentesNecessarios;
 
-    public Pacote(int id, String categoria, String designacao, List<Integer> componentesPacote, List<Integer> pacotesIncompativeis, List<Integer> componentesIncompativeis, List<Integer> componentesNecessarios) {
+    public Pacote(int id, String categoria, float preco, String designacao, List<Integer> componentesPacote, List<Integer> pacotesIncompativeis, List<Integer> componentesIncompativeis, List<Integer> componentesNecessarios) {
         this.id = id;
         this.categoria = categoria;
+        this.preco = preco;
         this.componentesPacote = componentesPacote;
         this.designacao = designacao;
         this.pacotesIncompativeis = pacotesIncompativeis;
@@ -44,6 +45,8 @@ public class Pacote {
     }
     
     public float getPreco(){
+                        System.out.println("Pacote " +preco);
+
         return this.preco;
     }
 
@@ -70,5 +73,14 @@ public class Pacote {
 
     public boolean componenteIncompativel(int id){
         return this.componentesIncompativeis.contains(id);
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o==this) return true;
+        if(o==null || o.getClass() != this.getClass()) return false;
+
+        Pacote l = (Pacote) o;
+        return this.id == l.getId();
     }
 }

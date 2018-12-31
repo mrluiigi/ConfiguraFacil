@@ -43,6 +43,7 @@ public class CheckboxList {
       list.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent event) {
+            @SuppressWarnings("unchecked")
             JList<CheckboxListItem> list =
                (JList<CheckboxListItem>) event.getSource();
  

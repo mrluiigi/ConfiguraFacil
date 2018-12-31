@@ -298,6 +298,7 @@ public class Controller {
             categoriaView.telematicaListener(new TelematicaListener());
             categoriaView.confirmarListener(new ConfirmarEscolhaManualListener());
             categoriaView.pacote1Listener(new Pacote1Listener());
+            categoriaView.pacote2Listener(new Pacote2Listener());
             
 
 
@@ -312,6 +313,36 @@ public class Controller {
             try {
                 int id = categoriaView.getPacote1();
                 if(categoriaView.isPacote1Selected()) {
+                    List<Opcional> inc = model.alteracoesPacoteCompIncompativeis(id);
+                    List<Opcional> nec = model.alteracoesPacoteCompNecessarios(id);
+                    List<Pacote> pinc = model.alteracoesPacotePacotesIncompativeis(id);
+                    if(inc.size() > 0 || nec.size() > 0 || pinc.size() > 0) {
+                        incompView = new IncompView(id, true, false, inc);
+                        incompView.setVisible(true);
+                        incompView.setLocation(45, 45);
+                        incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
+                     }
+                    else {
+                        model.adicionaPacote(id);     
+                    }
+                }
+                else {
+                    System.out.println("remove" + id);
+                    model.removePacote(id);
+                }
+            } catch (SQLException ex) {
+                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+    }
+    
+    private class Pacote2Listener implements ActionListener{
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                int id = categoriaView.getPacote2();
+                if(categoriaView.isPacote2Selected()) {
                     List<Opcional> inc = model.alteracoesPacoteCompIncompativeis(id);
                     if(inc.size() > 0) {
                         incompView = new IncompView(id, true, false, inc);
@@ -350,6 +381,7 @@ public class Controller {
         @Override
         public void mouseClicked(MouseEvent event) {
             try {
+            @SuppressWarnings("unchecked")
             JList<CheckboxListItem> list =
                (JList<CheckboxListItem>) event.getSource();
  
