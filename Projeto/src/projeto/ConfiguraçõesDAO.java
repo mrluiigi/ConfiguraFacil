@@ -81,7 +81,7 @@ public class ConfiguraçõesDAO {
                 List <Integer> pcts =  new ArrayList<>();
                 ResultSet rsPcts = stp.executeQuery("SELECT Pacote_ID FROM ConfiguraçãoPacotes WHERE Configuração_ID =" + id +";");
                 while(rsPcts.next()) {
-                    pcts.add(Integer.parseInt(rsOpts.getString("Pacote_ID")));
+                    pcts.add(Integer.parseInt(rsPcts.getString("Pacote_ID")));
                 }
                 res.add(new Configuracao(id, nif, modelo, preco, obgs, opts, pcts, false));
             }
@@ -133,7 +133,7 @@ public class ConfiguraçõesDAO {
             List <Integer> pcts =  new ArrayList<>();
             ResultSet rsPcts = st.executeQuery("SELECT Pacote_ID FROM ConfiguraçãoPacotes WHERE Configuração_ID =" + id +";");
             while(rsPcts.next()) {
-                pcts.add(Integer.parseInt(rsOpts.getString("Pacote_ID")));
+                pcts.add(Integer.parseInt(rsPcts.getString("Pacote_ID")));
             }
             
             res = (new Configuracao(id, nif, modelo, preco, obgs, opts, pcts, false)); //???

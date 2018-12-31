@@ -31,9 +31,10 @@ public class IncompView extends javax.swing.JDialog {
         initComponents();
     }
 
-    public IncompView(int id, boolean adiciona, boolean isCOmponente, List<Opcional> inc, List<Opcional> nec, List<Pacote> pac){
+    public IncompView(int id, boolean adiciona, boolean isComponente, List<Opcional> inc, List<Opcional> nec, List<Pacote> pac){
         this.id = id;
         this.adiciona = adiciona;
+        this.componente = isComponente;
         setTitle("Incompatibilidades e Necessidades");
         initComponents();
         DefaultListModel<ListOb> mod = new DefaultListModel<>();

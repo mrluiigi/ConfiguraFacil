@@ -415,7 +415,7 @@ public class Controller {
                 List<Opcional> nec = new ArrayList<>();
                 List<Pacote> pinc = model.alteracoesRemoverComponenteOpcionalPacotes(id);
                 if(inc.size() > 0 || nec.size() > 0 || pinc.size() > 0) {
-                    //Syste
+                    System.out.println("teste");
                     incompView = new IncompView(id, false, true, inc, nec, pinc);
                     incompView.setVisible(true);
                     incompView.setLocation(45, 45);

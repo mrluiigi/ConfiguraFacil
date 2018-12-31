@@ -216,7 +216,7 @@ public class ConfiguraFacil extends Observable{
 
         for(int i : inc){
             if(this.configuracao.containsOpcional(i)){
-                res.add(this.componentesDAO.getOpcional(id));
+                res.add(this.componentesDAO.getOpcional(i));
             }
         }
         
