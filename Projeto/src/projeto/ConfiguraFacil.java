@@ -195,14 +195,14 @@ public class ConfiguraFacil extends Observable{
         this.notifyObservers();
     }
     
-    public List<Integer> alteracoesPacoteCompNecessarios(int id) throws SQLException{
+    public List<Opcional> alteracoesPacoteCompNecessarios(int id) throws SQLException{
         Pacote p = this.componentesDAO.getPacote(id);
         List<Integer> nec = p.getListaComponentesNecessarios();
-        List<Integer> res = new ArrayList<>();
+        List<Opcional> res = new ArrayList<>();
         
         for(int i : nec){
             if(!(this.configuracao.containsOpcional(i))){
-                res.add(i);
+                res.add(this.componentesDAO.getOpcional(i));
             }
         }
         
@@ -223,14 +223,14 @@ public class ConfiguraFacil extends Observable{
         return res;
     }
     
-    public List<Integer> alteracoesPacotePacotesIncompativeis(int id) throws SQLException{
+    public List<Pacote> alteracoesPacotePacotesIncompativeis(int id) throws SQLException{
         Pacote p = this.componentesDAO.getPacote(id);
         List<Integer> pInc = p.getListaPacotesIncompativeis();
-        List<Integer> res = new ArrayList<>();
+        List<Pacote> res = new ArrayList<>();
 
         for(int i : pInc){
             if(this.configuracao.containsPacote(i)){
-                res.add(i);
+                res.add(this.componentesDAO.getPacote(i));
             }
         }
         
@@ -239,7 +239,8 @@ public class ConfiguraFacil extends Observable{
     
     public void adicionaPacote(int id) throws SQLException{
         Pacote pacote = this.componentesDAO.getPacote(id);
-        float preco;
+        float preco = pacote.getPreco();
+
         
         for(int i : pacote.getListaComponentesNecessarios()){
             if(!(this.configuracao.containsOpcional(i))){
@@ -392,7 +393,7 @@ public class ConfiguraFacil extends Observable{
         }
         ordenadoPreco.sort(new PacotePrecoComparator());
         
-        List<Integer> listaComponentesNecessariosParaPacote;
+        List<Opcional> listaComponentesNecessariosParaPacote;
         for(Pacote p : ordenadoPreco){
             if(orcamento < precoMaisBarato){
                 break;
@@ -401,13 +402,13 @@ public class ConfiguraFacil extends Observable{
             if((p.getPreco() <= orcamento) && (!(ocorremIncompatibilidadesPacote(p)))){
                 listaComponentesNecessariosParaPacote = alteracoesPacoteCompNecessarios(p.getId());
                 float valor = p.getPreco();
-                for(int i : listaComponentesNecessariosParaPacote){
-                    valor += this.componentesDAO.getOpcional(i).getPreco();
+                for(Opcional i : listaComponentesNecessariosParaPacote){
+                    valor += i.getPreco();
                 }
                 if((valor <= orcamento && !(this.configuracao.getPacotes().contains(p.getId())))){
                     this.configuracao.adicionaPacote(p.getId(), p.getPreco());
-                    for(int i : listaComponentesNecessariosParaPacote){
-                        this.configuracao.adicionaComponenteOpcional(this.componentesDAO.getOpcional(i).getId(), this.componentesDAO.getOpcional(i).getPreco());
+                    for(Opcional i : listaComponentesNecessariosParaPacote){
+                        this.configuracao.adicionaComponenteOpcional(i.getId(), i.getPreco());
                     }
                     orcamento -= valor;
                 }
@@ -556,9 +557,24 @@ public class ConfiguraFacil extends Observable{
     
     public void removePacote(int id) throws SQLException {
         float preco = this.componentesDAO.getPacote(id).getPreco();
+                System.out.println("preco" + preco);
+
         this.configuracao.removePacote(id, preco);
         this.setChanged();
         this.notifyObservers();
     }
     
+    public List<Pacote> getListaPacotesCategoriaNaConfiguracao(String categoria) throws SQLException {
+        List<Pacote> res = new ArrayList<>();
+        List<Integer> pacotes = new ArrayList<>();
+
+        pacotes = this.configuracao.getPacotes();
+        for(int i : pacotes){
+            if(componentesDAO.getPacote(i).getCategoria().equals(categoria)){
+                res.add(componentesDAO.getPacote(i));
+            }
+        }
+
+        return res;
+    }
 }

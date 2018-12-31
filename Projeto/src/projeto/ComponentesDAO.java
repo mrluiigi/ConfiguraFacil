@@ -66,13 +66,13 @@ public class ComponentesDAO {
             }
              
             
-            List<Integer> necessarios = new ArrayList();
+            List<Integer> necessarios = new ArrayList<>();
             ResultSet rsNec = st.executeQuery("SELECT Necessitado FROM ComponenteNecessitaComponente WHERE Necessita = " + id +";");
                 while(rsNec.next()) {
                     necessarios.add(Integer.parseInt(rsNec.getString("Necessitado")));
                 }
                 
-            List<Integer> incompativeis = new ArrayList();
+            List<Integer> incompativeis = new ArrayList<>();
             ResultSet rsInc = st.executeQuery("SELECT Opcional_ID1 FROM ComponenteIncompatívelComponente WHERE Opcional_ID = " + id +";");
                 while(rsInc.next()) {
                     incompativeis.add(Integer.parseInt(rsInc.getString("Opcional_ID1")));
@@ -245,13 +245,13 @@ public class ComponentesDAO {
                 else pertencePacote = 0;
 
                 Statement stn = con.createStatement();
-                List<Integer> necessarios = new ArrayList();
+                List<Integer> necessarios = new ArrayList<>();
                 ResultSet rsNec = stn.executeQuery("SELECT Necessitado FROM ComponenteNecessitaComponente WHERE Necessita = " + id +";");
                 while(rsNec.next()) {
                     necessarios.add(Integer.parseInt(rsNec.getString("Necessitado")));
                 }
                 Statement sti = con.createStatement();
-                List<Integer> incompativeis = new ArrayList();
+                List<Integer> incompativeis = new ArrayList<>();
                 ResultSet rsInc = sti.executeQuery("SELECT Opcional_ID1 FROM ComponenteIncompatívelComponente WHERE Opcional_ID = " + id +";");
                     while(rsInc.next()) {
                         incompativeis.add(Integer.parseInt(rsInc.getString("Opcional_ID1")));
@@ -289,13 +289,13 @@ public class ComponentesDAO {
                 else pertencePacote = 0;
 
                 Statement stn = con.createStatement();
-                List<Integer> necessarios = new ArrayList();
+                List<Integer> necessarios = new ArrayList<>();
                 ResultSet rsNec = stn.executeQuery("SELECT Necessitado FROM ComponenteNecessitaComponente WHERE Necessita = " + id +";");
                 while(rsNec.next()) {
                     necessarios.add(Integer.parseInt(rsNec.getString("Necessitado")));
                 }
                 Statement sti = con.createStatement();
-                List<Integer> incompativeis = new ArrayList();
+                List<Integer> incompativeis = new ArrayList<>();
                 ResultSet rsInc = sti.executeQuery("SELECT Opcional_ID1 FROM ComponenteIncompatívelComponente WHERE Opcional_ID = " + id +";");
                     while(rsInc.next()) {
                         incompativeis.add(Integer.parseInt(rsInc.getString("Opcional_ID1")));
@@ -334,13 +334,13 @@ public class ComponentesDAO {
                 else pertencePacote = 0;
 
                 Statement stn = con.createStatement();
-                List<Integer> necessarios = new ArrayList();
+                List<Integer> necessarios = new ArrayList<>();
                 ResultSet rsNec = stn.executeQuery("SELECT Necessitado FROM ComponenteNecessitaComponente WHERE Necessita = " + id +";");
                 while(rsNec.next()) {
                     necessarios.add(Integer.parseInt(rsNec.getString("Necessitado")));
                 }
                 Statement sti = con.createStatement();
-                List<Integer> incompativeis = new ArrayList();
+                List<Integer> incompativeis = new ArrayList<>();
                 ResultSet rsInc = sti.executeQuery("SELECT Opcional_ID1 FROM ComponenteIncompatívelComponente WHERE Opcional_ID = " + id +";");
                     while(rsInc.next()) {
                         incompativeis.add(Integer.parseInt(rsInc.getString("Opcional_ID1")));
@@ -387,34 +387,34 @@ public class ComponentesDAO {
                 String designacao = rs.getString("Designação");
                 
                 Statement stp = con.createStatement();
-                List<Integer> componentesPacote = new ArrayList();
+                List<Integer> componentesPacote = new ArrayList<>();
                 ResultSet rsPac = stp.executeQuery("SELECT ID FROM Opcional WHERE Pacote_ID = " + id +";");
                 while(rsPac.next()) {
                     componentesPacote.add(Integer.parseInt(rsPac.getString("ID")));
                 }
                 
                 Statement stn = con.createStatement();
-                List<Integer> componentesNecessarios = new ArrayList();
+                List<Integer> componentesNecessarios = new ArrayList<>();
                 ResultSet rsNec = stn.executeQuery("SELECT Opcional_ID FROM PacoteNecessitaComponente WHERE Pacote_ID = " + id +";");
                 while(rsNec.next()) {
                     componentesNecessarios.add(Integer.parseInt(rsNec.getString("Opcional_ID")));
                 }
                 
                 Statement sti = con.createStatement();
-                List<Integer> componentesIncompativeis = new ArrayList();
+                List<Integer> componentesIncompativeis = new ArrayList<>();
                 ResultSet rsInc = sti.executeQuery("SELECT Opcional_ID FROM PacoteIncompatívelComponente WHERE Pacote_ID = " + id +";");
                 while(rsInc.next()) {
                     componentesIncompativeis.add(Integer.parseInt(rsInc.getString("Opcional_ID")));
                 }
                 Statement stpi = con.createStatement();
-                List<Integer> pacotesIncompativeis = new ArrayList();
+                List<Integer> pacotesIncompativeis = new ArrayList<>();
                 ResultSet rsPctsInc = stpi.executeQuery("SELECT Pacote_ID FROM PacoteIncompatívelPacote WHERE Pacote_ID1 = " + id +";");
                 while(rsPctsInc.next()) {
                     componentesIncompativeis.add(Integer.parseInt(rsPctsInc.getString("Pacote_ID")));
                 }
 
                 
-                res.add(new Pacote(id, categoria, designacao, componentesPacote, pacotesIncompativeis, componentesIncompativeis, componentesNecessarios));
+                res.add(new Pacote(id, categoria, preco, designacao, componentesPacote, pacotesIncompativeis, componentesIncompativeis, componentesNecessarios));
             }
         } catch (SQLException e) { 
             e.printStackTrace(System.out);
@@ -438,35 +438,35 @@ public class ComponentesDAO {
             String designacao = rs.getString("Designação");
                 
             Statement stp = con.createStatement();
-            List<Integer> componentesPacote = new ArrayList();
+            List<Integer> componentesPacote = new ArrayList<>();
             ResultSet rsPac = stp.executeQuery("SELECT ID FROM Opcional WHERE Pacote_ID = " + id +";");
             while(rsPac.next()) {
                 componentesPacote.add(Integer.parseInt(rsPac.getString("ID")));
             }
                 
             Statement stn = con.createStatement();
-            List<Integer> componentesNecessarios = new ArrayList();
+            List<Integer> componentesNecessarios = new ArrayList<>();
             ResultSet rsNec = stn.executeQuery("SELECT Opcional_ID FROM PacoteNecessitaComponente WHERE Pacote_ID = " + id +";");
             while(rsNec.next()) {
                 componentesNecessarios.add(Integer.parseInt(rsNec.getString("Opcional_ID")));
             }
                 
             Statement sti = con.createStatement();
-            List<Integer> componentesIncompativeis = new ArrayList();
+            List<Integer> componentesIncompativeis = new ArrayList<>();
             ResultSet rsInc = sti.executeQuery("SELECT Opcional_ID FROM PacoteIncompatívelComponente WHERE Pacote_ID = " + id +";");
             while(rsInc.next()) {
                 componentesIncompativeis.add(Integer.parseInt(rsInc.getString("Opcional_ID")));
             }
             
             Statement stpi = con.createStatement();
-            List<Integer> pacotesIncompativeis = new ArrayList();
+            List<Integer> pacotesIncompativeis = new ArrayList<>();
             ResultSet rsPctsInc = stpi.executeQuery("SELECT Pacote_ID FROM PacoteIncompatívelPacote WHERE Pacote_ID1 = " + id +";");
             while(rsPctsInc.next()) {
                 componentesIncompativeis.add(Integer.parseInt(rsPctsInc.getString("Pacote_ID")));
             }
 
-                
-            res = new Pacote(id, categoria, designacao, componentesPacote, pacotesIncompativeis, componentesIncompativeis, componentesNecessarios);
+                System.out.println("DAO " +preco);
+            res = new Pacote(id, categoria, preco, designacao, componentesPacote, pacotesIncompativeis, componentesIncompativeis, componentesNecessarios);
         } catch (SQLException e) { 
             e.printStackTrace(System.out);
         }
