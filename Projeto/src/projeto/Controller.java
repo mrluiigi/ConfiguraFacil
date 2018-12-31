@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -317,7 +318,7 @@ public class Controller {
                     List<Opcional> nec = model.alteracoesPacoteCompNecessarios(id);
                     List<Pacote> pinc = model.alteracoesPacotePacotesIncompativeis(id);
                     if(inc.size() > 0 || nec.size() > 0 || pinc.size() > 0) {
-                        incompView = new IncompView(id, true, false, inc);
+                        incompView = new IncompView(id, true, false, inc, nec, pinc);
                         incompView.setVisible(true);
                         incompView.setLocation(45, 45);
                         incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
@@ -344,8 +345,10 @@ public class Controller {
                 int id = categoriaView.getPacote2();
                 if(categoriaView.isPacote2Selected()) {
                     List<Opcional> inc = model.alteracoesPacoteCompIncompativeis(id);
-                    if(inc.size() > 0) {
-                        incompView = new IncompView(id, true, false, inc);
+                    List<Opcional> nec = model.alteracoesPacoteCompNecessarios(id);
+                    List<Pacote> pinc = model.alteracoesPacotePacotesIncompativeis(id);
+                    if(inc.size() > 0 || nec.size() > 0 || pinc.size() > 0) {
+                        incompView = new IncompView(id, true, false, inc, nec, pinc);
                         incompView.setVisible(true);
                         incompView.setLocation(45, 45);
                         incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
@@ -392,10 +395,12 @@ public class Controller {
             if(item.isSelected()){
                 int id = item.getId();
                 List<Opcional> inc = model.alteracoesComponenteOpcionalIncompativeis(item.getId());
+                List<Opcional> nec = model.alteracoesComponenteOpcionalNecessarios(id);
+                List<Pacote> pinc = model.alteracoesComponenteOpcionalPacotesIncompativeis(id);
                 System.out.println("inc: " + inc.size());
                 System.out.println("ID: " + id);
-                if(inc.size() > 0) {
-                    incompView = new IncompView(id, true, true, inc);
+                if(inc.size() > 0 || nec.size() > 0 || pinc.size() > 0) {
+                    incompView = new IncompView(id, true, true, inc, nec, pinc);
                     incompView.setVisible(true);
                     incompView.setLocation(45, 45);
                     incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
@@ -407,8 +412,11 @@ public class Controller {
             else{
                 int id = item.getId();
                 List<Opcional> inc = model.alteracoesRemoverComponenteOpcionalComponentes(id);
-                if(inc.size() > 0) {
-                    incompView = new IncompView(id, false, true, inc);
+                List<Opcional> nec = new ArrayList<>();
+                List<Pacote> pinc = model.alteracoesRemoverComponenteOpcionalPacotes(id);
+                if(inc.size() > 0 || nec.size() > 0 || pinc.size() > 0) {
+                    //Syste
+                    incompView = new IncompView(id, false, true, inc, nec, pinc);
                     incompView.setVisible(true);
                     incompView.setLocation(45, 45);
                     incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
@@ -439,10 +447,14 @@ public class Controller {
                     }
                 }
                 else{
+                    System.out.println("bool" +incompView.isComponente());
                     if(incompView.isComponente()) {
+                        System.out.println("remove componente" + incompView.getId());
                         model.removerComponenteOpcional(incompView.getId());
+                        
                     }
                     else {
+                          System.out.println("remove pacote" + incompView.getId());
                         model.removePacote(incompView.getId());
                     }                   
                 }

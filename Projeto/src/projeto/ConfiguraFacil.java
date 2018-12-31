@@ -511,14 +511,15 @@ public class ConfiguraFacil extends Observable{
         return aRemoverComponentes;
     }    
     
-    public List<Integer> alteracoesRemoverComponenteOpcionalPacotes(int id) throws SQLException{    
+    public List<Pacote> alteracoesRemoverComponenteOpcionalPacotes(int id) throws SQLException{    
         List<Integer> pacotes = this.configuracao.getPacotes();
-        List<Integer> aRemoverPacotes = new ArrayList<>();
+        List<Pacote> aRemoverPacotes = new ArrayList<>();
         
         for(int i : pacotes){
-            boolean bool = this.componentesDAO.getPacote(i).getListaComponentesNecessarios().contains(id);
+            Pacote pi = this.componentesDAO.getPacote(i);
+            boolean bool = pi.getListaComponentesNecessarios().contains(id);
             if(bool){
-                aRemoverPacotes.add(i);
+                aRemoverPacotes.add(pi);
             }
         }
         
@@ -531,9 +532,9 @@ public class ConfiguraFacil extends Observable{
             this.configuracao.removeComponenteOpcional(o.getId(), preco);
         }
         
-        for(int i : alteracoesRemoverComponenteOpcionalPacotes(id)){
-            float preco = this.componentesDAO.getPacote(i).getPreco();
-            this.configuracao.removePacote(i, preco);
+        for(Pacote i : alteracoesRemoverComponenteOpcionalPacotes(id)){
+            float preco = i.getPreco();
+            this.configuracao.removePacote(i.getId(), preco);
         }
         float preco = this.componentesDAO.getOpcional(id).getPreco();
         this.configuracao.removeComponenteOpcional(id, preco);
