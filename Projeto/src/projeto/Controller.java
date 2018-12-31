@@ -331,7 +331,7 @@ public class Controller {
                 System.out.println("inc: " + inc.size());
                 System.out.println("ID: " + id);
                 if(inc.size() > 0) {
-                    incompView = new IncompView(id, inc);
+                    incompView = new IncompView(id, true, inc);
                     incompView.setVisible(true);
                     incompView.setLocation(45, 45);
                     incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
@@ -342,7 +342,16 @@ public class Controller {
             }
             else{
                 int id = item.getId();
-                List<Opcional> inc = model.alteracoesRemoverComponenteOpcionalComponentes(item.getId());
+                List<Opcional> inc = model.alteracoesRemoverComponenteOpcionalComponentes(id);
+                if(inc.size() > 0) {
+                    incompView = new IncompView(id, false, inc);
+                    incompView.setVisible(true);
+                    incompView.setLocation(45, 45);
+                    incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
+                }
+                else {
+                    model.removerComponenteOpcional(id);
+                }
             }
                 } catch (SQLException ex) {
                     Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
@@ -357,7 +366,12 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                model.adicionaComponenteOpcional(incompView.getId());
+                if(incompView.getAdiciona()){
+                    model.adicionaComponenteOpcional(incompView.getId());
+                }
+                else{
+                    model.removerComponenteOpcional(incompView.getId());
+                }
                 categoriaView.setComponentesPacotes(model, "anterior");
                 categoriaView.componentesListener(new opcionaisListener());
                 incompView.dispose();

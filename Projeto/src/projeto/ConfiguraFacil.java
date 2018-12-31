@@ -515,6 +515,8 @@ public class ConfiguraFacil extends Observable{
             float preco = this.pacotes.getPacote(i).getPreco();
             this.configuracao.removePacote(i, preco);
         }
+        float preco = this.componentesDAO.getOpcional(id).getPreco();
+        this.configuracao.removeComponenteOpcional(id, preco);
         
         this.setChanged();
         this.notifyObservers();

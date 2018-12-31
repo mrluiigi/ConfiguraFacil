@@ -22,7 +22,7 @@ public class CheckboxList {
       CheckboxListItem[] cbl = new CheckboxListItem[componentes.size()];
       int i = 0;
       for(Opcional c : componentes) {            
-             cbl[i] = new CheckboxListItem(c.getId(), c.getDesignacao());
+             cbl[i] = new CheckboxListItem(c.getId(), c.getDesignacao(), c.getPreco());
              if (componentesJaPertencentes.contains(c)) {
                  cbl[i].setSelected(true);
              }
@@ -76,10 +76,12 @@ class CheckboxListItem {
    private String label;
    private int id;
    private boolean isSelected = false;
+   private float preco;
  
-   public CheckboxListItem(int id, String label) {
+   public CheckboxListItem(int id, String label, float preco) {
         this.id = id;
         this.label = label;
+        this.preco = preco;
    }
 
     public int getId() {
@@ -96,7 +98,7 @@ class CheckboxListItem {
  
    @Override
    public String toString() {
-      return label;
+      return label + "  " + preco;
    }
 }
  
