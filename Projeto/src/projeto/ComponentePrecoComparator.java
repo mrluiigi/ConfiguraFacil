@@ -14,7 +14,7 @@ import java.util.Comparator;
 public class ComponentePrecoComparator implements Comparator<Componente>{
 
     public int compare(Componente c1, Componente c2) {
-        return Float.compare(c1.getPreco(), c2.getPreco());
+        return Float.compare(c2.getPreco(), c1.getPreco());
     }
     
 }

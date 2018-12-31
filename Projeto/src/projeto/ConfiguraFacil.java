@@ -77,7 +77,7 @@ public class ConfiguraFacil extends Observable{
         return null;
     }
     
-    //----------------------------------------------------------------------------------------------O PROBLEMA É NOS GETS
+
     public int getStockComponente(int id, boolean obrigatorio) throws SQLException{
         if(obrigatorio){
             List<Obrigatorio> comp = getObrigatorios();
@@ -344,11 +344,11 @@ public class ConfiguraFacil extends Observable{
         
         return res;
     }
-    public List<Componente> getListaComponentesOpcionais() throws SQLException{
+    public List<Componente> getListaComponentesOpcionaisConfiguracao() throws SQLException{
         List<Componente> res = new ArrayList<>(); 
         for(int i : configuracao.getComponentesOpcionais()){
             res.add(this.componentesDAO.getOpcional(i));
-        }        
+        }
         return res;
     }
     
@@ -392,7 +392,7 @@ public class ConfiguraFacil extends Observable{
                 for(int i : listaComponentesNecessariosParaPacote){
                     valor += this.componentesDAO.getOpcional(i).getPreco();
                 }
-                if((valor <= orcamento)){
+                if((valor <= orcamento && !(this.configuracao.getPacotes().contains(p.getId())))){
                     this.configuracao.adicionaPacote(p.getId(), p.getPreco());
                     for(int i : listaComponentesNecessariosParaPacote){
                         this.configuracao.adicionaComponenteOpcional(this.componentesDAO.getOpcional(i).getId(), this.componentesDAO.getOpcional(i).getPreco());
@@ -421,12 +421,12 @@ public class ConfiguraFacil extends Observable{
             }
             
             if((o.getPreco() <= orcamento) && (!(ocorremIncompatibilidadesComponentes(o)))){
-                listaComponentesNecessarios = alteracoesComponenteOpcionalNecessarios(o.getId());
                 float valor = o.getPreco();
+                listaComponentesNecessarios = alteracoesComponenteOpcionalNecessarios(o.getId());
                 for(Opcional n : listaComponentesNecessarios){
                     valor += n.getPreco();
                 }
-                if((valor <= orcamento)){
+                if((valor <= orcamento) && !(this.configuracao.getComponentesOpcionais().contains(o.getId()))){
                     this.configuracao.adicionaComponenteOpcional(o.getId(), o.getPreco());
                     for(Opcional n : listaComponentesNecessarios){
                         this.configuracao.adicionaComponenteOpcional(n.getId(), n.getPreco());
@@ -440,8 +440,8 @@ public class ConfiguraFacil extends Observable{
     }
     
     public Configuracao configuracaoOptima(float orcamento) throws SQLException{
-        escolhePacotesOtimos(orcamento);
-        escolheComponentesOtimos(orcamento);
+        float preco = escolhePacotesOtimos(orcamento);
+        escolheComponentesOtimos(preco);
         
         return this.configuracao;
     }
