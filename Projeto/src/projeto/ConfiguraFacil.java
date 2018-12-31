@@ -467,21 +467,24 @@ public class ConfiguraFacil extends Observable{
         return false;
     }
     
-    public void escolheModelo(String modelo){
-        this.configuracao.alteraModelo(modelo);
+    public void escolheModelo(int idModelo, String modelo) throws SQLException{
+        float preco = this.componentesDAO.getObrigatorio(idModelo).getPreco();
+        this.configuracao.alteraModelo(idModelo, modelo, preco);
+        
         
         this.setChanged();
         this.notifyObservers();
     }
     
-    public List<Integer> alteracoesRemoverComponenteOpcionalComponentes(int id) throws SQLException{
+    public List<Opcional> alteracoesRemoverComponenteOpcionalComponentes(int id) throws SQLException{
         List<Integer> componentesOpcionais = this.configuracao.getComponentesOpcionais();
-        List<Integer> aRemoverComponentes = new ArrayList<>();
+        List<Opcional> aRemoverComponentes = new ArrayList<>();
         
         for(int i : componentesOpcionais){
-            boolean bool = this.componentesDAO.getOpcional(i).getListaNecessarios().contains(id);
+            Opcional o = this.componentesDAO.getOpcional(i);
+            boolean bool = o.getListaNecessarios().contains(id);
             if(bool){
-                aRemoverComponentes.add(i);
+                aRemoverComponentes.add(o);
             }
         }
         
@@ -503,9 +506,9 @@ public class ConfiguraFacil extends Observable{
     }
     
     public void removerComponenteOpcional(int id) throws SQLException{
-        for(int i : alteracoesRemoverComponenteOpcionalComponentes(id)){
-            float preco = this.componentesDAO.getOpcional(i).getPreco();
-            this.configuracao.removeComponenteOpcional(i, preco);
+        for(Opcional o : alteracoesRemoverComponenteOpcionalComponentes(id)){
+            float preco = o.getPreco();
+            this.configuracao.removeComponenteOpcional(o.getId(), preco);
         }
         
         for(int i : alteracoesRemoverComponenteOpcionalPacotes(id)){

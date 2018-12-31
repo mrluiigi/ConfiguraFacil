@@ -204,7 +204,7 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             if(criarConfigView.areAllSelected()){
                 try {
-                model.escolheModelo(criarConfigView.getModelo());
+                model.escolheModelo(criarConfigView.getModeloId(), criarConfigView.getModeloDesignacao());
                 model.adicionaComponenteObrigatorio(criarConfigView.getMotor());
                 model.adicionaComponenteObrigatorio(criarConfigView.getPintura());
                 model.adicionaComponenteObrigatorio(criarConfigView.getEstofos());
@@ -290,7 +290,6 @@ public class Controller {
             categoriaView.setLocation(45, 45);
             
             categoriaView.retrocederListener(new RetrocederListener(categoriaView));
-            //categoriaView.confirmarListener(new IncompListener());
             categoriaView.interiorListener(new InteriorListener());
             categoriaView.exteriorListener(new ExteriorListener());
             categoriaView.segurancaListener(new SegurancaListener());
@@ -326,22 +325,28 @@ public class Controller {
  
             int index = list.locationToIndex(event.getPoint());
             CheckboxListItem item = (CheckboxListItem) list.getModel().getElementAt(index);
-            int id =item.getId();
-            List<Opcional> inc = model.alteracoesComponenteOpcionalIncompativeis(item.getId());
-            System.out.println("inc: " +inc.size());
-            System.out.println("ID: "+id);
-            if(inc.size() > 0) {
-                incompView = new IncompView(id, inc);
-                incompView.setVisible(true);
-                incompView.setLocation(45, 45);
-                incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
+            if(item.isSelected()){
+                int id = item.getId();
+                List<Opcional> inc = model.alteracoesComponenteOpcionalIncompativeis(item.getId());
+                System.out.println("inc: " + inc.size());
+                System.out.println("ID: " + id);
+                if(inc.size() > 0) {
+                    incompView = new IncompView(id, inc);
+                    incompView.setVisible(true);
+                    incompView.setLocation(45, 45);
+                    incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
+                }
+                else {
+                    model.adicionaComponenteOpcional(id);     
+                }
             }
-            else {
-                model.adicionaComponenteOpcional(id);     
+            else{
+                int id = item.getId();
+                List<Opcional> inc = model.alteracoesRemoverComponenteOpcionalComponentes(item.getId());
             }
-            } catch (SQLException ex) {
-                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
         }
         
     
@@ -354,6 +359,8 @@ public class Controller {
             try {
                 model.adicionaComponenteOpcional(incompView.getId());
                 categoriaView.setComponentesPacotes(model, "anterior");
+                categoriaView.componentesListener(new opcionaisListener());
+                incompView.dispose();
 
             } catch (SQLException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);

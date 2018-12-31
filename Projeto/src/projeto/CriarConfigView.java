@@ -139,7 +139,7 @@ public class CriarConfigView extends javax.swing.JDialog {
 
         jScrollPane6.setViewportView(preco);
 
-        label1.setText("label1");
+        label1.setText("Preço Total");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -202,6 +202,9 @@ public class CriarConfigView extends javax.swing.JDialog {
                     .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        label1.getAccessibleContext().setAccessibleName("Preço Total");
+        label1.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -311,8 +314,12 @@ public class CriarConfigView extends javax.swing.JDialog {
             return 0;
     }
     
-    public String getModelo(){
+    public String getModeloDesignacao(){
         return modelo.getSelectedValue().getDesignacao();
+    }
+    
+    public int getModeloId(){
+        return modelo.getSelectedValue().getId();
     }
     
     public int getMotor(){

@@ -116,13 +116,10 @@ public class Configuracao {
         return pacotes;
     }
     
-    public void alteraModelo(String modelo){
+    public void alteraModelo(int idModelo, String modelo, float preco){
+        this.componentesObrigatorios.add(idModelo);
         this.modelo = modelo;
-        this.preco = 0;
-        this.componentesObrigatorios = new ArrayList<>();
-        this.componentesOpcionais = new ArrayList<>();
-        this.pacotes = new ArrayList<>();
-        this.pronta = false;
+        this.preco += preco;
     }
     
     public void removeComponentesObrigatorios(){

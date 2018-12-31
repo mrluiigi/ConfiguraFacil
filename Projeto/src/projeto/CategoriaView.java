@@ -125,6 +125,7 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
         this.configuraFacil = config;
         this.configuraFacil.addObserver(this);
         this.categoria = "Acabamentos interiores";
+        atualizaPreco();
     }
     
     

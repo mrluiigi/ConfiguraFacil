@@ -47,7 +47,9 @@ public class ResumoView extends javax.swing.JDialog {
             List<Componente> obgs = this.configuraFacil.getListaComponentesObrigatórios();
             
             for(Componente c : obgs) {
-                ob.addElement(c.getDesignacao());
+                if(!(c.getCategoria().equals("Modelo"))){
+                    ob.addElement(c.getDesignacao());
+                }
             }
             
             List<Componente> opcs = this.configuraFacil.getListaComponentesOpcionais();
