@@ -230,7 +230,7 @@ public class IncompView extends javax.swing.JDialog {
         });
     }
 
-    public void retrocederListener (ActionListener al) {
+    public void addRejeitarAlteracoesListener (ActionListener al) {
         retroceder.addActionListener(al);
     }
     

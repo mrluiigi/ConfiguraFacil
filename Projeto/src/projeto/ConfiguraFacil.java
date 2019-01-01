@@ -421,6 +421,7 @@ public class ConfiguraFacil extends Observable{
     public float escolheComponentesOtimos(float orcamento) throws SQLException{
         List<Opcional> ordenadoPreco = new ArrayList<>();
         float precoMaisBarato = this.componentesDAO.getPrecoComponenteOpcionalMaisBarato();
+        System.out.println("pmaisBarato" + precoMaisBarato);
         
         for(Opcional o : this.componentesDAO.getComponentesOpcionais()){
             ordenadoPreco.add(o);
@@ -429,21 +430,25 @@ public class ConfiguraFacil extends Observable{
         
         List<Opcional> listaComponentesNecessarios;
         for(Opcional o : ordenadoPreco){
+            System.out.println("Considera: " + o.getDesignacao() + " preco: " + o.getPreco());
             if(orcamento < precoMaisBarato){
                 break;
             }
-            
+            System.out.println("inc: " + (!(ocorremIncompatibilidadesComponentes(o))));
             if((o.getPreco() <= orcamento) && (!(ocorremIncompatibilidadesComponentes(o)))){
+                System.out.println("Considera melhor: " + o.getDesignacao()+ " preco: " + o.getPreco());
                 float valor = o.getPreco();
                 listaComponentesNecessarios = alteracoesComponenteOpcionalNecessarios(o.getId());
                 for(Opcional n : listaComponentesNecessarios){
                     valor += n.getPreco();
                 }
                 if((valor <= orcamento) && !(this.configuracao.getComponentesOpcionais().contains(o.getId()))){
+                    System.out.println("Aceita: " + o.getDesignacao()+ " preco: " + o.getPreco());
                     this.configuracao.adicionaComponenteOpcional(o.getId(), o.getPreco());
                     for(Opcional n : listaComponentesNecessarios){
                         this.configuracao.adicionaComponenteOpcional(n.getId(), n.getPreco());
                     }
+                    System.out.println(orcamento);
                     orcamento -= valor;
                 }
             }
@@ -473,17 +478,22 @@ public class ConfiguraFacil extends Observable{
         return false;
     }
     
-    public boolean ocorremIncompatibilidadesComponentes(Opcional o){
+    public boolean ocorremIncompatibilidadesComponentes(Opcional o) throws SQLException{
         for(int i : o.getListaIncompativeis()){
             if(this.configuracao.getComponentesOpcionais().contains(i)){
                 return true;
             }
         }
-        for(int i : o.getListaIncompativeis()){
-            if(this.configuracao.getPacotes().contains(i)){
+        for (int i : this.configuracao.getPacotes()) {
+            if(this.componentesDAO.getPacote(i).getListaComponentesIncompativeis().contains(o.getId())) {
                 return true;
             }
         }
+     /*   for(int i : o.getListaIncompativeis()){
+            if(this.configuracao.getPacotes().contains(i)){
+                return true;
+            }
+        }*/
         return false;
     }
     

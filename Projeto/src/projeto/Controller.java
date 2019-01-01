@@ -177,6 +177,7 @@ public class Controller {
     
     private class CriarConfigListener implements ActionListener{
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             criarConfigView = new CriarConfigView(model);
             criarConfigView.setVisible(true);
@@ -323,6 +324,8 @@ public class Controller {
                         incompView.setVisible(true);
                         incompView.setLocation(45, 45);
                         incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
+                        incompView.addRejeitarAlteracoesListener(new RejeitarAlteracoesListener());
+
                      }
                     else {
                         model.adicionaPacote(id);     
@@ -353,6 +356,8 @@ public class Controller {
                         incompView.setVisible(true);
                         incompView.setLocation(45, 45);
                         incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
+                        incompView.addRejeitarAlteracoesListener(new RejeitarAlteracoesListener());
+
                      }
                     else {
                         model.adicionaPacote(id);     
@@ -405,6 +410,8 @@ public class Controller {
                     incompView.setVisible(true);
                     incompView.setLocation(45, 45);
                     incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
+                    incompView.addRejeitarAlteracoesListener(new RejeitarAlteracoesListener());
+
                 }
                 else {
                     model.adicionaComponenteOpcional(id);     
@@ -421,6 +428,7 @@ public class Controller {
                     incompView.setVisible(true);
                     incompView.setLocation(45, 45);
                     incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
+                    incompView.addRejeitarAlteracoesListener(new RejeitarAlteracoesListener());
                 }
                 else {
                     model.removerComponenteOpcional(id);
@@ -466,6 +474,16 @@ public class Controller {
             } catch (SQLException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+    
+     private class RejeitarAlteracoesListener implements ActionListener{
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            categoriaView.setComponentesPacotes(model, "anterior");
+            categoriaView.componentesListener(new opcionaisListener());
+            incompView.dispose();
         }
     }
     
