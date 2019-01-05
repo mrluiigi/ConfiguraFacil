@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.DefaultListModel;
-import projeto.Componente;
+import projeto.logica.Componente;
 
 
 /**

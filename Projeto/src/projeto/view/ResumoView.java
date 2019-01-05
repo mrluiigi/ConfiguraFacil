@@ -12,11 +12,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
-import projeto.Componente;
-import projeto.ConfiguraFacil;
-import projeto.Configuracao;
+import projeto.logica.Componente;
+import projeto.logica.ConfiguraFacil;
+import projeto.logica.Configuracao;
 import projeto.Controller;
-import projeto.Pacote;
+import projeto.logica.Pacote;
 
 /**
  *

@@ -3,10 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projeto;
+package projeto.logica;
 
-import projeto.dados.ConfiguraçõesDAO;
-import projeto.dados.ComponentesDAO;
+import projeto.logica.Obrigatorio;
+import projeto.logica.Pacote;
+import projeto.logica.Opcional;
+import projeto.logica.PacotePrecoComparator;
+import projeto.logica.Configuracao;
+import projeto.logica.ComponentePrecoComparator;
+import projeto.logica.Componente;
+import projeto.dao.ConfiguraçõesDAO;
+import projeto.dao.ComponentesDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;

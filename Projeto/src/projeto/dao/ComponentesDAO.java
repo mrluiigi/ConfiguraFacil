@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projeto.dados;
+package projeto.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,10 +11,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import projeto.Componente;
-import projeto.Obrigatorio;
-import projeto.Opcional;
-import projeto.Pacote;
+import projeto.logica.Componente;
+import projeto.logica.Obrigatorio;
+import projeto.logica.Opcional;
+import projeto.logica.Pacote;
 
 /**
  *

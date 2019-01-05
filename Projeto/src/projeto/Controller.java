@@ -5,6 +5,11 @@
  */
 package projeto;
 
+import projeto.logica.ConfiguraFacil;
+import projeto.logica.Pacote;
+import projeto.logica.Opcional;
+import projeto.logica.Configuracao;
+import projeto.logica.Componente;
 import projeto.view.CriarConfigView;
 import projeto.view.CheckboxListItem;
 import projeto.view.CategoriaView;

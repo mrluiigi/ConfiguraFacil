@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projeto;
+package projeto.logica;
 
+import projeto.logica.Componente;
 import java.util.List;
 
 /**

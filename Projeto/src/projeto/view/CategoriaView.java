@@ -15,12 +15,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
-import projeto.Componente;
-import projeto.ConfiguraFacil;
+import projeto.logica.Componente;
+import projeto.logica.ConfiguraFacil;
 import projeto.Controller;
-import projeto.ListOb;
-import projeto.Opcional;
-import projeto.Pacote;
+import projeto.logica.Opcional;
+import projeto.logica.Pacote;
 
 /**
  *

@@ -11,7 +11,7 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
-import projeto.Opcional;
+import projeto.logica.Opcional;
  
 public class CheckboxList {
  

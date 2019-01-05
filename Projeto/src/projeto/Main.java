@@ -5,6 +5,7 @@
  */
 package projeto;
 
+import projeto.logica.ConfiguraFacil;
 import projeto.view.View;
 import java.sql.Connection;
 import java.sql.DriverManager;

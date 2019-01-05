@@ -9,10 +9,9 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
-import projeto.Componente;
-import projeto.ListOb;
-import projeto.Opcional;
-import projeto.Pacote;
+import projeto.logica.Componente;
+import projeto.logica.Opcional;
+import projeto.logica.Pacote;
 
 /**
  *

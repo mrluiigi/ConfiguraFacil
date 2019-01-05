@@ -15,11 +15,11 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import projeto.Componente;
-import projeto.ConfiguraFacil;
+import projeto.logica.Componente;
+import projeto.logica.ConfiguraFacil;
 import projeto.Controller;
-import projeto.Obrigatorio;
-import projeto.Opcional;
+import projeto.logica.Obrigatorio;
+import projeto.logica.Opcional;
 
 /**
  *

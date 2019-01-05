@@ -11,9 +11,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionListener;
-import projeto.ConfiguraFacil;
-import projeto.ListOb;
-import projeto.Obrigatorio;
+import projeto.logica.ConfiguraFacil;
+import projeto.logica.Obrigatorio;
 
 /**
  *
