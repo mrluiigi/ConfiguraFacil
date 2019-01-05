@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JList;
-import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -335,7 +335,7 @@ public class Controller {
                         incompView.setLocation(45, 45);
                         incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
                         incompView.addRejeitarAlteracoesListener(new RejeitarAlteracoesListener());
-
+                        incompView.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
                      }
                     else {
                         model.adicionaPacote(id);     
@@ -367,6 +367,7 @@ public class Controller {
                         incompView.setLocation(45, 45);
                         incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
                         incompView.addRejeitarAlteracoesListener(new RejeitarAlteracoesListener());
+                        incompView.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
                      }
                     else {
@@ -423,7 +424,7 @@ public class Controller {
                     incompView.setLocation(45, 45);
                     incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
                     incompView.addRejeitarAlteracoesListener(new RejeitarAlteracoesListener());
-
+                    incompView.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
                 }
                 else {
                     model.adicionaComponenteOpcional(id);     
@@ -441,6 +442,7 @@ public class Controller {
                     incompView.setLocation(45, 45);
                     incompView.addConfirmarAlteracoesListener(new ConfirmarAlteracoesListener());
                     incompView.addRejeitarAlteracoesListener(new RejeitarAlteracoesListener());
+                    incompView.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
                 }
                 else {
                     model.removerComponenteOpcional(id);
