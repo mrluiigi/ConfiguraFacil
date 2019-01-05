@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package projeto.logica;
 
 import java.util.ArrayList;
@@ -130,17 +126,14 @@ public class Configuracao {
         this.componentesObrigatorios = new ArrayList<>();
     }
     
-   /* public List<Integer> getTodosComponentes(){
-        List<Integer> res = new ArrayList<>();
-        for(int i : this.componentesObrigatorios){
-            res.add(i);
-        }
-        for(int i : this.componentesOpcionais){
-            res.add(i);
-        }
-        
-        return res;
-    }*/
+    public void removeComponentesOpcionais(){
+        this.componentesOpcionais = new ArrayList<>();
+    }
+    
+    public void removePacotes(){
+        this.pacotes = new ArrayList<>();
+    }
+    
     
     
 }

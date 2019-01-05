@@ -6,9 +6,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
  
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import projeto.logica.Opcional;
@@ -16,10 +14,7 @@ import projeto.logica.Opcional;
 public class CheckboxList {
  
    public JList<CheckboxListItem> showCheckBoxList (List<Opcional> componentes, List<Opcional> componentesJaPertencentes ) {
-     // JFrame frame = new JFrame();
-     // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
- 
-      // Create a list containing CheckboxListItem's
+
       CheckboxListItem[] cbl = new CheckboxListItem[componentes.size()];
       int i = 0;
       for(Opcional c : componentes) {            
@@ -30,16 +25,12 @@ public class CheckboxList {
              i++;
         }
       
-      JList<CheckboxListItem> list = new JList<CheckboxListItem>(
+      JList<CheckboxListItem> list = new JList<>(
             cbl);
- 
-      // Use a CheckboxListRenderer (see below)
-      // to renderer list cells
- 
+
       list.setCellRenderer(new CheckboxListRenderer());
       list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
- 
-      // Add a mouse listener to handle changing selection
+
  
       list.addMouseListener(new MouseAdapter() {
         @Override
@@ -48,33 +39,19 @@ public class CheckboxList {
             JList<CheckboxListItem> list =
                (JList<CheckboxListItem>) event.getSource();
  
-            // Get index of item clicked
- 
             int index = list.locationToIndex(event.getPoint());
             CheckboxListItem item = (CheckboxListItem) list.getModel()
                   .getElementAt(index);
  
-            // Toggle selected state
- 
             item.setSelected(!item.isSelected());
- 
-            // Repaint cell
  
             list.repaint(list.getCellBounds(index, index));
          }
       });
- 
-     // frame.getContentPane().add(new JScrollPane(list));
-    //  frame.pack();
-    //  frame.setVisible(true);
     return list;
    }
    
 }
- 
-
- 
-// Handles rendering cells in the list using a check box
  
 class CheckboxListRenderer extends JCheckBox implements
       ListCellRenderer<CheckboxListItem> {

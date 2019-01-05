@@ -1,7 +1,5 @@
 package projeto.view;
 
-// Represents items in the list that can be selected
- 
 public class CheckboxListItem {
    private String label;
    private int id;

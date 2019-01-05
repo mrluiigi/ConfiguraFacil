@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projeto.dao;
 
 import java.sql.Connection;
@@ -16,10 +11,6 @@ import projeto.logica.Obrigatorio;
 import projeto.logica.Opcional;
 import projeto.logica.Pacote;
 
-/**
- *
- * @author Barbosa
- */
 public class ComponentesDAO {
 
     private Connection con;
@@ -456,7 +447,6 @@ public class ComponentesDAO {
                 pacotesIncompativeis.add(Integer.parseInt(rsPctsInc.getString("Pacote_ID")));
             }
 
-            System.out.println("DAO " + preco);
             res = new Pacote(id, categoria, preco, designacao, componentesPacote, pacotesIncompativeis, componentesIncompativeis, componentesNecessarios);
         } catch (SQLException e) {
             e.printStackTrace(System.out);

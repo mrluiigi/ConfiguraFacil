@@ -1,17 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package projeto.logica;
 
-import projeto.logica.Obrigatorio;
-import projeto.logica.Pacote;
-import projeto.logica.Opcional;
-import projeto.logica.PacotePrecoComparator;
-import projeto.logica.Configuracao;
-import projeto.logica.ComponentePrecoComparator;
-import projeto.logica.Componente;
 import projeto.dao.ConfiguraçõesDAO;
 import projeto.dao.ComponentesDAO;
 import java.sql.Connection;
@@ -22,12 +11,7 @@ import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Utilizador
- */
 public class ConfiguraFacil extends Observable{
-    private Connection con;
     private ComponentesDAO componentesDAO;
     private ConfiguraçõesDAO configuracoesDAO;
     private Configuracao configuracao;
@@ -430,7 +414,6 @@ public class ConfiguraFacil extends Observable{
     public float escolheComponentesOtimos(float orcamento) throws SQLException{
         List<Opcional> ordenadoPreco = new ArrayList<>();
         float precoMaisBarato = this.componentesDAO.getPrecoComponenteOpcionalMaisBarato();
-        System.out.println("pmaisBarato" + precoMaisBarato);
         
         for(Opcional o : this.componentesDAO.getComponentesOpcionais()){
             ordenadoPreco.add(o);
@@ -439,25 +422,20 @@ public class ConfiguraFacil extends Observable{
         
         List<Opcional> listaComponentesNecessarios;
         for(Opcional o : ordenadoPreco){
-            System.out.println("Considera: " + o.getDesignacao() + " preco: " + o.getPreco());
             if(orcamento < precoMaisBarato){
                 break;
             }
-            System.out.println("inc: " + (!(ocorremIncompatibilidadesComponentes(o))));
             if((o.getPreco() <= orcamento) && (!(ocorremIncompatibilidadesComponentes(o)))){
-                System.out.println("Considera melhor: " + o.getDesignacao()+ " preco: " + o.getPreco());
                 float valor = o.getPreco();
                 listaComponentesNecessarios = alteracoesComponenteOpcionalNecessarios(o.getId());
                 for(Opcional n : listaComponentesNecessarios){
                     valor += n.getPreco();
                 }
                 if((valor <= orcamento) && !(this.configuracao.getComponentesOpcionais().contains(o.getId()))){
-                    System.out.println("Aceita: " + o.getDesignacao()+ " preco: " + o.getPreco());
                     this.configuracao.adicionaComponenteOpcional(o.getId(), o.getPreco());
                     for(Opcional n : listaComponentesNecessarios){
                         this.configuracao.adicionaComponenteOpcional(n.getId(), n.getPreco());
                     }
-                    System.out.println(orcamento);
                     orcamento -= valor;
                 }
             }
@@ -467,6 +445,8 @@ public class ConfiguraFacil extends Observable{
     }
     
     public Configuracao configuracaoOptima(float orcamento) throws SQLException{
+        this.configuracao.removeComponentesOpcionais();
+        this.configuracao.removePacotes();
         float preco = escolhePacotesOtimos(orcamento);
         escolheComponentesOtimos(preco);
         
@@ -577,8 +557,6 @@ public class ConfiguraFacil extends Observable{
     
     public void removePacote(int id) throws SQLException {
         float preco = this.componentesDAO.getPacote(id).getPreco();
-                System.out.println("preco" + preco);
-
         this.configuracao.removePacote(id, preco);
         this.setChanged();
         this.notifyObservers();

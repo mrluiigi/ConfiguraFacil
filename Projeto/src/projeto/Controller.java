@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package projeto;
 
 import projeto.logica.ConfiguraFacil;
@@ -359,7 +355,6 @@ public class Controller {
                     }
                 }
                 else {
-                    System.out.println("remove" + id);
                     model.removePacote(id);
                 }
             } catch (SQLException ex) {
@@ -392,7 +387,6 @@ public class Controller {
                     }
                 }
                 else {
-                    System.out.println("remove" + id);
                     model.removePacote(id);
                 }
             } catch (SQLException ex) {
@@ -433,8 +427,6 @@ public class Controller {
                 List<Opcional> inc = model.alteracoesComponenteOpcionalIncompativeis(item.getId());
                 List<Opcional> nec = model.alteracoesComponenteOpcionalNecessarios(id);
                 List<Pacote> pinc = model.alteracoesComponenteOpcionalPacotesIncompativeis(id);
-                System.out.println("inc: " + inc.size());
-                System.out.println("ID: " + id);
                 if(inc.size() > 0 || nec.size() > 0 || pinc.size() > 0) {
                     incompView = new IncompView(id, true, true, inc, nec, pinc);
                     incompView.setVisible(true);
@@ -453,7 +445,6 @@ public class Controller {
                 List<Opcional> nec = new ArrayList<>();
                 List<Pacote> pinc = model.alteracoesRemoverComponenteOpcionalPacotes(id);
                 if(inc.size() > 0 || nec.size() > 0 || pinc.size() > 0) {
-                    System.out.println("teste");
                     incompView = new IncompView(id, false, true, inc, nec, pinc);
                     incompView.setVisible(true);
                     incompView.setLocation(45, 45);
@@ -487,14 +478,11 @@ public class Controller {
                     }
                 }
                 else{
-                    System.out.println("bool" +incompView.isComponente());
                     if(incompView.isComponente()) {
-                        System.out.println("remove componente" + incompView.getId());
                         model.removerComponenteOpcional(incompView.getId());
                         
                     }
                     else {
-                          System.out.println("remove pacote" + incompView.getId());
                         model.removePacote(incompView.getId());
                     }                   
                 }

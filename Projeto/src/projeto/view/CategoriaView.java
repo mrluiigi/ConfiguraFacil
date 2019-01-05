@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package projeto.view;
 
 import java.awt.event.ActionListener;
@@ -21,10 +17,7 @@ import projeto.Controller;
 import projeto.logica.Opcional;
 import projeto.logica.Pacote;
 
-/**
- *
- * @author Utilizador
- */
+
 public class CategoriaView extends javax.swing.JFrame implements Observer{
 
     private ConfiguraFacil configuraFacil;
@@ -45,7 +38,6 @@ public class CategoriaView extends javax.swing.JFrame implements Observer{
     
         @Override
     public void update(Observable o, Object arg) {
-        System.out.println("update");
         preco.setText(Float.toString(configuraFacil.getPreco()));
     }
 
@@ -73,9 +65,6 @@ public class CategoriaView extends javax.swing.JFrame implements Observer{
         
         CheckboxList cbl = new CheckboxList();
         List<Opcional> componentesJaPertencentes = configuraFacil.getComponentesCategoria(categoria);
-        for(Opcional c : componentesJaPertencentes) {
-            System.out.println(c.getId());
-        }
         teste = cbl.showCheckBoxList(config.getOpcionais().stream().filter(c -> c.getCategoria().equals(categoria)).collect(Collectors.toList()),componentesJaPertencentes);
         
         List<Pacote> pacotes = config.getPacotes().stream().filter(c -> c.getCategoria().equals(categoria)).collect(Collectors.toList());
@@ -104,7 +93,6 @@ public class CategoriaView extends javax.swing.JFrame implements Observer{
             checkBoxPacote1.setText(p1.getDesignacao());
             
             for(Componente c : config.getComponentesPacote(p1.getId())) {
-                System.out.println(c.getId());
                 mod1.addElement(new ListOb(c.getId(), c.getDesignacao(), c.getPreco()));
             }
             listaPacote1.setModel(mod1);

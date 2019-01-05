@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package projeto.view;
 
 import java.awt.event.ActionListener;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.DefaultListModel;
 import projeto.logica.Componente;
 
