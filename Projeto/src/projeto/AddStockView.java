@@ -13,6 +13,7 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,16 +22,9 @@ import javax.swing.JOptionPane;
  * @author Luís Correia A81141
  * @author Pedro Barbosa A82068
  */
-public class AddStockView extends javax.swing.JDialog implements Observer{
+public class AddStockView extends javax.swing.JFrame implements Observer{
 
     private ConfiguraFacil configuraFacil;
-    /**
-     * Creates new form AddStockView
-     */
-    public AddStockView(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
     
     public AddStockView(ConfiguraFacil config) {
         setTitle("Adiciona Stock");
@@ -53,6 +47,10 @@ public class AddStockView extends javax.swing.JDialog implements Observer{
 
         lista.setModel(d);
         stock.setText(Integer.toString(obrigatorio.get(0).getStock()));
+    }
+
+    private AddStockView(JFrame jFrame, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

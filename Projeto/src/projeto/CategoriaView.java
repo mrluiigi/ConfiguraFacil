@@ -15,28 +15,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
-import javax.swing.JCheckBox;
-import javax.swing.event.ListSelectionListener;
-
-
+import javax.swing.JFrame;
 
 /**
  *
  * @author Utilizador
  */
-public class CategoriaView extends javax.swing.JDialog implements Observer{
+public class CategoriaView extends javax.swing.JFrame implements Observer{
 
     private ConfiguraFacil configuraFacil;
     private String categoria;
     private int pacote1;
     private int pacote2;
-    /**
-     * Creates new form CategoriaView
-     */
-    public CategoriaView(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
     
     public void atualizaPreco() {
         preco.setText("" + configuraFacil.getPreco());
@@ -167,6 +157,10 @@ public class CategoriaView extends javax.swing.JDialog implements Observer{
         this.configuraFacil.addObserver(this);
         this.categoria = "Acabamentos interiores";
         atualizaPreco();
+    }
+    
+    private CategoriaView(JFrame jFrame, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

@@ -6,6 +6,7 @@
 package projeto;
 
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 
 /**
  *
@@ -13,19 +14,15 @@ import java.awt.event.ActionListener;
  * @author Luís Correia A81141
  * @author Pedro Barbosa A82068
  */
-public class EscolhaView extends javax.swing.JDialog {
-
-    /**
-     * Creates new form EscolhaView
-     */
-    public EscolhaView(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
+public class EscolhaView extends javax.swing.JFrame {
     
     public EscolhaView(){
         setTitle("Menu de Escolha");
         initComponents();
+    }
+
+    private EscolhaView(JFrame jFrame, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

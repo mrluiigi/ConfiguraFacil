@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 
 /**
  *
@@ -18,16 +19,10 @@ import javax.swing.DefaultListModel;
  * @author Luís Correia A81141
  * @author Pedro Barbosa A82068
  */
-public class ResumoView extends javax.swing.JDialog {
+public class ResumoView extends javax.swing.JFrame {
     private ConfiguraFacil configuraFacil;
     private Configuracao configuracao;
-    /**
-     * Creates new form ResumoView
-     */
-    public ResumoView(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
+   
     
     public ResumoView(ConfiguraFacil con){
         try {
@@ -83,6 +78,10 @@ public class ResumoView extends javax.swing.JDialog {
         }  catch (SQLException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
+    }
+
+    private ResumoView(JFrame jFrame, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -221,10 +220,11 @@ public class ResumoView extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(modelo))
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()

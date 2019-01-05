@@ -6,6 +6,7 @@
 package projeto;
 
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,19 +15,15 @@ import javax.swing.JOptionPane;
  * @author Luís Correia A81141
  * @author Pedro Barbosa A82068
  */
-public class MenuFabricaView extends javax.swing.JDialog {
-
-    /**
-     * Creates new form MenuFabricaView
-     */
-    public MenuFabricaView(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
+public class MenuFabricaView extends javax.swing.JFrame {
     
     public MenuFabricaView(){
         setTitle("Menu Fábrica");
         initComponents();
+    }
+
+    private MenuFabricaView(JFrame jFrame, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

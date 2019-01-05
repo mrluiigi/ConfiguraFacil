@@ -8,6 +8,7 @@ package projeto;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 
 /**
  *
@@ -15,7 +16,7 @@ import javax.swing.DefaultListModel;
  * @author Luís Correia A81141
  * @author Pedro Barbosa A82068
  */
-public class IncompView extends javax.swing.JDialog {
+public class IncompView extends javax.swing.JFrame {
     int id;
     //1 adicionar
     //0 remover
@@ -23,13 +24,7 @@ public class IncompView extends javax.swing.JDialog {
     //1 componente
     //0 pacote
     boolean componente;
-    /**
-     * Creates new form IncompView
-     */
-    public IncompView(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
+    
 
     public IncompView(int id, boolean adiciona, boolean isComponente, List<Opcional> inc, List<Opcional> nec, List<Pacote> pac){
         this.id = id;
@@ -63,6 +58,10 @@ public class IncompView extends javax.swing.JDialog {
         preco.setText(Float.toString(alteracaoValor));
         
         
+    }
+
+    private IncompView(JFrame jFrame, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getId() {

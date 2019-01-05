@@ -6,6 +6,7 @@
 package projeto;
 
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,19 +15,15 @@ import javax.swing.JOptionPane;
  * @author Luís Correia A81141
  * @author Pedro Barbosa A82068
  */
-public class AutomaticoView extends javax.swing.JDialog {
-
-    /**
-     * Creates new form AutomaticoView
-     */
-    public AutomaticoView(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
+public class AutomaticoView extends javax.swing.JFrame {
     
     public AutomaticoView(){
         setTitle("Orçamento");
         initComponents();
+    }
+
+    private AutomaticoView(JFrame jFrame, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

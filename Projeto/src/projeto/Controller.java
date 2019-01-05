@@ -14,8 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JList;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -58,13 +60,16 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            view.setVisible(false);
             fabricaView = new MenuFabricaView();
             fabricaView.setVisible(true);
             fabricaView.setLocation(45, 45);
+            fabricaView.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
             
             fabricaView.addStockListener(new AddStockListener());
             fabricaView.proxConfigListener(new ProxConfigListener());
-            fabricaView.retrocederListener(new RetrocederListener(fabricaView));
+            fabricaView.retrocederListener(new RetrocederListener(fabricaView, view));
         }
     }
     
@@ -72,12 +77,15 @@ public class Controller {
         
         @Override
         public void actionPerformed(ActionEvent e) {
+            fabricaView.setVisible(false);
             addStockView = new AddStockView(model);
             addStockView.setVisible(true);
             addStockView.setLocation(45, 45);
+            addStockView.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
 
             
-            addStockView.okListener(new OkListener(addStockView));
+            addStockView.okListener(new RetrocederListener(addStockView, fabricaView));
             addStockView.adicionarListener(new AdicionarListener());
             addStockView.comboBoxListener(new ComboBoxListener());
         }
@@ -108,12 +116,15 @@ public class Controller {
             try {
                 c = model.obterProximaConfiguracao();
                 if(c != null){
+                    fabricaView.setVisible(false);
                     List<Componente> comp = model.getListaComponentes(c.getId());
                     proxConfigView = new ProxConfigView(c.getModelo(), comp);
                     proxConfigView.setVisible(true);
                     proxConfigView.setLocation(45, 45);
+                    proxConfigView.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-                    proxConfigView.okProxListener(new OkListener(proxConfigView));
+
+                    proxConfigView.okProxListener(new RetrocederListener(proxConfigView, fabricaView));
                 }
                 else{
                     fabricaView.showError("Não existem configurações para serem feitas");
@@ -127,30 +138,19 @@ public class Controller {
     
     /** Listener genérico */
     private class RetrocederListener implements ActionListener{
-        JDialog view;
+        JFrame view;
+        JFrame displayView; 
         
-        public RetrocederListener(JDialog view){
+        public RetrocederListener(JFrame view, JFrame d){
             this.view = view;
+            this.displayView = d;
         }
+        
         
         @Override
         public void actionPerformed(ActionEvent e) {
             view.dispose();
-        }
-        
-    }
-
-    /** Listener genérico */
-    private class OkListener implements ActionListener{
-        JDialog view;
-        
-        public OkListener(JDialog view){
-            this.view = view;
-        }
-        
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            view.dispose();
+            displayView.setVisible(true);
         }
     }
     
@@ -179,11 +179,15 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            view.setVisible(false);
             criarConfigView = new CriarConfigView(model);
             criarConfigView.setVisible(true);
             criarConfigView.setLocation(45, 45);
+            criarConfigView.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
             
             criarConfigView.seguinteListener(new EscolhaListener());
+            criarConfigView.retrocederListener(new RetrocederListener(criarConfigView, view));
             criarConfigView.modeloListener(new listaListener());
             criarConfigView.motorListener(new listaListener());
             criarConfigView.pinturaListener(new listaListener());
@@ -218,13 +222,13 @@ public class Controller {
                 }
                 
 
-
+                criarConfigView.setVisible(false);
                 escolhaView = new EscolhaView();
                 escolhaView.setVisible(true);
-                escolhaView.setLocation(45, 45);
+                escolhaView.setLocation(45, 45);                            
+                escolhaView.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-
-                escolhaView.retrocederListener(new RetrocederEscolhaListener(escolhaView));
+                escolhaView.retrocederListener(new RetrocederEscolhaListener(escolhaView, criarConfigView));
                 escolhaView.automaticoListener(new AutomaticoListener());
                 escolhaView.manualListener(new ManualListener());
             }
@@ -232,16 +236,19 @@ public class Controller {
     }
     
     private class RetrocederEscolhaListener implements ActionListener{
-        JDialog view;
+        JFrame view;
+        JFrame displayView;
         
-        public RetrocederEscolhaListener(JDialog view){
+        public RetrocederEscolhaListener(JFrame view, JFrame v){
             this.view = view;
+            this.displayView = v;
         }
         
         @Override
         public void actionPerformed(ActionEvent e) {
             model.removeComponenteObrigatorio();
             view.dispose();
+            displayView.setVisible(true);
         }
         
     }
@@ -252,13 +259,16 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             autom = true;
+            escolhaView.setVisible(false);
             automaticoView = new AutomaticoView();
             automaticoView.setVisible(true);
             automaticoView.setLocation(45, 45);
+            automaticoView.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
 
             
             automaticoView.confirmarListener(new ConfirmarListener());
-            automaticoView.retrocederListener(new RetrocederListener(automaticoView));
+            automaticoView.retrocederListener(new RetrocederListener(automaticoView, escolhaView));
         }
     }
     
@@ -270,12 +280,14 @@ public class Controller {
             orcamento = automaticoView.getOrcamento();
             if( !(orcamento.equals(""))){
                 try{
-                    model.configuracaoOptima(Float.parseFloat(orcamento));                    
+                    model.configuracaoOptima(Float.parseFloat(orcamento));   
+                    automaticoView.setVisible(false);
                     resumoView = new ResumoView(model);
+                    resumoView.setDefaultCloseOperation(EXIT_ON_CLOSE);
                     resumoView.setVisible(true);
                     resumoView.setLocation(45, 45);
 
-                    resumoView.retrocederListener(new RetrocederListener(resumoView));
+                    resumoView.retrocederListener(new RetrocederListener(resumoView, automaticoView));
                     resumoView.confirmarListener(new VoltaInicioListener());
                 }catch(Exception exc){
                     exc.printStackTrace();
@@ -290,11 +302,13 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             autom = false;
+            escolhaView.setVisible(false);
             categoriaView = new CategoriaView(model, "Acabamentos interiores");
+            categoriaView.setDefaultCloseOperation(EXIT_ON_CLOSE);
             categoriaView.setVisible(true);
             categoriaView.setLocation(45, 45);
             
-            categoriaView.retrocederListener(new RetrocederListener(categoriaView));
+            categoriaView.retrocederListener(new RetrocederListener(categoriaView, escolhaView));
             categoriaView.interiorListener(new InteriorListener());
             categoriaView.exteriorListener(new ExteriorListener());
             categoriaView.segurancaListener(new SegurancaListener());
@@ -302,10 +316,6 @@ public class Controller {
             categoriaView.confirmarListener(new ConfirmarEscolhaManualListener());
             categoriaView.pacote1Listener(new Pacote1Listener());
             categoriaView.pacote2Listener(new Pacote2Listener());
-            
-
-
-            //CONTINUAR COM LISTENERS
         }
     }
     
@@ -376,12 +386,14 @@ public class Controller {
     private class ConfirmarEscolhaManualListener implements ActionListener{
         
         @Override
-        public void actionPerformed(ActionEvent e) {          
+        public void actionPerformed(ActionEvent e) {  
+                categoriaView.setVisible(false);
                 resumoView = new ResumoView(model); 
                 resumoView.setVisible(true);
+                resumoView.setDefaultCloseOperation(EXIT_ON_CLOSE);
                 resumoView.setLocation(45, 45);
 
-                resumoView.retrocederListener(new RetrocederListener(resumoView));
+                resumoView.retrocederListener(new RetrocederListener(resumoView, categoriaView));
                 resumoView.confirmarListener(new VoltaInicioListener());
         }
     }
@@ -535,39 +547,13 @@ public class Controller {
         }
     }
     
-   /* private class IncompListener implements ActionListener{
-        
-        @Override
-        public void actionPerformed(ActionEvent e){
-            incompView = new IncompView();
-            incompView.setVisible(true);
-            incompView.setLocation(45, 45);
-            
-            incompView.retrocederListener(new RetrocederListener(categoriaView));
-            incompView.confirmarListener(new ResumoListener());
-        }
-    }*/
-    
-    private class ResumoListener implements ActionListener{
-        
-        @Override
-        public void actionPerformed(ActionEvent e){
-            resumoView = new ResumoView(model);  //PROVAVELMENTE RECEBE PARAMETROS----------ALTERAR PARAMETROS
-            resumoView.setVisible(true);
-            resumoView.setLocation(45, 45);
-
-            
-            resumoView.retrocederListener(new RetrocederListener(resumoView));
-            resumoView.confirmarListener(new VoltaInicioListener());
-        }
-    }
-    
     private class VoltaInicioListener implements ActionListener {
        
         @Override
         public void actionPerformed(ActionEvent e)throws NullPointerException{
             
             //MÉTODO PARA ADICIONAR A CONFIGURAÇÃO À LISTA
+            view.setVisible(true);
             resumoView.guardarConfiguracao();
             resumoView.dispose();
             criarConfigView.dispose();

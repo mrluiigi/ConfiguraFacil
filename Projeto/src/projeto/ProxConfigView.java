@@ -7,7 +7,9 @@ package projeto;
 
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.DefaultListModel;
+
 
 /**
  *
@@ -15,17 +17,10 @@ import javax.swing.DefaultListModel;
  * @author Luís Correia A81141
  * @author Pedro Barbosa A82068
  */
-public class ProxConfigView extends javax.swing.JDialog {
+public class ProxConfigView extends javax.swing.JFrame {
     private String mod;
     private List<Componente> comp;
-        
-    /**
-     * Creates new form ProxConfigView
-     */
-    public ProxConfigView(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
+    
     
     public ProxConfigView(String mod, List<Componente> comp){
         setTitle("Informação sobre próxima Configuração");
@@ -123,6 +118,9 @@ public class ProxConfigView extends javax.swing.JDialog {
         okProx.addActionListener(al);
     }
     
+    private ProxConfigView(JFrame jFrame, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     /**
      * @param args the command line arguments

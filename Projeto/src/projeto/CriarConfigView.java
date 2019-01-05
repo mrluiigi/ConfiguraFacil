@@ -8,6 +8,7 @@ package projeto;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionListener;
 
@@ -17,17 +18,9 @@ import javax.swing.event.ListSelectionListener;
  * @author Luís Correia A81141
  * @author Pedro Barbosa A82068
  */
-public class CriarConfigView extends javax.swing.JDialog {
+public class CriarConfigView extends javax.swing.JFrame {
 
     private ConfiguraFacil configuraFacil;
-    
-    /**
-     * Creates new form CriarConfigView
-     */
-    public CriarConfigView(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
     
     public CriarConfigView(ConfiguraFacil config){
         setTitle("Opções Obrigatórias");
@@ -69,6 +62,10 @@ public class CriarConfigView extends javax.swing.JDialog {
         jantes.setModel(jan);
     }
 
+    private CriarConfigView(JFrame jFrame, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,6 +94,7 @@ public class CriarConfigView extends javax.swing.JDialog {
         jScrollPane6 = new javax.swing.JScrollPane();
         preco = new javax.swing.JTextPane();
         label1 = new java.awt.Label();
+        retroceder = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -141,6 +139,8 @@ public class CriarConfigView extends javax.swing.JDialog {
 
         label1.setText("Preço Total");
 
+        retroceder.setText("Retroceder");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,7 +167,10 @@ public class CriarConfigView extends javax.swing.JDialog {
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(seguinte)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(retroceder)
+                        .addGap(32, 32, 32)
+                        .addComponent(seguinte))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -197,13 +200,14 @@ public class CriarConfigView extends javax.swing.JDialog {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(seguinte)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(seguinte)
+                        .addComponent(retroceder))
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        label1.getAccessibleContext().setAccessibleName("Preço Total");
         label1.getAccessibleContext().setAccessibleDescription("");
 
         pack();
@@ -219,6 +223,10 @@ public class CriarConfigView extends javax.swing.JDialog {
 
     public void seguinteListener (ActionListener al) {
         seguinte.addActionListener(al);
+    }
+    
+    public void retrocederListener (ActionListener al) {
+        retroceder.addActionListener(al);
     }
     
     public void modeloListener (ListSelectionListener lsl) {
@@ -302,6 +310,7 @@ public class CriarConfigView extends javax.swing.JDialog {
     private javax.swing.JList<ListOb> motor;
     private javax.swing.JList<ListOb> pintura;
     private javax.swing.JTextPane preco;
+    private javax.swing.JButton retroceder;
     private javax.swing.JButton seguinte;
     // End of variables declaration//GEN-END:variables
 
