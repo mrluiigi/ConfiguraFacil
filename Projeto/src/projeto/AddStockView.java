@@ -284,6 +284,7 @@ class ComboItem{
         this.obrigatorio = ob;
     }
     
+    @Override
     public String toString(){
         return this.designacao;
     }

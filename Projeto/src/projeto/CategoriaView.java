@@ -15,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
 
 /**
  *
@@ -28,13 +27,22 @@ public class CategoriaView extends javax.swing.JFrame implements Observer{
     private int pacote1;
     private int pacote2;
     
-    public void atualizaPreco() {
-        preco.setText("" + configuraFacil.getPreco());
+    public CategoriaView(ConfiguraFacil config, String categoria){
+        initComponents();
+        
+
+        setTitle("Categoria");
+        this.configuraFacil = config;
+        this.configuraFacil.addObserver(this);
+        this.categoria = "Acabamentos interiores";
+        preco.setText(Float.toString(configuraFacil.getPreco()));
     }
-    /*
-    public void addComponentesListener(MouseAdapter ma) {
-        list.addMouseListener(new ()
-    }*/
+    
+        @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("update");
+        preco.setText(Float.toString(configuraFacil.getPreco()));
+    }
 
     public int getPacote1() {
         return pacote1;
@@ -51,17 +59,7 @@ public class CategoriaView extends javax.swing.JFrame implements Observer{
     public boolean isPacote2Selected() {
         return checkBoxPacote2.isSelected();
     }
-    
-    public void test() {
-        System.out.println(teste.getSelectedValuesList().size());
-    }
-    
-    public void componentesListener (MouseAdapter ma) {
-        teste.addMouseListener(ma);
-    }
-    
-    
-    
+       
     public void setComponentesPacotes(ConfiguraFacil config, String cat) {
         try{
         if(!cat.equals("anterior")) {
@@ -111,7 +109,7 @@ public class CategoriaView extends javax.swing.JFrame implements Observer{
             checkBoxPacote1.setVisible(true);
             listaPacote2.setVisible(true);
             checkBoxPacote2.setVisible(true);
-            DefaultListModel<ListOb> mod1 = new DefaultListModel<ListOb>();
+            DefaultListModel<ListOb> mod1 = new DefaultListModel<>();
             Pacote p1 = pacotes.get(0);
             pacote1 = p1.getId();
             if(pacotesConfig.contains(p1)) {
@@ -147,23 +145,6 @@ public class CategoriaView extends javax.swing.JFrame implements Observer{
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public CategoriaView(ConfiguraFacil config, String categoria){
-        initComponents();
-        
-
-        setTitle("Categoria");
-        this.configuraFacil = config;
-        this.configuraFacil.addObserver(this);
-        this.categoria = "Acabamentos interiores";
-        atualizaPreco();
-    }
-    
-    private CategoriaView(JFrame jFrame, boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -328,48 +309,8 @@ public class CategoriaView extends javax.swing.JFrame implements Observer{
         // TODO add your handling code here:
     }//GEN-LAST:event_segurActionPerformed
 
-    
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CategoriaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CategoriaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CategoriaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CategoriaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CategoriaView dialog = new CategoriaView(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    public void componentesListener (MouseAdapter ma) {
+        teste.addMouseListener(ma);
     }
 
     public void retrocederListener (ActionListener al) {
@@ -424,9 +365,4 @@ public class CategoriaView extends javax.swing.JFrame implements Observer{
     private javax.swing.JList<CheckboxListItem> teste;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void update(Observable o, Object arg) {
-        System.out.println("update");
-        preco.setText(Float.toString(configuraFacil.getPreco()));
-    }
 }
