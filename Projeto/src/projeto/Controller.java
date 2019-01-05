@@ -5,6 +5,18 @@
  */
 package projeto;
 
+import projeto.view.CriarConfigView;
+import projeto.view.CheckboxListItem;
+import projeto.view.CategoriaView;
+import projeto.view.ComboItemComponente;
+import projeto.view.AddStockView;
+import projeto.view.ResumoView;
+import projeto.view.IncompView;
+import projeto.view.MenuFabricaView;
+import projeto.view.ProxConfigView;
+import projeto.view.View;
+import projeto.view.EscolhaView;
+import projeto.view.AutomaticoView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -159,7 +171,7 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             
-            ComboItem componente;
+            ComboItemComponente componente;
             int quantidade = 0;
             
             try{
@@ -553,22 +565,24 @@ public class Controller {
        
         @Override
         public void actionPerformed(ActionEvent e)throws NullPointerException{
-            
-            //MÉTODO PARA ADICIONAR A CONFIGURAÇÃO À LISTA
-            view.setVisible(true);
-            resumoView.guardarConfiguracao();
-            resumoView.dispose();
-            criarConfigView.dispose();
-            escolhaView.dispose();
-            
-            //Caso vá pela configuração automática
-            if(autom){
-                automaticoView.dispose();
-            }
-            //Caso vá pela configuração manual
-            else{
-                categoriaView.dispose();
-                //incompView.dispose();
+            try {
+                view.setVisible(true);         
+                model.guardarConfiguracao();
+                resumoView.dispose();
+                criarConfigView.dispose();
+                escolhaView.dispose();
+
+                //Caso vá pela configuração automática
+                if(autom){
+                    automaticoView.dispose();
+                }
+                //Caso vá pela configuração manual
+                else{
+                    categoriaView.dispose();
+                    //incompView.dispose();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
